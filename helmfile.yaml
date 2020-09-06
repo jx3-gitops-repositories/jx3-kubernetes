@@ -17,7 +17,6 @@ releases:
   name: jxboot-helmfile-resources
   namespace: jx
   values:
-  - charts/jenkins-x/jxboot-helmfile-resources/values.yaml
   - versionStream/charts/jenkins-x/jxboot-helmfile-resources/values.yaml.gotmpl
 - chart: jx3/jenkins-x-crds
   version: 1.0.7
