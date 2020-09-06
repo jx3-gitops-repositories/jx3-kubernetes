@@ -1,0 +1,12 @@
+{
+  "auths":{
+    "myregistry.acme.com": {
+        "auth": "",
+        "email": ""
+    }
+  },
+
+  "credHelpers": {
+    "my-registry": "ecr-login"
+  }
+}

@@ -1,0 +1,81 @@
+Description: 'Template to generate the necessary IAM Policies for Jenkins-X EKS support '
+Resources:
+  CFNJenkinsXPolicies:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: !Join ["-", [CFNTektonBotPolicy, {Ref: PoliciesSuffixParameter}]]
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+          - cloudformation:ListStacks
+          - cloudformation:DescribeStacks
+          - cloudformation:CreateStack
+          - cloudformation:DeleteStack
+          - eks:*
+          - s3:*
+          - iam:DetachRolePolicy
+          - iam:GetPolicy
+          - iam:CreatePolicy
+          - iam:DeleteRole
+          - iam:GetOpenIDConnectProvider
+          Resource: "*"
+  CFNExternalDNSPolicies:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: !Join ["-", [CFNExternalDNSPolicy, {Ref: PoliciesSuffixParameter}]]
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+          - route53:ChangeResourceRecordSets
+          Resource: "arn:aws:route53:::hostedzone/*"
+        - Effect: Allow
+          Action:
+          - route53:ListHostedZones
+          - route53:ListResourceRecordSets
+          Resource: "*"
+  CFNCertManagerPolicies:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: !Join ["-", [CFNCertManagerPolicy, {Ref: PoliciesSuffixParameter}]]
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+          - route53:GetChange
+          Resource: "arn:aws:route53:::change/*"
+        - Effect: Allow
+          Action:
+          - route53:ChangeResourceRecordSets
+          Resource: "arn:aws:route53:::hostedzone/*"
+        - Effect: Allow
+          Action:
+          - route53:ListHostedZonesByName
+          Resource: "*"
+Parameters:
+  PoliciesSuffixParameter:
+    Type: String
+    Description: A suffix so we can create different policies on each execution
+Outputs:
+  CFNTektonBotPolicy:
+    Value:
+      Ref: CFNJenkinsXPolicies
+    Description: The ARN of the created policy
+    Export:
+      Name: !Join ["-", [TektonBotPolicy, {Ref: PoliciesSuffixParameter}]]
+  CFNExternalDNSPolicy:
+    Value:
+      Ref: CFNExternalDNSPolicies
+    Description: The ARN of the created policy
+    Export:
+      Name: !Join ["-", [ExternalDNSPolicy, {Ref: PoliciesSuffixParameter}]]
+  CFNCertManagerPolicy:
+    Value:
+      Ref: CFNCertManagerPolicies
+    Description: The ARN of the created policy
+    Export:
+      Name: !Join ["-", [CertManagerPolicy, {Ref: PoliciesSuffixParameter}]]

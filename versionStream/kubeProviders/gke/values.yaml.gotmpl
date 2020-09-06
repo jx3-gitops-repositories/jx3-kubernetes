@@ -1,0 +1,24 @@
+# Override configuration from https://github.com/jenkins-x/jenkins-x-platform/blob/master/jenkins-x-platform/values.yaml
+
+jenkins-x-platform:
+  PipelineSecrets:
+
+    # lets enable GCR docker builds
+    DockerConfig: |-
+      {
+          "credHelpers": {
+              "gcr.io": "gcr",
+              "us.gcr.io": "gcr",
+              "eu.gcr.io": "gcr",
+              "asia.gcr.io": "gcr",
+              "staging-k8s.gcr.io": "gcr"
+          }
+      }
+
+docker-registry:
+{{- if eq .Requirements.webhook "jenkins" }}
+  enabled: true
+{{- else }}
+  enabled: false
+{{- end }}
+

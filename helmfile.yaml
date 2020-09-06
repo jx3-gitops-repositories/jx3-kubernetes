@@ -1,0 +1,53 @@
+filepath: ""
+environments:
+  default:
+    values:
+    - jx-values.yaml
+    - versionStream/src/fake-secrets.yaml.gotmpl
+repositories:
+- name: jenkins-x
+  url: https://storage.googleapis.com/chartmuseum.jenkins-x.io
+- name: stable
+  url: https://kubernetes-charts.storage.googleapis.com
+- name: jx3
+  url: https://storage.googleapis.com/jenkinsxio/charts
+releases:
+- chart: jenkins-x/jxboot-helmfile-resources
+  version: 0.0.283
+  name: jxboot-helmfile-resources
+  namespace: jx
+  values:
+  - charts/jenkins-x/jxboot-helmfile-resources/values.yaml
+  - versionStream/charts/jenkins-x/jxboot-helmfile-resources/values.yaml.gotmpl
+- chart: jx3/jenkins-x-crds
+  version: 1.0.7
+  name: jenkins-x-crds
+  namespace: jx
+  values:
+  - versionStream/charts/jx3/jenkins-x-crds/values.yaml.gotmpl
+- chart: stable/nginx-ingress
+  version: 1.39.1
+  name: nginx-ingress
+  namespace: nginx
+  values:
+  - versionStream/charts/stable/nginx-ingress/values.yaml.gotmpl
+- chart: jenkins-x/tekton
+  version: 0.0.56
+  name: tekton
+  namespace: jx
+  values:
+  - versionStream/charts/jenkins-x/tekton/values.yaml.gotmpl
+- chart: jenkins-x/lighthouse
+  version: 0.0.683
+  name: lighthouse
+  namespace: jx
+  values:
+  - versionStream/charts/jenkins-x/lighthouse/values.yaml.gotmpl
+- chart: jenkins-x/bucketrepo
+  version: 0.1.39
+  name: bucketrepo
+  namespace: jx
+  values:
+  - versionStream/charts/jenkins-x/bucketrepo/values.yaml.gotmpl
+templates: {}
+missingFileHandler: ""

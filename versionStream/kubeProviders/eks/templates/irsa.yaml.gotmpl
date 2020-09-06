@@ -1,0 +1,53 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: {{ .Requirements.cluster.clusterName }}
+  region: {{ .Requirements.cluster.region }}
+
+iam:
+  withOIDC: true
+  serviceAccounts:
+{{- if .IAM.TektonBotPolicy }}
+  - metadata:
+      name: tekton-bot
+      namespace: jx
+      labels: {aws-usage: "jenkins-x"}
+    attachPolicyARNs:
+    - {{.IAM.TektonBotPolicy | quote}}
+{{- end }}
+{{- if .IAM.ExternalDNSPolicy }}
+  - metadata:
+      name: external-dns-external-dns
+      namespace: jx
+      labels: {aws-usage: "jenkins-x"}
+    attachPolicyARNs:
+    - {{.IAM.ExternalDNSPolicy | quote}}
+{{- end }}
+{{- if .IAM.CertManagerPolicy }}
+  - metadata:
+      name: cert-manager-cert-manager
+      namespace: cert-manager
+      labels: {aws-usage: "jenkins-x"}
+    attachPolicyARNs:
+    - {{.IAM.CertManagerPolicy | quote}}
+  - metadata:
+      name: cert-manager-cainjector
+      namespace: cert-manager
+      labels: {aws-usage: "jenkins-x"}
+    attachPolicyARNs:
+    - {{.IAM.CertManagerPolicy | quote}}
+{{- end }}
+  - metadata:
+      name: jenkins-x-controllerbuild
+      namespace: jx
+      labels: {aws-usage: "jenkins-x"}
+    attachPolicyARNs:
+    - "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+  - metadata:
+      name: jxui
+      namespace: jx
+      labels: {aws-usage: "jenkins-x"}
+    attachPolicyARNs:
+    - "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+

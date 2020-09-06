@@ -1,0 +1,66 @@
+autoUpdate:
+  enabled: false
+  schedule: ""
+bootConfigURL: https://github.com/jenkins-x/jx3-boot-config
+buildPacks:
+  buildPackLibrary:
+    gitRef: master
+    gitURL: https://github.com/jenkins-x/jxr-packs-kubernetes.git
+cluster:
+  chartRepository: http://bucketrepo/bucketrepo/charts/
+  clusterName: "kind"
+  devEnvApprovers:
+  - todo
+  environmentGitOwner: "todo"
+  gitKind: github
+  gitName: github
+  gitServer: https://github.com
+  namespace: jx
+  project:  ""
+  provider: kubernetes
+  registry: "ghcr.io"
+  zone: ""
+environments:
+- key: dev
+  owner: ""
+  repository: ""
+- key: staging
+  owner: ""
+  repository: ""
+- key: production
+  owner: ""
+  repository: ""
+gitops: true
+ingress:
+  domain: ""
+  externalDNS: false
+  ignoreLoadBalancer: true
+  namespaceSubDomain: -jx.
+  tls:
+    email: ""
+    enabled: false
+    production: false
+kaniko: true
+repository: bucketrepo
+secretStorage: local
+storage:
+  backup:
+    enabled: false
+    url: ""
+  logs:
+    enabled: false
+    url: ""
+  reports:
+    enabled: false
+    url: ""
+  repository:
+    enabled: false
+    url: ""
+vault: {}
+velero:
+  schedule: ""
+  ttl: ""
+versionStream:
+  ref: master
+  url: https://github.com/jenkins-x/jxr-versions.git
+webhook: lighthouse

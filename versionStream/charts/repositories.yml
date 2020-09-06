@@ -1,0 +1,35 @@
+repositories:
+- prefix: banzaicloud-stable
+  urls:
+  - https://kubernetes-charts.banzaicloud.com
+- prefix: bitnami
+  urls:
+  - https://charts.bitnami.com/bitnami
+- prefix: external-secrets
+  urls:
+  - https://godaddy.github.io/kubernetes-external-secrets
+- prefix: flagger
+  urls:
+  - https://flagger.app
+- prefix: gloo
+  urls:
+  - https://storage.googleapis.com/solo-public-helm
+- prefix: jenkins-x
+  urls:
+  - https://storage.googleapis.com/chartmuseum.jenkins-x.io
+  - http://chartmuseum.jenkins-x.io
+- prefix: jetstack
+  urls:
+  - https://charts.jetstack.io
+- prefix: jx3
+  urls:
+  - https://storage.googleapis.com/jenkinsxio/charts
+- prefix: jx-labs
+  urls:
+  - https://storage.googleapis.com/jenkinsxio-labs-private/charts
+- prefix: presslabs
+  urls:
+  - https://presslabs.github.io/charts
+- prefix: stable
+  urls:
+  - https://kubernetes-charts.storage.googleapis.com

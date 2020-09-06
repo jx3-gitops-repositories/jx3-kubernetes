@@ -1,0 +1,7 @@
+# disable by default as its often too big!
+enableSchedulerValidation: false
+
+{{- if eq .Values.jxRequirements.secretStorage "local" }}
+# lets enable local ExternalSecrets
+localExternalSecrets: true
+{{- end }}

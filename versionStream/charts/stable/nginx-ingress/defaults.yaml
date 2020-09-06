@@ -1,0 +1,4 @@
+component: nginx-ingress
+gitUrl: https://github.com/helm/charts/tree/master/stable/nginx-ingress
+namespace: nginx
+version: 1.39.1

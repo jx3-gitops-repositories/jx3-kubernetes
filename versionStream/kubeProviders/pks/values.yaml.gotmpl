@@ -1,0 +1,24 @@
+# Override configuration from https://github.com/jenkins-x/jenkins-x-platform/blob/master/jenkins-x-platform/values.yaml
+
+jenkins:
+  Agent:
+    # for PKS there is a different docker host path
+    DockerHostPath: "/var/vcap/sys/run/docker/docker.sock"
+    DockerMountPath: "/var/run/docker.sock"
+
+jenkins-x-platform:
+  PipelineSecrets:
+{{- if eq .Parameters.enableDocker true }}
+    DockerConfig: |-
+      {
+        "auths":{
+          {{ .Parameters.docker.url | quote }}:
+            {
+              "auth": {{ printf "%s:%s" .Parameters.docker.username .Parameters.docker.password | b64enc | quote}},
+              "email": {{ .Parameters.docker.email | quote}}
+            }
+        }
+      }
+{{- else}}
+    DockerConfig: ""
+{{- end}}

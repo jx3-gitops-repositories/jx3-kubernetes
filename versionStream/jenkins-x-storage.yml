@@ -1,0 +1,33 @@
+buildPack: none
+pipelineConfig:
+  pipelines:
+    pullRequest:
+      pipeline:
+        options:
+          containerOptions:
+            resources:
+              limits:
+                cpu: 4
+                memory: 6144Mi
+              requests:
+                cpu: 1
+                memory: 2048Mi
+        environment:
+        - name: GH_ACCESS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: bdd-pipeline-token-github
+              key: password
+        - name: JENKINS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: bdd-admin-password
+              key: password
+        agent:
+          image: gcr.io/jenkinsxio/builder-go-nodejs:2.1.100-729
+        stages:
+        - name: ci
+          steps:
+          - command: jx/bdd/storage/ci.sh
+            image: gcr.io/jenkinsxio-labs-private/jxl:0.0.208
+            name: runci
