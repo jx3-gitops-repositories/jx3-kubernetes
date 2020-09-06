@@ -34,7 +34,6 @@ gitops: true
 ingress:
   domain: ""
   externalDNS: false
-  ignoreLoadBalancer: true
   namespaceSubDomain: -jx.
   tls:
     email: ""
