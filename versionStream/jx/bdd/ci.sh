@@ -128,6 +128,16 @@ git add versionStream/
 export GITOPS_DIR=`pwd`
 export GITOPS_BIN=$GITOPS_DIR/bin
 
+
+if [ -z "$CUSTOMISE_GITOPS_REPO" ]
+then
+      echo "no custom gitops repository setup commands"
+else
+      echo "customising the gitops repository"
+
+      $CUSTOMISE_GITOPS_REPO
+fi
+
 # lets configure git to use the project/cluster
 $GITOPS_BIN/configure.sh
 

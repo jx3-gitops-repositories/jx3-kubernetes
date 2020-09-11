@@ -109,26 +109,26 @@ copy-resources: pre-build
 .PHONY: lint
 lint:
 
-.PHONY: verify-ingress
+.PHONY: dev-ns verify-ingress
 verify-ingress:
 	jx verify ingress -b
 
-.PHONY: verify-ingress-ignore
+.PHONY: dev-ns verify-ingress-ignore
 verify-ingress-ignore:
 	-jx verify ingress -b
 
-.PHONY: verify-install
+.PHONY: dev-ns verify-install
 verify-install:
 	# TODO lets disable errors for now
 	# as some pods stick around even though they are failed causing errors
 	-jx verify install --pod-wait-time=2m
 
 .PHONY: verify
-verify: verify-ingress
+verify: dev-ns verify-ingress
 	jx verify env
 	jx verify webhooks --verbose --warn-on-fail
 
-.PHONY: verify-ignore
+.PHONY: dev-ns verify-ignore
 verify-ignore: verify-ingress-ignore
 
 .PHONY: secrets-populate
@@ -155,9 +155,7 @@ regen-check:
 	jx gitops condition --last-commit-msg-prefix '!Merge pull request' -- make verify-ingress-ignore all verify-ignore secrets-populate commit push secrets-wait
 
 .PHONY: apply
-apply: regen-check kubectl-apply
-	-jx verify env
-	-jx verify webhooks --verbose --warn-on-fail
+apply: regen-check kubectl-apply verify
 
 .PHONY: kubectl-apply
 kubectl-apply:
@@ -201,3 +199,13 @@ push:
 .PHONY: release
 release: lint
 
+.PHONY: dev-ns
+dev-ns:
+	@echo "****************************************"
+	@echo "**                                    **"
+	@echo "** CHANGING TO jx NAMESPACE TO VERIFY **"
+	@echo "**                                    **"
+	@echo "****************************************"
+	kubectl config set-context dummy  --namespace=jx
+	kubectl config use-context dummy
+	jx ns -b
