@@ -49,11 +49,17 @@ fetch: init
 	helm repo add jx http://chartmuseum.jenkins-x.io
 
 	# generate the yaml from the charts in helmfile.yaml and moves them to the right directory tree (cluster or namespaces/foo)
-	jx gitops helmfile template $(HELMFILE_TEMPLATE_FLAGS) --args="--include-crds --values=jx-values.yaml --values=versionStream/src/fake-secrets.yaml.gotmpl" --output-dir $(OUTPUT_DIR)
+	jx gitops helmfile template $(HELMFILE_TEMPLATE_FLAGS) --args="--include-crds --values=jx-values.yaml --values=versionStream/src/fake-secrets.yaml.gotmpl --values=imagePullSecrets.yaml" --output-dir $(OUTPUT_DIR)
 
 	# convert k8s Secrets => ExternalSecret resources using secret mapping + schemas
 	# see: https://github.com/jenkins-x/jx-secret#mappings
 	jx secret convert --dir $(OUTPUT_DIR)
+
+	# replicate secrets to local staging/production namespaces
+	jx secret replicate --selector secret.jenkins-x.io/replica-source=true
+
+	# lets make sure all the namespaces exist for environments of the replicated secrets
+	jx gitops namespace --dir-mode --dir $(OUTPUT_DIR)/namespaces
 
 .PHONY: build
 # uncomment this line to enable kustomize
