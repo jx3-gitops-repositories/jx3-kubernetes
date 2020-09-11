@@ -13,7 +13,7 @@ repositories:
   url: https://storage.googleapis.com/jenkinsxio/charts
 releases:
 - chart: jenkins-x/jxboot-helmfile-resources
-  version: 0.0.283
+  version: 0.0.296
   name: jxboot-helmfile-resources
   namespace: jx
   values:
@@ -25,6 +25,8 @@ releases:
   values:
   - versionStream/charts/jx3/jenkins-x-crds/values.yaml.gotmpl
 - chart: jx3/jx-preview
+  name: jx-preview
+  namespace: jx
 - chart: stable/nginx-ingress
   version: 1.39.1
   name: nginx-ingress
@@ -32,7 +34,7 @@ releases:
   values:
   - versionStream/charts/stable/nginx-ingress/values.yaml.gotmpl
 - chart: jenkins-x/tekton
-  version: 0.0.56
+  version: 0.0.63
   name: tekton
   namespace: jx
   values:
