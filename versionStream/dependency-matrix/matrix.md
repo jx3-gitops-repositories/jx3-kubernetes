@@ -2,7 +2,7 @@
 
 Dependency | Sources | Version | Mismatched versions
 ---------- | ------- | ------- | -------------------
-[jenkins-x/jenkins-x-builders](https://github.com/jenkins-x/jenkins-x-builders.git) | [github.com/jenkins-x-charts/environment-controller](https://github.com/jenkins-x-charts/environment-controller) | [2.1.100-729](https://github.com/jenkins-x/jenkins-x-builders/releases/tag/v2.1.100-729) | **0.1.758**: [github.com/jenkins-x-charts/environment-controller](https://github.com/jenkins-x-charts/environment-controller)
+[jenkins-x/jenkins-x-builders](https://github.com/jenkins-x/jenkins-x-builders.git) | [github.com/jenkins-x-charts/environment-controller](https://github.com/jenkins-x-charts/environment-controller) | [2.1.142-761](https://github.com/jenkins-x/jenkins-x-builders/releases/tag/v2.1.142-761) | **0.1.758**: [github.com/jenkins-x-charts/environment-controller](https://github.com/jenkins-x-charts/environment-controller)
 [jenkins-x/jx](https://github.com/jenkins-x/jx) | [github.com/jenkins-x-charts/environment-controller](https://github.com/jenkins-x-charts/environment-controller);[github.com/jenkins-x-charts/prow](https://github.com/jenkins-x-charts/prow);[github.com/jenkins-x/jenkins-x-builders-ml](https://github.com/jenkins-x/jenkins-x-builders-ml.git);[github.com/jenkins-x/jenkins-x-builders](https://github.com/jenkins-x/jenkins-x-builders.git) | [2.1.62](https://github.com/jenkins-x/jx/releases/tag/v2.1.62) | **2.0.806**: [github.com/jenkins-x-charts/environment-controller](https://github.com/jenkins-x-charts/environment-controller)<br>**2.1.45**: [github.com/jenkins-x-charts/prow](https://github.com/jenkins-x-charts/prow)<br>**2.1.63**: [github.com/jenkins-x/jenkins-x-builders](https://github.com/jenkins-x/jenkins-x-builders.git)
 [kubernetes-incubator/external-dns](https://github.com/kubernetes-incubator/external-dns) |  | [2.19.1]() | 
 [weaveworks/flagger](https://github.com/weaveworks/flagger) |  | [1.3.0]() | 
@@ -69,7 +69,7 @@ Dependency | Sources | Version | Mismatched versions
 [jenkins-x-labs/istio](https://github.com/jenkins-x-labs/istio) |  | [0.0.21]() | 
 [jenkins-x/jxl](https://github.com/jenkins-x/jxl) |  | [0.0.208]() | 
 [jenkins-x-labs/cloud-resources](https://github.com/jenkins-x-labs/cloud-resources) |  | [0.0.31]() | 
-[jenkins-x/jxr-packs-kubernetes](https://github.com/jenkins-x/jxr-packs-kubernetes) |  | [0.0.40]() | 
+[jenkins-x/jxr-packs-kubernetes](https://github.com/jenkins-x/jxr-packs-kubernetes) |  | [0.0.47]() | 
 [jenkins-x/helm-annotate](https://github.com/jenkins-x/helm-annotate) |  | [0.0.13]() | 
 [godaddy/kubernetes-external-secrets](https://github.com/godaddy/kubernetes-external-secrets) |  | [4.0.0]() | 
 [jenkins-x/charts](https://github.com/jenkins-x/charts) |  | [1.1.7]() | 
@@ -81,16 +81,16 @@ Dependency | Sources | Version | Mismatched versions
 [jenkins-x/istio](https://github.com/jenkins-x/istio) |  | [0.1.1]() | 
 [jenkins-x/jx-gitops](https://github.com/jenkins-x/jx-gitops) |  | [0.0.190](https://github.com/jenkins-x/jx-gitops/releases/tag/v0.0.190) | 
 [jenkins-x/jx-promote](https://github.com/jenkins-x/jx-promote) |  | [0.0.78](https://github.com/jenkins-x/jx-promote/releases/tag/v0.0.78) | 
-[jenkins-x/jx-git-operator](https://github.com/jenkins-x/jx-git-operator) |  | [0.0.73](https://github.com/jenkins-x/jx-git-operator/releases/tag/v0.0.73) | 
+[jenkins-x/jx-git-operator](https://github.com/jenkins-x/jx-git-operator) |  | [0.0.83](https://github.com/jenkins-x/jx-git-operator/releases/tag/v0.0.83) | 
 [jenkins-x/jx-extsecret](https://github.com/jenkins-x/jx-extsecret) |  | [0.0.18](https://github.com/jenkins-x/jx-extsecret/releases/tag/v0.0.18) | 
 [jenkins-x/jxr-versions](https://github.com/jenkins-x/jxr-versions) |  | [0.0.46](https://github.com/jenkins-x/jxr-versions/releases/tag/v0.0.46) | 
 [jenkins-x/jx-admin](https://github.com/jenkins-x/jx-admin) |  | [0.0.75](https://github.com/jenkins-x/jx-admin/releases/tag/v0.0.75) | 
-[jenkins-x/jx-cli](https://github.com/jenkins-x/jx-cli) |  | [3.0.86](https://github.com/jenkins-x/jx-cli/releases/tag/v3.0.86) | 
+[jenkins-x/jx-cli](https://github.com/jenkins-x/jx-cli) |  | [3.0.232](https://github.com/jenkins-x/jx-cli/releases/tag/v3.0.232) | 
 [jenkins-x/jx-project](https://github.com/jenkins-x/jx-project) |  | [0.0.55](https://github.com/jenkins-x/jx-project/releases/tag/v0.0.55) | 
-[jenkins-x/jx-verify](https://github.com/jenkins-x/jx-verify) |  | [0.0.18](https://github.com/jenkins-x/jx-verify/releases/tag/v0.0.18) | 
+[jenkins-x/jx-verify](https://github.com/jenkins-x/jx-verify) |  | [0.0.26](https://github.com/jenkins-x/jx-verify/releases/tag/v0.0.26) | 
 [jenkins-x/jx-pipeline](https://github.com/jenkins-x/jx-pipeline) |  | [0.0.14](https://github.com/jenkins-x/jx-pipeline/releases/tag/v0.0.14) | 
 [jenkins-x/jx-application](https://github.com/jenkins-x/jx-application) |  | [0.0.10](https://github.com/jenkins-x/jx-application/releases/tag/v0.0.10) | 
 [jenkins-x/jx-secret](https://github.com/jenkins-x/jx-secret) |  | [0.0.80](https://github.com/jenkins-x/jx-secret/releases/tag/v0.0.80) | 
-[jenkins-x/jx-preview](https://github.com/jenkins-x/jx-preview) |  | [0.0.24](https://github.com/jenkins-x/jx-preview/releases/tag/v0.0.24) | 
+[jenkins-x/jx-preview](https://github.com/jenkins-x/jx-preview) |  | [0.0.38](https://github.com/jenkins-x/jx-preview/releases/tag/v0.0.38) | 
 [jenkins-x/jx-test](https://github.com/jenkins-x/jx-test) |  | [0.0.18](https://github.com/jenkins-x/jx-test/releases/tag/v0.0.18) | 
 [jenkins-x/step-go-releaser](https://github.com/jenkins-x/step-go-releaser) |  | [0.0.14]() | 

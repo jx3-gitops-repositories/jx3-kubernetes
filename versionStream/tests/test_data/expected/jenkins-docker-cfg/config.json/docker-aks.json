@@ -1,8 +1,12 @@
 {
   "auths":{
-    "myregistry.acme.com": {
-        "auth": "",
+    "ghcr.io": {
+        "auth": "Z2l0b3BlcmF0b3JVc2VybmFtZTpnaXRvcGVyYXRvcnBhc3N3b3Jk",
         "email": ""
+    },
+    "https://index.docker.io/v1/": {
+        "auth": "",
+        "email": "jenkins-x@googlegroups.com"
     }
   },
 

@@ -13,6 +13,7 @@ export PATH=$PATH:/usr/local/bin
 KUBECONFIG="/tmp/jxhome/config"
 
 #export XDG_CONFIG_HOME="/builder/home/.config"
+mkdir -p /builder/home
 mkdir -p /home/.config
 cp -r /home/.config /builder/home/.config
 
@@ -26,16 +27,29 @@ jx secret --help
 
 
 
+if [ -z "$GIT_USERNAME" ]
+then
+    export GIT_USERNAME="jenkins-x-labs-bot"
+fi
 
-export GIT_USERNAME="jenkins-x-labs-bot"
+if [ -z "$GIT_SERVER_HOST" ]
+then
+    export GIT_SERVER_HOST="github.com"
+fi
+
+if [ -z "$GH_OWNER" ]
+then
+    export GH_OWNER="cb-kubecd"
+fi
+
 export GIT_USER_EMAIL="jenkins-x@googlegroups.com"
-export GH_OWNER="cb-kubecd"
 export GIT_TOKEN="${GH_ACCESS_TOKEN//[[:space:]]}"
+export GIT_PROVIDER_URL="https://${GIT_SERVER_HOST}"
 
 
 if [ -z "$GIT_TOKEN" ]
 then
-      echo "ERROR: no GH_ACCESS_TOKEN env var defined for bdd/ci.sh"
+      echo "ERROR: no GIT_TOKEN env var defined for bdd/ci.sh"
 else
       echo "has valid git token in bdd/ci.sh"
 fi
@@ -58,7 +72,7 @@ echo "running the BDD test with JX_HOME = $JX_HOME"
 
 mkdir -p $XDG_CONFIG_HOME/git
 # replace the credentials file with a single user entry
-echo "https://${GIT_USERNAME//[[:space:]]}:${GIT_TOKEN}@github.com" > $XDG_CONFIG_HOME/git/credentials
+echo "https://${GIT_USERNAME//[[:space:]]}:${GIT_TOKEN}@${GIT_SERVER_HOST}" > $XDG_CONFIG_HOME/git/credentials
 
 echo "using git credentials: $XDG_CONFIG_HOME/git/credentials"
 ls -al $XDG_CONFIG_HOME/git/credentials
@@ -81,9 +95,9 @@ echo "using GitOps template: $GITOPS_TEMPLATE_URL version: $GITOPS_TEMPLATE_VERS
 #git clone -b v${GITOPS_TEMPLATE_VERSION} $GITOPS_TEMPLATE_URL
 
 # create the boot git repository to mimic creating the git repository via the github create repository wizard
-jx admin create -b --initial-git-url $GITOPS_TEMPLATE_URL --env dev --version-stream-ref=$PULL_PULL_SHA --version-stream-url=${PR_SOURCE_URL//[[:space:]]} --env-git-owner=$GH_OWNER --repo env-$CLUSTER_NAME-dev --no-operator
+jx admin create -b --initial-git-url $GITOPS_TEMPLATE_URL --env dev --version-stream-ref=$PULL_PULL_SHA --version-stream-url=${PR_SOURCE_URL//[[:space:]]} --env-git-owner=$GH_OWNER --repo env-$CLUSTER_NAME-dev --no-operator $JX_ADMIN_CREATE_ARGS
 
-export GITOPS_REPO=https://${GIT_USERNAME//[[:space:]]}:${GIT_TOKEN}@github.com/${GH_OWNER}/env-${CLUSTER_NAME}-dev.git
+export GITOPS_REPO=https://${GIT_USERNAME//[[:space:]]}:${GIT_TOKEN}@${GIT_SERVER_HOST}/${GH_OWNER}/env-${CLUSTER_NAME}-dev.git
 
 echo "going to clone git repo $GITOPS_REPO"
 
@@ -156,6 +170,9 @@ export JX_DISABLE_DELETE_REPO="true"
 # increase the timeout for complete PipelineActivity
 export BDD_TIMEOUT_PIPELINE_ACTIVITY_COMPLETE="60"
 
+# we don't yet update the PipelineActivity.spec.pullTitle on previews....
+export BDD_DISABLE_PIPELINEACTIVITY_CHECK="true"
+
 # define variables for the BDD tests
 export GIT_ORGANISATION="$GH_OWNER"
 export GH_USERNAME="$GIT_USERNAME"
@@ -180,7 +197,10 @@ echo "completed the bdd tests"
 echo "switching context back to the infra cluster"
 
 # lets connect back to the infra cluster so we can find the TestRun CRDs
-gcloud container clusters get-credentials flash --zone europe-west1-b --project jx-labs-infra
+#gcloud container clusters get-credentials flash --zone europe-west1-b --project jx-labs-infra
+#gcloud container clusters get-credentials tf-jx-growing-ant --zone us-central1-a --project jx-labs-infra
+gcloud container clusters get-credentials tf-jx-gentle-titmouse --zone us-central1-a --project jx-labs-infra
+
 jx ns jx
 
 

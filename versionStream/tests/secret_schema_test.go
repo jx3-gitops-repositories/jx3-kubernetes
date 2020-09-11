@@ -135,7 +135,7 @@ func TestSecretSchemaTemplates(t *testing.T) {
 			{
 				TestName:   "nexus",
 				ObjectName: "jenkins-maven-settings",
-				Property:   "settingsXml",
+				Property:   "settings.xml",
 				Format:     "xml",
 				Requirements: &config.RequirementsConfig{
 					Repository: "nexus",
@@ -149,7 +149,7 @@ func TestSecretSchemaTemplates(t *testing.T) {
 			{
 				TestName:   "bucketrepo",
 				ObjectName: "jenkins-maven-settings",
-				Property:   "settingsXml",
+				Property:   "settings.xml",
 				Format:     "xml",
 				Requirements: &config.RequirementsConfig{
 					Repository: "nexus",
@@ -163,7 +163,7 @@ func TestSecretSchemaTemplates(t *testing.T) {
 			{
 				TestName:   "none",
 				ObjectName: "jenkins-maven-settings",
-				Property:   "settingsXml",
+				Property:   "settings.xml",
 				Format:     "xml",
 				Requirements: &config.RequirementsConfig{
 					Repository: "nexus",

@@ -13,7 +13,7 @@ service:
 replicaCount: 2
 
 env:
-  JX_DEFAULT_IMAGE: gcr.io/jenkinsxio/builder-maven:0.0.0-SNAPSHOT-PR-7527-27
+  JX_DEFAULT_IMAGE: gcr.io/jenkinsxio/builder-maven:2.1.142-761
 
 image:
   repository: gcr.io/jenkinsxio/lighthouse
@@ -25,8 +25,12 @@ vault:
   enabled: false
 {{- end }}
 
+{{- if hasKey .Values.jxRequirements.cluster "clusterName" }}
 clusterName: "{{ .Values.jxRequirements.cluster.clusterName }}"
+{{- end }}
 
-user: "{{ .Values.secrets.pipelineUser.username }}"
+{{- if and (hasKey .Values.jxRequirements "pipelineUser") (hasKey .Values.jxRequirements.pipelineUser "username") }}
+user: "{{ .Values.jxRequirements.pipelineUser.username }}"
+{{- end }}
 
 oauthToken: "{{ .Values.secrets.pipelineUser.token }}"

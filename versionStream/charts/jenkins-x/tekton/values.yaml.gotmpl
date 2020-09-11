@@ -6,12 +6,10 @@ auth:
     username: "{{ .Values.secrets.pipelineUser.username }}"
     password: "{{ .Values.secrets.pipelineUser.token }}"
     url: {{ .Values.jxRequirements.cluster.gitServer | default "https://github.com" }}
-{{- if hasKey .Values.secrets "docker" }}
   docker:
-    username: "{{ .Values.secrets.docker.username }}"
-    password: "{{ .Values.secrets.docker.password }}"
-    url: "{{ .Values.secrets.docker.url }}"
-{{- end }}
+    # lets use tekton config.json style secrets:
+    # https://github.com/tektoncd/pipeline/blob/master/docs/auth.md#configuring-docker-authentication-for-docker
+    configJson: "{}"
 
 {{- if and (hasKey .Values.jxRequirements.cluster "project") (hasKey .Values.jxRequirements.cluster "clusterName") (eq .Values.jxRequirements.cluster.provider "eks") }}
 serviceaccount:
