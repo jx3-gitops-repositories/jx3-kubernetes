@@ -26,8 +26,16 @@ pipelineConfig:
         agent:
           image: gcr.io/jenkinsxio/builder-go-nodejs:2.1.142-761
         stages:
+<<<<<<< HEAD
         - name: ci
           steps:
           - command: jx/bdd/mc/ci.sh
             image: gcr.io/jenkinsxio-labs-private/jxl:0.0.208
             name: runci
+=======
+          - name: ci
+            steps:
+              - command: jx/bdd/mc/ci.sh
+                image: gcr.io/jenkinsxio/jx-cli:3.0.282
+                name: runci
+>>>>>>> update versionStream (https://github.com/jenkins-x/jxr-versions) from master (ae30d4c3b0345ba65ba1a9b4a3ad4f9d1546b34b) to master (e48fc7857455beebc803b34734fa0d97c840fcea)
