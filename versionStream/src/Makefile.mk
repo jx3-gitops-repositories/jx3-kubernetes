@@ -79,7 +79,7 @@ pre-build:
 .PHONY: post-build
 post-build:
 	# lets generate the lighthouse configuration
-	jx gitops scheduler -d config-root/namespaces/jx -o config-root/namespaces/jx/lighthouse-config
+	jx gitops scheduler
 
 	# lets add the kubectl-apply prune annotations
 	#
