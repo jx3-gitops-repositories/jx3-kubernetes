@@ -5,6 +5,9 @@ repositories:
 - prefix: bitnami
   urls:
   - https://charts.bitnami.com/bitnami
+- prefix: cdf
+  urls:
+  - https://cdfoundation.github.io/tekton-helm-chart
 - prefix: external-secrets
   urls:
   - https://godaddy.github.io/kubernetes-external-secrets
@@ -18,6 +21,9 @@ repositories:
   urls:
   - https://storage.googleapis.com/chartmuseum.jenkins-x.io
   - http://chartmuseum.jenkins-x.io
+- prefix: jenkinsci
+  urls:
+  - https://charts.jenkins.io
 - prefix: jetstack
   urls:
   - https://charts.jetstack.io

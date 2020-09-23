@@ -31,6 +31,7 @@ cloud.google.com/go/pubsub v1.2.0/go.mod h1:jhfEVHT8odbXTkndysNHCcx0awwzvfOlguIA
 cloud.google.com/go/storage v1.0.0/go.mod h1:IhtSnM/ZTZV8YYJWCY8RULGVqBDmpoyjwiyrjsg+URw=
 cloud.google.com/go/storage v1.5.0/go.mod h1:tpKbwo567HUNpVclU5sGELwQWBDZ8gh0ZeosJ0Rtdos=
 cloud.google.com/go/storage v1.6.0/go.mod h1:N7U0C8pVQ/+NIKOBQyamJIeKQKkZ+mxpohlUTyfDhBk=
+code.gitea.io/sdk/gitea v0.12.1/go.mod h1:z3uwDV/b9Ls47NGukYM9XhnHtqPh/J+t40lsUrR6JDY=
 contrib.go.opencensus.io/exporter/aws v0.0.0-20181029163544-2befc13012d0/go.mod h1:uu1P0UCM/6RbsMrgPa98ll8ZcHM858i/AD06a9aLRCA=
 contrib.go.opencensus.io/exporter/ocagent v0.4.12/go.mod h1:450APlNTSR6FrvC3CTRqYosuDstRB9un7SOx2k/9ckA=
 contrib.go.opencensus.io/exporter/ocagent v0.5.0/go.mod h1:ImxhfLRpxoYiSq891pBrLVhN+qmP8BTVvdH2YLs7Gl0=
@@ -186,6 +187,7 @@ github.com/bitly/go-simplejson v0.5.0/go.mod h1:cXHtHw4XUPsvGaxgjIAn8PhEWG9NfngE
 github.com/blang/semver v3.1.0+incompatible/go.mod h1:kRBLl5iJ+tD4TcOOxsy/0fnwebNt5EWlYSAyrTnjyyk=
 github.com/blang/semver v3.5.0+incompatible/go.mod h1:kRBLl5iJ+tD4TcOOxsy/0fnwebNt5EWlYSAyrTnjyyk=
 github.com/blang/semver v3.5.1+incompatible/go.mod h1:kRBLl5iJ+tD4TcOOxsy/0fnwebNt5EWlYSAyrTnjyyk=
+github.com/bluekeyes/go-gitdiff v0.4.0/go.mod h1:QpfYYO1E0fTVHVZAZKiRjtSGY9823iCdvGXBcEzHGbM=
 github.com/bmizerany/assert v0.0.0-20160611221934-b7ed37b82869/go.mod h1:Ekp36dRnpXw/yCqJaO+ZrUyxD+3VXMFFr56k5XYrpB4=
 github.com/bmizerany/perks v0.0.0-20141205001514-d9a9656a3a4b/go.mod h1:ac9efd0D1fsDb3EJvhqgXRbFx7bs2wqZ10HQPeU8U/Q=
 github.com/bshuster-repo/logrus-logstash-hook v0.4.1/go.mod h1:zsTqEiSzDgAa/8GZR7E1qaXrhYNDKBYy5/dWPTIflbk=
@@ -540,6 +542,7 @@ github.com/hashicorp/go-multierror v0.0.0-20161216184304-ed905158d874/go.mod h1:
 github.com/hashicorp/go-multierror v0.0.0-20171204182908-b7773ae21874/go.mod h1:JMRHfdO9jKNzS/+BTlxCjKNQHg/jZAft8U7LloJvN7I=
 github.com/hashicorp/go-multierror v1.0.0/go.mod h1:dHtQlpGsu+cZNNAkkCN/P3hoUDHhCYQXV3UM06sGGrk=
 github.com/hashicorp/go-uuid v1.0.1/go.mod h1:6SBZvOh/SIDV7/2o3Jml5SYk/TvGqwFJ/bN7x4byOro=
+github.com/hashicorp/go-version v1.2.0/go.mod h1:fltr4n8CU8Ke44wwGCBoEymUuxUHl09ZGVZPK5anwXA=
 github.com/hashicorp/golang-lru v0.5.0/go.mod h1:/m3WP610KZHVQ1SGc6re/UDhFvYD7pJ4Ao+sR/qLZy8=
 github.com/hashicorp/golang-lru v0.5.1/go.mod h1:/m3WP610KZHVQ1SGc6re/UDhFvYD7pJ4Ao+sR/qLZy8=
 github.com/hashicorp/golang-lru v0.5.3/go.mod h1:iADmTwqILo4mZ8BN3D2Q6+9jd8WM5uGBxy+E8yxSoD4=
@@ -570,14 +573,17 @@ github.com/jcmturner/gofork v1.0.0/go.mod h1:MK8+TM0La+2rjBD4jE12Kj1pCCxK7d2LK/U
 github.com/jenkins-x/gen-crd-api-reference-docs v0.1.6/go.mod h1:a4dzSf/nNLMMMqultm6IlV/04xq26uICEYPkSTOahWQ=
 github.com/jenkins-x/go-scm v1.5.65/go.mod h1:MgGRkJScE/rJ30J/bXYqduN5sDPZqZFITJopsnZmTOw=
 github.com/jenkins-x/go-scm v1.5.79/go.mod h1:PCT338UhP/pQ0IeEeMEf/hoLTYKcH7qjGEKd7jPkeYg=
+github.com/jenkins-x/go-scm v1.5.164/go.mod h1:wJgj7PfgsCs+YAXC0vEj43g48HKf94apSyza62ADxKY=
 github.com/jenkins-x/jx-api v0.0.17 h1:DXfR76lH3s7K2CaSJBzq/S7zRtKFfbKpnNyY4n8plUQ=
 github.com/jenkins-x/jx-api v0.0.17/go.mod h1:QKLHk4VzI+sDBPSzN4K+QdEjNIBnCHS3DKY5YbGeCdY=
+github.com/jenkins-x/jx-api v0.0.20/go.mod h1:QKLHk4VzI+sDBPSzN4K+QdEjNIBnCHS3DKY5YbGeCdY=
 github.com/jenkins-x/jx-helpers v1.0.44 h1:9D6t8sS6tg6I/Zub9LD95HCdnmz4Qkljns2C0Tnqwu4=
 github.com/jenkins-x/jx-helpers v1.0.44/go.mod h1:rJvVFOjVUx0urq93P8mVw/MMuBjd6qwbTYJw+rcU2jA=
 github.com/jenkins-x/jx-helpers v1.0.46/go.mod h1:rJvVFOjVUx0urq93P8mVw/MMuBjd6qwbTYJw+rcU2jA=
 github.com/jenkins-x/jx-helpers v1.0.49/go.mod h1:rJvVFOjVUx0urq93P8mVw/MMuBjd6qwbTYJw+rcU2jA=
 github.com/jenkins-x/jx-helpers v1.0.50 h1:+bbQfxumUOnfEGjNJioUmbqzWT9paiEw9mWAq1O8fgg=
 github.com/jenkins-x/jx-helpers v1.0.50/go.mod h1:rJvVFOjVUx0urq93P8mVw/MMuBjd6qwbTYJw+rcU2jA=
+github.com/jenkins-x/jx-helpers v1.0.62/go.mod h1:3ayhv3uQFtPh4IJ8zkxrF8JegyrzoFpr9gBRAoYspQk=
 github.com/jenkins-x/jx-kube-client v0.0.8 h1:XK/TP2qnhHPb/vhaGHmvVilWGDtARIZ1DOEHp/6/h0Y=
 github.com/jenkins-x/jx-kube-client v0.0.8/go.mod h1:XvNZQAAF95wzQzSfCpehXwb5FI6WCg+5GiwVA2S4SPA=
 github.com/jenkins-x/jx-logging v0.0.11 h1:t4T653u6oy4SJ2VYlrY5rIobr16jJS9Gf8RWlHqtJvw=
@@ -1434,6 +1440,7 @@ k8s.io/gengo v0.0.0-20190822140433-26a664648505/go.mod h1:ezvh/TsK7cY6rbqRK0oQQ8
 k8s.io/gengo v0.0.0-20191108084044-e500ee069b5c/go.mod h1:ezvh/TsK7cY6rbqRK0oQQ8IAqLxYwwyPxAX1Pzy0ii0=
 k8s.io/gengo v0.0.0-20200114144118-36b2048a9120/go.mod h1:ezvh/TsK7cY6rbqRK0oQQ8IAqLxYwwyPxAX1Pzy0ii0=
 k8s.io/gengo v0.0.0-20200205140755-e0e292d8aa12/go.mod h1:ezvh/TsK7cY6rbqRK0oQQ8IAqLxYwwyPxAX1Pzy0ii0=
+k8s.io/helm v2.16.10+incompatible/go.mod h1:LZzlS4LQBHfciFOurYBFkCMTaZ0D1l+p0teMg7TSULI=
 k8s.io/klog v0.0.0-20181102134211-b9b56d5dfc92/go.mod h1:Gq+BEi5rUBO/HRz0bTSXDUcqjScdoY3a9IHpCEIOOfk=
 k8s.io/klog v0.2.0/go.mod h1:Gq+BEi5rUBO/HRz0bTSXDUcqjScdoY3a9IHpCEIOOfk=
 k8s.io/klog v0.3.0/go.mod h1:Gq+BEi5rUBO/HRz0bTSXDUcqjScdoY3a9IHpCEIOOfk=
