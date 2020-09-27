@@ -585,8 +585,8 @@ dependencies:
   owner: jenkins-x
   repo: jx-cli
   url: https://github.com/jenkins-x/jx-cli
-  version: 3.0.370
-  versionURL: https://github.com/jenkins-x/jx-cli/releases/tag/v3.0.370
+  version: 3.0.376
+  versionURL: https://github.com/jenkins-x/jx-cli/releases/tag/v3.0.376
 - host: github.com
   owner: jenkins-x
   repo: jx-project
