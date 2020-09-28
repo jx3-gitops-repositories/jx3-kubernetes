@@ -45,6 +45,8 @@ spec:
     - agent: tekton
       branches:
       - master
+      labels:
+        aadpodidbinding: tekton-bot
       max_concurrency: 0
       name: release
       pipeline_run_spec:
@@ -57,6 +59,8 @@ spec:
     - agent: tekton
       always_run: true
       context: pr-build
+      labels:
+        aadpodidbinding: tekton-bot
       max_concurrency: 0
       merge_method: ""
       name: pr-build

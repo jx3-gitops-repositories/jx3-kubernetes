@@ -211,11 +211,5 @@ release: lint
 
 .PHONY: dev-ns
 dev-ns:
-	@echo "****************************************"
-	@echo "**                                    **"
-	@echo "** CHANGING TO jx NAMESPACE TO VERIFY **"
-	@echo "**                                    **"
-	@echo "****************************************"
-	kubectl config set-context dummy  --namespace=jx
-	kubectl config use-context dummy
-	jx ns -b
+	@echo changing to the jx namespace to verify
+	jx ns jx

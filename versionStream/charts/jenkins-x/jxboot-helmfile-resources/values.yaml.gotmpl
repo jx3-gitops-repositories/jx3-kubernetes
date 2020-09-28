@@ -5,13 +5,13 @@ sourceRepositoriesEnvKey: true
 
 controllerrole:
   image:
-    repository: gcr.io/jenkinsxio-labs-private/jxl
-    tag: 0.0.208
+    repository: gcr.io/jenkinsxio/builder-go
+    tag: 2.1.150-769
 
 controllerbuild:
   image:
-    repository: gcr.io/jenkinsxio-labs-private/jxl
-    tag: 0.0.208
+    repository: gcr.io/jenkinsxio/builder-go
+    tag: 2.1.150-769
 
 {{- if eq .Values.jxRequirements.cluster.provider "gke"}}
   serviceaccount:
