@@ -4,6 +4,7 @@ versions:
 sourceRepositoriesEnvKey: true
 
 controllerrole:
+  enabled: false
   image:
     repository: gcr.io/jenkinsxio/builder-go
     tag: 2.1.150-769
@@ -13,8 +14,9 @@ controllerbuild:
     repository: gcr.io/jenkinsxio/builder-go
     tag: 2.1.150-769
 
-{{- if eq .Values.jxRequirements.cluster.provider "gke"}}
   serviceaccount:
+    customName: jenkins-x-controllerbuild
+{{- if eq .Values.jxRequirements.cluster.provider "gke"}}
     annotations:
       iam.gke.io/gcp-service-account: {{ .Values.jxRequirements.cluster.clusterName }}-bc@{{ .Values.jxRequirements.cluster.project }}.iam.gserviceaccount.com
 {{- end }}
