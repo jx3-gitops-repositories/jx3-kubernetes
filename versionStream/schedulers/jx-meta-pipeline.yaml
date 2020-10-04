@@ -322,7 +322,6 @@ spec:
       labels:
         aadpodidbinding: tekton-bot
       max_concurrency: 0
-      merge_method: ""
       name: pr-build
       optional: false
       pipeline_run_spec:
@@ -588,39 +587,40 @@ spec:
                       fieldPath: metadata.labels
                     path: labels
                 name: podinfo
-      queries:
-      - excludedBranches: {}
-        included_branches: {}
-        labels:
-          entries:
-          - approved
-        milestone: ""
-        missingLabels:
-          entries:
-          - do-not-merge
-          - do-not-merge/hold
-          - do-not-merge/work-in-progress
-          - needs-ok-to-test
-          - needs-rebase
-        review_approved_required: false
-      - excludedBranches: {}
-        included_branches: {}
-        labels:
-          entries:
-          - updatebot
-        milestone: ""
-        missingLabels:
-          entries:
-          - do-not-merge
-          - do-not-merge/hold
-          - do-not-merge/work-in-progress
-          - needs-ok-to-test
-          - needs-rebase
-        review_approved_required: false
       report: true
       rerun_command: /test this
       run_if_changed: ""
       trigger: (?m)^/test( all| this),?(\s+|$)
+  merge_method: ""
+  queries:
+  - excludedBranches: {}
+    included_branches: {}
+    labels:
+      entries:
+      - approved
+    milestone: ""
+    missingLabels:
+      entries:
+      - do-not-merge
+      - do-not-merge/hold
+      - do-not-merge/work-in-progress
+      - needs-ok-to-test
+      - needs-rebase
+    review_approved_required: false
+  - excludedBranches: {}
+    included_branches: {}
+    labels:
+      entries:
+      - updatebot
+    milestone: ""
+    missingLabels:
+      entries:
+      - do-not-merge
+      - do-not-merge/hold
+      - do-not-merge/work-in-progress
+      - needs-ok-to-test
+      - needs-rebase
+    review_approved_required: false
   schedulerAgent:
     agent: tekton
   trigger:

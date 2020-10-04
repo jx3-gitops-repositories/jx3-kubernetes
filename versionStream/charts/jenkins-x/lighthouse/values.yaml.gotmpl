@@ -1,5 +1,8 @@
 enabled: true
 
+engines:
+  tekton: true
+
 hmacToken: "{{ .Values.secrets.hmacToken | default "123abc" }}"
 
 git:

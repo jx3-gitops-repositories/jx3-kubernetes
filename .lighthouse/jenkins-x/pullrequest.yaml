@@ -1,7 +1,6 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  creationTimestamp: null
   labels:
     branch: master
     build: "1"
@@ -123,7 +122,6 @@ spec:
               path: labels
           name: podinfo
   podTemplate:
-    ImagePullSecrets: null
     hostNetwork: false
     schedulerName: ""
   serviceAccountName: tekton-bot

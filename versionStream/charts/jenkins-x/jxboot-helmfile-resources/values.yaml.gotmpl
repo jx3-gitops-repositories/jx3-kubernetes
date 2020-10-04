@@ -3,6 +3,18 @@ versions:
 
 sourceRepositoriesEnvKey: true
 
+pipeline:
+  serviceAccount:
+{{- if and (hasKey .Values.jxRequirements.cluster "project") (hasKey .Values.jxRequirements.cluster "clusterName") (eq .Values.jxRequirements.cluster.provider "eks") }}
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.jxRequirements.cluster.project }}:role/{{ .Values.jxRequirements.cluster.clusterName }}-{{ .Values.jxRequirements.cluster.namespace }}-tekton-bot
+{{- else if eq .Values.jxRequirements.cluster.provider "gke" }}
+    annotations:
+      iam.gke.io/gcp-service-account: {{ .Values.jxRequirements.cluster.clusterName }}-tekton@{{ .Values.jxRequirements.cluster.project }}.iam.gserviceaccount.com
+{{- else }}
+    annotations: {}
+{{- end }}
+
 controllerrole:
   enabled: false
   image:
@@ -10,6 +22,7 @@ controllerrole:
     tag: 2.1.150-769
 
 controllerbuild:
+  replicaCount: 0
   image:
     repository: gcr.io/jenkinsxio/builder-go
     tag: 2.1.150-769
