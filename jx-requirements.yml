@@ -5,7 +5,7 @@ bootConfigURL: https://github.com/jenkins-x/jx3-boot-config
 buildPacks:
   buildPackLibrary:
     gitRef: master
-    gitURL: https://github.com/jenkins-x/jxr-packs-kubernetes.git
+    gitURL: https://github.com/jenkins-x/jx3-pipeline-catalog.git
 cluster:
   chartRepository: http://bucketrepo/bucketrepo/charts/
   clusterName: "kind"

@@ -5,12 +5,16 @@ environments:
     - jx-values.yaml
     - versionStream/src/fake-secrets.yaml.gotmpl
 repositories:
+- name: doesnotexist
+  url: https://storage.googleapis.com/chartmuseum.jenkins-x.io
+- name: cdf
+  url: https://cdfoundation.github.io/tekton-helm-chart
 - name: jenkins-x
   url: https://storage.googleapis.com/chartmuseum.jenkins-x.io
-- name: stable
-  url: https://kubernetes-charts.storage.googleapis.com
-- name: jx3
-  url: https://storage.googleapis.com/jenkinsxio/charts
+- name: bitnami
+  url: https://charts.bitnami.com/bitnami
+- name: external-secrets
+  url: https://godaddy.github.io/kubernetes-external-secrets
 releases:
 - chart: jenkins-x/jxboot-helmfile-resources
   version: 0.0.296
@@ -33,12 +37,12 @@ releases:
   namespace: nginx
   values:
   - versionStream/charts/stable/nginx-ingress/values.yaml.gotmpl
-- chart: jenkins-x/tekton
-  version: 0.0.63
-  name: tekton
-  namespace: jx
+- chart: cdf/tekton-pipeline
+  version: 0.0.5
+  name: tekton-pipeline
+  namespace: tekton-pipelines
   values:
-  - versionStream/charts/jenkins-x/tekton/values.yaml.gotmpl
+  - versionStream/charts/cdf/tekton-pipeline/values.yaml.gotmpl
 - chart: jenkins-x/lighthouse
   version: 0.0.683
   name: lighthouse
