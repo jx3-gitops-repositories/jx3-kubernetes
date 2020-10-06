@@ -45,6 +45,7 @@ spec:
     - agent: tekton
       branches:
       - master
+      - main
       cluster: ""
       context: ""
       labels:
