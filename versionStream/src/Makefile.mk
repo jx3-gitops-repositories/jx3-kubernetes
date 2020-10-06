@@ -53,7 +53,7 @@ fetch: init
 
 	# convert k8s Secrets => ExternalSecret resources using secret mapping + schemas
 	# see: https://github.com/jenkins-x/jx-secret#mappings
-	jx secret convert --dir $(OUTPUT_DIR)
+	jx secret convert --source-dir $(OUTPUT_DIR)
 
 	# replicate secrets to local staging/production namespaces
 	jx secret replicate --selector secret.jenkins-x.io/replica-source=true
