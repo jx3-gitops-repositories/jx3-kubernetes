@@ -17,15 +17,11 @@ pipeline:
 
 controllerrole:
   enabled: false
-  image:
-    repository: gcr.io/jenkinsxio/builder-go
-    tag: 2.1.150-769
 
 controllerbuild:
-  replicaCount: 0
   image:
-    repository: gcr.io/jenkinsxio/builder-go
-    tag: 2.1.150-769
+    repository: gcr.io/jenkinsxio/jx-build-controller
+    tag: 0.0.2
 
   serviceaccount:
     dummy: value

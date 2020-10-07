@@ -100,7 +100,7 @@ spec:
             name: REPO_URL
             type: string
           tasks:
-          - name: from-build-pack
+          - name: meta-pipeline
             params:
             - name: BUILD_ID
               value: $(params.BUILD_ID)
@@ -374,7 +374,7 @@ spec:
             name: REPO_URL
             type: string
           tasks:
-          - name: from-build-pack
+          - name: meta-pipeline
             params:
             - name: BUILD_ID
               value: $(params.BUILD_ID)
