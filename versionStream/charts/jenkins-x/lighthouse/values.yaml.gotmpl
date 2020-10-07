@@ -21,6 +21,9 @@ env:
 image:
   repository: gcr.io/jenkinsxio/lighthouse
 
+  # TODO remove when this PR merges: https://github.com/jenkins-x/lighthouse/pull/1104
+  tag: 0.0.0-SNAPSHOT-PR-1104-3
+
 vault:
 {{- if eq .Values.jxRequirements.secretStorage "vault" }}
   enabled: true
