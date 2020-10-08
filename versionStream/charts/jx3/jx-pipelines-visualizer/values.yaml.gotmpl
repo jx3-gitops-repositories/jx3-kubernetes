@@ -6,9 +6,10 @@ ingress:
     # type of authentication
     nginx.ingress.kubernetes.io/auth-type: basic
     # name of the secret that contains the user/password definitions
-    nginx.ingress.kubernetes.io/auth-secret: jx-basic-auth
+    nginx.ingress.kubernetes.io/auth-secret: jx-basic-auth-htpasswd
     # message to display with an appropriate context why the authentication is required
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Jenkins X Pipeline Dashboard'
 
   hosts:
-  - "dashboard{{ .Values.jxRequirements.ingress.namespaceSubDomain | default "." }}{{ .Values.jxRequirements.ingress.domain }}"
+  - "dashboard{{ .Values.jxRequirements.ingress.namespaceSubDomain | default "." }}{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}"
+
