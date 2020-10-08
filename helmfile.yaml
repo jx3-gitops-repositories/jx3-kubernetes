@@ -28,6 +28,7 @@ releases:
   namespace: jx
   values:
   - versionStream/charts/jx3/jenkins-x-crds/values.yaml.gotmpl
+- chart: jx3/jx-pipelines-visualizer
 - chart: jx3/jx-preview
   name: jx-preview
   namespace: jx
