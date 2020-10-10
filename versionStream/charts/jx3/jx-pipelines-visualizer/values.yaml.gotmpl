@@ -13,3 +13,10 @@ ingress:
   hosts:
   - "dashboard{{ .Values.jxRequirements.ingress.namespaceSubDomain | default "." }}{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}"
 
+serviceAccount:
+  annotations:
+{{- if eq .Values.jxRequirements.cluster.provider "gke" }}
+    iam.gke.io/gcp-service-account: {{ .Values.jxRequirements.cluster.clusterName }}-bc@{{ .Values.jxRequirements.cluster.project }}.iam.gserviceaccount.com
+{{- else }}
+    installed-by: jenkins-x
+{{- end }}

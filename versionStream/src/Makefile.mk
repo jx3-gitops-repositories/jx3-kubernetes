@@ -61,6 +61,9 @@ fetch: init
 	# lets make sure all the namespaces exist for environments of the replicated secrets
 	jx gitops namespace --dir-mode --dir $(OUTPUT_DIR)/namespaces
 
+	# lets publish the requirements metadata into the dev Environment.Spec.TeamSettings.BootRequirements so its easy to access them via CRDs
+	jx gitops requirements publish
+
 .PHONY: build
 # uncomment this line to enable kustomize
 #build: build-kustomise
@@ -125,8 +128,6 @@ verify-install:
 
 .PHONY: verify
 verify: dev-ns verify-ingress
-	# TODO not sure we need this...
-	jx verify env
 	jx gitops webhook update --warn-on-fail
 
 .PHONY: dev-ns verify-ignore
