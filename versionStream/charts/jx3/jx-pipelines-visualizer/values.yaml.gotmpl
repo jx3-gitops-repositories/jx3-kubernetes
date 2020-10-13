@@ -16,7 +16,7 @@ ingress:
 serviceAccount:
   annotations:
 {{- if eq .Values.jxRequirements.cluster.provider "gke" }}
-    iam.gke.io/gcp-service-account: {{ .Values.jxRequirements.cluster.clusterName }}-bc@{{ .Values.jxRequirements.cluster.project }}.iam.gserviceaccount.com
+    iam.gke.io/gcp-service-account: {{ .Values.jxRequirements.cluster.clusterName }}-jxui@{{ .Values.jxRequirements.cluster.project }}.iam.gserviceaccount.com
 {{- else }}
     installed-by: jenkins-x
 {{- end }}
