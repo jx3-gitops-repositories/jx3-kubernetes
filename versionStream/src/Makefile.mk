@@ -207,7 +207,8 @@ push-pr-branch:
 
 .PHONY: push
 push:
-	git push
+	git pull
+	git push -f
 
 .PHONY: release
 release: lint
