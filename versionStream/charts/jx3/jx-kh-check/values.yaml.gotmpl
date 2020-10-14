@@ -1,10 +1,18 @@
-jxBotToken:
-  gitProvider: {{ .Values.jxRequirements.cluster.gitServer }}
-
 jxPodStatus:
+  enabled: true
   cluster:
     enabled: true 
 
 jxSecrets:
+  enabled: true
   cluster:
-    enabled: true
+    enabled: true 
+
+jxWebhooks:
+  enabled: false
+
+jxInstall:
+  enabled: false
+
+jxBotToken:
+  enabled: false
