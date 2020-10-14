@@ -1,4 +1,4 @@
-version: 3.0.568
+version: 3.0.570
 upperLimit: 4.0.0
 gitUrl: https://github.com/jenkins-x/jx-cli.git
 url: https://jenkins-x.io
