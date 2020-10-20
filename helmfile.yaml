@@ -21,7 +21,7 @@ repositories:
   url: https://kubernetes-charts.storage.googleapis.com
 releases:
 - chart: jenkins-x/jxboot-helmfile-resources
-  version: 1.0.7
+  version: 1.0.8
   name: jxboot-helmfile-resources
   namespace: jx
   values:
