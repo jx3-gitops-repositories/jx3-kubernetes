@@ -13,6 +13,10 @@ google:
 {{- if hasKey .Values.jxRequirements.cluster "project" }}
   project: "{{ .Values.jxRequirements.cluster.project }}"
 {{- end }}
+{{- else if eq .Values.jxRequirements.cluster.provider "aks" }}
+provider: azure
+azure:
+  secretName: azure-external-dns-secret
 {{- end }}
 
 rbac:

@@ -1,0 +1,32 @@
+apiVersion: config.lighthouse.jenkins-x.io/v1alpha1
+kind: TriggerConfig
+spec:
+  presubmits:
+  - name: gsm
+    context: "gsm"
+    always_run: true
+    optional: false
+    trigger: (?m)^/test( all| gsm),?(s+|$)
+    rerun_command: /test gsm
+    source: "pullrequest.yaml"
+  - name: vault
+    context: "vault"
+    always_run: true
+    optional: false
+    trigger: (?m)^/test( all| vault),?(s+|$)
+    rerun_command: /test vault
+    source: "pullrequest.yaml"
+  - name: kube
+    context: "kube"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| kube),?(s+|$)
+    rerun_command: /test kube
+    source: "pullrequest.yaml"
+  postsubmits:
+  - name: release
+    context: "release"
+    source: "release.yaml"
+    branches:
+    - main
+    - master

@@ -15,6 +15,10 @@ repositories:
   url: https://charts.bitnami.com/bitnami
 - name: external-secrets
   url: https://godaddy.github.io/kubernetes-external-secrets
+- name: jx3
+  url: https://storage.googleapis.com/jenkinsxio/charts
+- name: stable
+  url: https://kubernetes-charts.storage.googleapis.com
 releases:
 - chart: jenkins-x/jxboot-helmfile-resources
   version: 0.0.296
@@ -29,7 +33,13 @@ releases:
   values:
   - versionStream/charts/jx3/jenkins-x-crds/values.yaml.gotmpl
 - chart: jx3/jx-pipelines-visualizer
+  version: 0.0.44
+  name: jx-pipelines-visualizer
+  namespace: jx
+  values:
+  - versionStream/charts/jx3/jx-pipelines-visualizer/values.yaml.gotmpl
 - chart: jx3/jx-preview
+  version: 0.0.90
   name: jx-preview
   namespace: jx
 - chart: stable/nginx-ingress
