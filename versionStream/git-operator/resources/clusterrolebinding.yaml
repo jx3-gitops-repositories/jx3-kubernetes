@@ -5,7 +5,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: jx-boot-job
-  namespace: jx
+  namespace: jx-git-operator
 roleRef:
   kind: ClusterRole
   name: jx-boot-job

@@ -2,4 +2,4 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: jx-boot-job
-  namespace: jx
+  namespace: jx-git-operator
