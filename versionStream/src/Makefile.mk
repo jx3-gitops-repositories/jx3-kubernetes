@@ -203,7 +203,11 @@ pr-regen: all commit push-pr-branch
 
 .PHONY: push-pr-branch
 push-pr-branch:
+	# lets push changes to the Pull Request branch
 	jx gitops pr push --ignore-no-pr
+
+	# now lets label the Pull Request so that lighthouse keeper can auto merge it
+	jx gitops pr label --name updatebot --matches "env/.*" --ignore-no-pr
 
 .PHONY: push
 push:
