@@ -21,7 +21,7 @@ repositories:
   url: https://kubernetes-charts.storage.googleapis.com
 releases:
 - chart: jenkins-x/jxboot-helmfile-resources
-  version: 1.0.8
+  version: 1.0.10
   name: jxboot-helmfile-resources
   namespace: jx
   values:
@@ -33,13 +33,13 @@ releases:
   values:
   - versionStream/charts/jx3/jenkins-x-crds/values.yaml.gotmpl
 - chart: jx3/jx-pipelines-visualizer
-  version: 0.0.44
+  version: 0.0.49
   name: jx-pipelines-visualizer
   namespace: jx
   values:
   - versionStream/charts/jx3/jx-pipelines-visualizer/values.yaml.gotmpl
 - chart: jx3/jx-preview
-  version: 0.0.113
+  version: 0.0.114
   name: jx-preview
   namespace: jx
 - chart: stable/nginx-ingress
@@ -55,7 +55,7 @@ releases:
   values:
   - versionStream/charts/cdf/tekton-pipeline/values.yaml.gotmpl
 - chart: jenkins-x/lighthouse
-  version: 0.0.857
+  version: 0.0.860
   name: lighthouse
   namespace: jx
   values:
