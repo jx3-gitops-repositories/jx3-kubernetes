@@ -41,4 +41,4 @@ repositories:
   - https://presslabs.github.io/charts
 - prefix: stable
   urls:
-  - https://kubernetes-charts.storage.googleapis.com
+  - https://charts.helm.sh/stable
