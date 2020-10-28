@@ -18,7 +18,7 @@ repositories:
 - name: jx3
   url: https://storage.googleapis.com/jenkinsxio/charts
 - name: stable
-  url: https://kubernetes-charts.storage.googleapis.com
+  url: https://charts.helm.sh/stable
 releases:
 - chart: jenkins-x/jxboot-helmfile-resources
   version: 1.0.10
