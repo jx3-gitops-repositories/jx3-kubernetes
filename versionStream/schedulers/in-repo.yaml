@@ -21,6 +21,8 @@ spec:
     squash_label: ""
     target_url: http://dashboard{{ .Requirements.ingress.namespaceSubDomain }}{{ .Requirements.ingress.domain
       }}
+  # lets look in the source repository for trigger files
+  in_repo: true
   plugins:
     entries:
     - approve
