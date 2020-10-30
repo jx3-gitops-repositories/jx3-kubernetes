@@ -18,26 +18,6 @@ pipeline:
     annotations: {}
 {{- end }}
 
-controllerrole:
-  enabled: false
-
-controllerbuild:
-  image:
-    repository: gcr.io/jenkinsxio/jx-build-controller
-    tag: 0.0.12
-
-  serviceaccount:
-    dummy: value
-{{- if or (eq .Values.jxRequirements.cluster.provider "gke") (eq .Values.jxRequirements.cluster.provider "eks") }}
-    customName: jenkins-x-controllerbuild
-    {{- if eq .Values.jxRequirements.cluster.provider "gke" }}
-    annotations:
-      iam.gke.io/gcp-service-account: {{ .Values.jxRequirements.cluster.clusterName }}-bc@{{ .Values.jxRequirements.cluster.project }}.iam.gserviceaccount.com
-    {{- else if eq .Values.jxRequirements.cluster.provider "eks" }}
-    annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.jxRequirements.cluster.project }}:role/{{ .Values.jxRequirements.cluster.clusterName }}-build-ctrl
-    {{- end }}
-{{- end }}
 
 {{- if eq .Values.jxRequirements.cluster.provider "eks" }}
 podTemplates:
