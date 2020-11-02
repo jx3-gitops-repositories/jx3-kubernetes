@@ -55,7 +55,7 @@ releases:
   values:
   - versionStream/charts/cdf/tekton-pipeline/values.yaml.gotmpl
 - chart: jenkins-x/lighthouse
-  version: 0.0.866
+  version: 0.0.869
   name: lighthouse
   namespace: jx
   values:
