@@ -7,39 +7,55 @@ metadata:
   name: release
 spec:
   pipelineSpec:
+    params:
+    - default: master
+      description: git revision to checkout (branch, tag, sha, ref…)
+      name: revision
+      type: string
     tasks:
-    - name: changelog
+    - name: from-build-pack
+      params:
+      - name: revision
+        value: $(params.revision)
       resources: {}
       taskSpec:
         metadata: {}
+        params:
+        - default: master
+          description: git revision to checkout (branch, tag, sha, ref…)
+          name: revision
+          type: string
         stepTemplate:
+          env:
+          - name: PIPELINE_KIND
+            value: release
+          - name: JX_BATCH_MODE
+            value: "true"
+          - name: VERSION
+            value: $(inputs.params.version)
           name: ""
-          resources: {}
+          resources:
+            requests:
+              cpu: 400m
+              memory: 512Mi
           volumeMounts:
+          - mountPath: /home/jenkins
+            name: workspace-volume
           - mountPath: /etc/podinfo
             name: podinfo
             readOnly: true
           workingDir: /workspace/source
         steps:
-        - image: gcr.io/jenkinsxio/jx-cli:latest
-          name: jx-variables
+        - args:
+          - pr
+          command:
+          - make
+          image: gcr.io/jenkinsxio/jx-cli:latest
+          name: make-pr
           resources: {}
-          script: |
-            #!/usr/bin/env bash
-            jx gitops variables
-        - image: gcr.io/jenkinsxio/builder-jx:0.1.792
-          name: changelog
-          resources: {}
-          script: |
-            #!/usr/bin/env bash
-            jx step changelog --verbose --version ${VERSION} --rev v${VERSION}
-        - image: gcr.io/jenkinsxio/jx-cli:latest
-          name: promote
-          resources: {}
-          script: |
-            #!/bin/sh
-            ./.lighthouse/jenkins-x/promote.sh
         volumes:
+        - emptyDir: {}
+          name: workspace-volume
         - downwardAPI:
             items:
             - fieldRef:
