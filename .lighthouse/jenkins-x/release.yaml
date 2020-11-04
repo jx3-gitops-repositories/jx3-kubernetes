@@ -1,6 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
+<<<<<<< HEAD
   labels:
     branch: master
     build: "1"
@@ -8,42 +9,31 @@ metadata:
     owner: jenkins-x-quickstarts
     repository: node-http
   name: jenkins-x-quickstarts-node-http-nm6dx-1
+=======
+  annotations:
+    lighthouse.jenkins-x.io/prependStepsURL: https://raw.githubusercontent.com/jenkins-x/jx3-pipeline-catalog/4a22dee8a67f66e5012729808de081d2f4d0e715/tasks/git-clone/git-clone-pr.yaml
+  creationTimestamp: null
+  name: release
+>>>>>>> update .lighthouse (https://github.com/jenkins-x/jx3-pipeline-catalog) from master (6b21c9efd838e04206df1e5b6ccc7cc62b224bf6) to master (0c94850790a73e4950f6fd63ef001e027c57f450)
 spec:
   pipelineSpec:
     params:
-    - description: git url to clone
-      name: REPO_URL
-      type: string
     - default: master
       description: git revision to checkout (branch, tag, sha, ref…)
       name: revision
       type: string
-    - default: source
-      description: subdirectory inside of /workspace to clone the git repo
-      name: subdirectory
-      type: string
     tasks:
     - name: from-build-pack
       params:
-      - name: REPO_URL
-        value: $(params.REPO_URL)
       - name: revision
         value: $(params.revision)
-      - name: subdirectory
-        value: $(params.subdirectory)
       resources: {}
       taskSpec:
+        metadata: {}
         params:
-        - description: git url to clone
-          name: REPO_URL
-          type: string
         - default: master
           description: git revision to checkout (branch, tag, sha, ref…)
           name: revision
-          type: string
-        - default: source
-          description: subdirectory inside of /workspace to clone the git repo
-          name: subdirectory
           type: string
         stepTemplate:
           env:
@@ -67,6 +57,7 @@ spec:
           workingDir: /workspace/source
         steps:
         - args:
+<<<<<<< HEAD
           - -c
           - 'mkdir -p $HOME; git config --global --add user.name ${GIT_AUTHOR_NAME:-jenkins-x-bot};
             git config --global --add user.email ${GIT_AUTHOR_EMAIL:-jenkins-x@googlegroups.com};
@@ -102,6 +93,8 @@ spec:
           name: setup-builder-home
           resources: {}
         - args:
+=======
+>>>>>>> update .lighthouse (https://github.com/jenkins-x/jx3-pipeline-catalog) from master (6b21c9efd838e04206df1e5b6ccc7cc62b224bf6) to master (0c94850790a73e4950f6fd63ef001e027c57f450)
           - pr
           command:
           - make
@@ -117,9 +110,13 @@ spec:
                 fieldPath: metadata.labels
               path: labels
           name: podinfo
+<<<<<<< HEAD
   podTemplate:
     hostNetwork: false
     schedulerName: ""
+=======
+  podTemplate: {}
+>>>>>>> update .lighthouse (https://github.com/jenkins-x/jx3-pipeline-catalog) from master (6b21c9efd838e04206df1e5b6ccc7cc62b224bf6) to master (0c94850790a73e4950f6fd63ef001e027c57f450)
   serviceAccountName: tekton-bot
   timeout: 240h0m0s
 status: {}
