@@ -13,6 +13,15 @@ ingress:
   hosts:
   - "dashboard{{ .Values.jxRequirements.ingress.namespaceSubDomain | default "." }}{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}"
 
+  tls:
+    enabled: {{ .Values.jxRequirements.ingress.tls.enabled }}
+    secrets:
+{{- if .Values.jxRequirements.ingress.tls.production }}
+      "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-p": {}
+{{- else }}
+      "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-s": {}
+{{- end }}
+
 serviceAccount:
   annotations:
 {{- if eq .Values.jxRequirements.cluster.provider "gke" }}
