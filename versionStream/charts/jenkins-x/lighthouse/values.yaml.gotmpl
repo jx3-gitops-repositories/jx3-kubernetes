@@ -46,3 +46,6 @@ user: "{{ .Values.jxRequirements.pipelineUser.username }}"
 {{- end }}
 
 oauthToken: "{{ .Values.secrets.pipelineUser.token }}"
+
+webhooks:
+  customDeploymentTriggerCommand: "jx"
