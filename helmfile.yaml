@@ -21,7 +21,7 @@ repositories:
   url: https://charts.helm.sh/stable
 releases:
 - chart: jenkins-x/jxboot-helmfile-resources
-  version: 1.0.12
+  version: 1.0.14
   name: jxboot-helmfile-resources
   namespace: jx
   values:
@@ -55,7 +55,7 @@ releases:
   values:
   - versionStream/charts/cdf/tekton-pipeline/values.yaml.gotmpl
 - chart: jenkins-x/lighthouse
-  version: 0.0.873
+  version: 0.0.874
   name: lighthouse
   namespace: jx
   values:
