@@ -39,8 +39,10 @@ vault:
 clusterName: "{{ .Values.jxRequirements.cluster.clusterName }}"
 {{- end }}
 
-{{- if and (hasKey .Values.jxRequirements "pipelineUser") (hasKey .Values.jxRequirements.pipelineUser "username") }}
+{{- if hasKey .Values.jxRequirements "pipelineUser" }}
+  {{- if hasKey .Values.jxRequirements.pipelineUser "username" }}
 user: "{{ .Values.jxRequirements.pipelineUser.username }}"
+  {{- end }}
 {{- end }}
 
 oauthToken: "{{ .Values.secrets.pipelineUser.token }}"

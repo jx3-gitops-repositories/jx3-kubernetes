@@ -31,13 +31,15 @@ podTemplates:
 
 secrets:
 {{- if eq .Values.jxRequirements.cluster.provider "eks" }}
-  {{- if .Values.jxRequirements.cluster.registry }}
+  {{- if hasKey .Values.jxRequirements.cluster "registry" }}
+    {{- if .Values.jxRequirements.cluster.registry }}
   dockerConfig: |-
     {
       "credHelpers": {
         "{{ .Values.jxRequirements.cluster.registry }}": "ecr-login"
       }
     }
+    {{- end }}
   {{- else }}
   dockerConfig: |-
     {
@@ -45,13 +47,15 @@ secrets:
     }
   {{- end }}
 {{- else if eq .Values.jxRequirements.cluster.provider "aks" }}
-  {{- if .Values.jxRequirements.cluster.registry }}
+  {{- if hasKey .Values.jxRequirements.cluster "registry" }}
+    {{- if .Values.jxRequirements.cluster.registry }}
   dockerConfig: |-
     {
       "credHelpers": {
         "{{ .Values.jxRequirements.cluster.registry }}": "acr-env"
       }
     }
+    {{- end }}
   {{- else }}
   dockerConfig: |-
     {
