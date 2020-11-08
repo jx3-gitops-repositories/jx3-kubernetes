@@ -16,7 +16,10 @@ google:
 {{- else if eq .Values.jxRequirements.cluster.provider "aks" }}
 provider: azure
 azure:
-  secretName: azure-external-dns-secret
+  resourceGroup: {{ .Values.jxRequirements.cluster.azure.dns.resourceGroup }}
+  tenantId: {{ .Values.jxRequirements.cluster.azure.dns.tenantId }}
+  subscriptionId: {{ .Values.jxRequirements.cluster.azure.dns.subscriptionId }}
+  useManagedIdentityExtension: true
 {{- end }}
 
 rbac:
