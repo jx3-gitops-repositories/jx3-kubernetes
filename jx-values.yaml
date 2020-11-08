@@ -80,3 +80,9 @@ jxRequirements:
     ref: master
     url: https://github.com/jenkins-x/jxr-versions.git
   webhook: lighthouse
+jxRequirementsIngressExternalDNS:
+  enabled: false
+jxRequirementsIngressTLS:
+  enabled: false
+jxRequirementsVault:
+  enabled: false
