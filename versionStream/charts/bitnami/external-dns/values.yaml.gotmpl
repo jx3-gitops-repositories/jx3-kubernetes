@@ -35,8 +35,10 @@ serviceAccount:
 {{- end }}
 
 domainFilters:
+- {{ .Values.jxRequirements.ingress.domain }}
 {{- range .Values.jxRequirements.environments }}
 {{- if .ingress.domain }}
 - "{{ .ingress.domain }}"
 {{- end }}
 {{- end }}
+
