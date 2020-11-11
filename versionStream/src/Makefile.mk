@@ -114,11 +114,11 @@ lint:
 
 .PHONY: dev-ns verify-ingress
 verify-ingress:
-	jx verify ingress -b
+	jx verify ingress
 
 .PHONY: dev-ns verify-ingress-ignore
 verify-ingress-ignore:
-	-jx verify ingress -b
+	-jx verify ingress
 
 .PHONY: dev-ns verify-install
 verify-install:
