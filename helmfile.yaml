@@ -71,7 +71,7 @@ releases:
   values:
   - versionStream/charts/jx3/jx-build-controller/values.yaml.gotmpl
 - chart: jx3/local-external-secrets
-  version: 0.0.4
+  version: 0.0.5
   name: local-external-secrets
   namespace: jx
 templates: {}
