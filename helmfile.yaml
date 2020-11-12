@@ -5,8 +5,6 @@ environments:
     - jx-values.yaml
     - versionStream/src/fake-secrets.yaml.gotmpl
 repositories:
-- name: doesnotexist
-  url: https://storage.googleapis.com/chartmuseum.jenkins-x.io
 - name: cdf
   url: https://cdfoundation.github.io/tekton-helm-chart
 - name: jenkins-x
