@@ -1,2 +1,0 @@
-# disable by default as its often too big!
-enableSchedulerValidation: false

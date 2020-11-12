@@ -19,13 +19,13 @@ repositories:
   url: https://charts.helm.sh/stable
 releases:
 - chart: jenkins-x/jxboot-helmfile-resources
-  version: 1.0.14
+  version: 1.0.16
   name: jxboot-helmfile-resources
   namespace: jx
   values:
   - versionStream/charts/jenkins-x/jxboot-helmfile-resources/values.yaml.gotmpl
 - chart: jx3/jenkins-x-crds
-  version: 1.0.7
+  version: 3.0.5
   name: jenkins-x-crds
   namespace: jx
   values:

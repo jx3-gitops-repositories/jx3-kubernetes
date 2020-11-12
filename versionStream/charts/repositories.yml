@@ -33,9 +33,6 @@ repositories:
 - prefix: jx3
   urls:
   - https://storage.googleapis.com/jenkinsxio/charts
-- prefix: jx-labs
-  urls:
-  - https://storage.googleapis.com/jenkinsxio-labs-private/charts
 - prefix: presslabs
   urls:
   - https://presslabs.github.io/charts
