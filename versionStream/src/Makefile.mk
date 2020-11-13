@@ -4,6 +4,9 @@ OUTPUT_DIR := config-root
 
 VAULT_ADDR ?= https://vault.secret-infra:8200
 
+# You can disable force mode on kubectl apply by modifying this line:
+KUBECTL_APPLY_FLAGS ?= --force
+
 # NOTE to enable debug logging of 'helmfile template' to diagnose any issues with values.yaml templating
 # you can run:
 #
@@ -12,12 +15,6 @@ VAULT_ADDR ?= https://vault.secret-infra:8200
 # or change the next line to:
 # HELMFILE_TEMPLATE_FLAGS ?= --debug
 HELMFILE_TEMPLATE_FLAGS ?=
-
-# If you have upgrade issues with backwards incompatible YAML changes in your charts
-# this option can be useful - uncomment the following line:
-#
-# KUBECTL_APPLY_FLAGS ?= --force
-KUBECTL_APPLY_FLAGS ?=
 
 .PHONY: clean
 clean:
