@@ -13,6 +13,12 @@ VAULT_ADDR ?= https://vault.secret-infra:8200
 # HELMFILE_TEMPLATE_FLAGS ?= --debug
 HELMFILE_TEMPLATE_FLAGS ?=
 
+# If you have upgrade issues with backwards incompatible YAML changes in your charts
+# this option can be useful - uncomment the following line:
+#
+# KUBECTL_APPLY_FLAGS ?= --force
+KUBECTL_APPLY_FLAGS ?=
+
 .PHONY: clean
 clean:
 	rm -rf build $(OUTPUT_DIR)
@@ -169,8 +175,8 @@ apply: regen-check kubectl-apply verify
 .PHONY: kubectl-apply
 kubectl-apply:
 	# NOTE be very careful about these 2 labels as getting them wrong can remove stuff in you cluster!
-	kubectl apply --prune -l=gitops.jenkins-x.io/pipeline=cluster    -R -f $(OUTPUT_DIR)/cluster
-	kubectl apply --prune -l=gitops.jenkins-x.io/pipeline=namespaces -R -f $(OUTPUT_DIR)/namespaces
+	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=cluster    -R -f $(OUTPUT_DIR)/cluster
+	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=namespaces -R -f $(OUTPUT_DIR)/namespaces
 
 	# lets apply any infrastructure specific labels or annotations to enable IAM roles on ServiceAccounts etc
 	jx gitops postprocess
