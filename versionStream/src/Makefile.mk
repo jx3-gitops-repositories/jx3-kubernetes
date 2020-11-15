@@ -89,9 +89,10 @@ post-build:
 
 	# lets add the kubectl-apply prune annotations
 	#
-	# NOTE be very careful about these 2 labels as getting them wrong can remove stuff in you cluster!
-	jx gitops label --dir $(OUTPUT_DIR)/cluster    gitops.jenkins-x.io/pipeline=cluster
-	jx gitops label --dir $(OUTPUT_DIR)/namespaces gitops.jenkins-x.io/pipeline=namespaces
+	# NOTE be very careful about these 3 labels as getting them wrong can remove stuff in you cluster!
+	jx gitops label --dir $(OUTPUT_DIR)/cluster                   gitops.jenkins-x.io/pipeline=cluster
+	jx gitops label --dir $(OUTPUT_DIR)/customresourcedefinitions gitops.jenkins-x.io/pipeline=customresourcedefinitions
+	jx gitops label --dir $(OUTPUT_DIR)/namespaces                gitops.jenkins-x.io/pipeline=namespaces
 
 	# lets label all Namespace resources with the main namespace which creates them and contains the Environment resources
 	jx gitops label --dir $(OUTPUT_DIR)/cluster --kind=Namespace team=jx
@@ -172,8 +173,9 @@ apply: regen-check kubectl-apply verify
 .PHONY: kubectl-apply
 kubectl-apply:
 	# NOTE be very careful about these 2 labels as getting them wrong can remove stuff in you cluster!
-	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=cluster    -R -f $(OUTPUT_DIR)/cluster
-	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=namespaces -R -f $(OUTPUT_DIR)/namespaces
+	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=customresourcedefinitions -R -f $(OUTPUT_DIR)/customresourcedefinitions
+	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=cluster                   -R -f $(OUTPUT_DIR)/cluster
+	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=namespaces                -R -f $(OUTPUT_DIR)/namespaces
 
 	# lets apply any infrastructure specific labels or annotations to enable IAM roles on ServiceAccounts etc
 	jx gitops postprocess
