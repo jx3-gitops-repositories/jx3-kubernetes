@@ -168,7 +168,12 @@ regen-phase-2: verify-ingress-ignore all verify-ignore secrets-populate commit
 regen-phase-3: push secrets-wait
 
 .PHONY: apply
-apply: regen-check kubectl-apply verify
+apply: regen-check kubectl-apply verify write-completed
+
+.PHONY: write-completed
+write-completed:
+	echo completed > jx-boot-completed.txt
+	echo wrote completed file
 
 .PHONY: kubectl-apply
 kubectl-apply:

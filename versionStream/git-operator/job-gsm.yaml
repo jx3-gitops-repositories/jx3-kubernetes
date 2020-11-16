@@ -66,9 +66,27 @@ spec:
         - apply
         command:
         - make
+        env:
+        - name: JX_SECRET_SIDECAR
+          value: gsm
+        - name: JX_SECRET_TMP_DIR
+          value: /workspace/source/.jx-secrets
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         image: gcr.io/jenkinsxio/jx-boot:3.0.734
         imagePullPolicy: Always
         name: job
+        volumeMounts:
+        - mountPath: /workspace
+          name: workspace-volume
+        workingDir: /workspace/source
+      - command:
+        - versionStream/src/wait-for-complete.sh
+        image: google/cloud-sdk:slim
+        imagePullPolicy: Always
+        name: gsm
         volumeMounts:
         - mountPath: /workspace
           name: workspace-volume
