@@ -3,7 +3,7 @@ enabled: true
 engines:
   tekton: true
 
-hmacToken: "{{ .Values.secrets.hmacToken | default "123abc" }}"
+hmacToken: "{{ .Values.jx.secrets.hmacToken | default "123abc" }}"
 
 git:
   kind: {{ .Values.jxRequirements.cluster.gitKind | default "github" }}
@@ -45,7 +45,7 @@ user: "{{ .Values.jxRequirements.pipelineUser.username }}"
   {{- end }}
 {{- end }}
 
-oauthToken: "{{ .Values.secrets.pipelineUser.token }}"
+oauthToken: "{{ .Values.jx.secrets.pipelineUser.token }}"
 
 webhooks:
   customDeploymentTriggerCommand: "jx"

@@ -109,13 +109,13 @@ secrets:
         <servers>
             <server>
                 <id>local-nexus</id>
-                <username>{{ .Values.secrets.adminUser.username }}</username>
-                <password>{{ .Values.secrets.adminUser.password }}</password>
+                <username>{{ .Values.jx.secrets.adminUser.username }}</username>
+                <password>{{ .Values.jx.secrets.adminUser.password }}</password>
             </server>
             <server>
                 <id>nexus</id>
-                <username>{{ .Values.secrets.adminUser.username }}</username>
-                <password>{{ .Values.secrets.adminUser.password }}</password>
+                <username>{{ .Values.jx.secrets.adminUser.username }}</username>
+                <password>{{ .Values.jx.secrets.adminUser.password }}</password>
             </server>
             <server>
                 <id>docker.io</id>
@@ -177,7 +177,7 @@ secrets:
                 <id>release</id>
                 <properties>
                     <gpg.executable>gpg</gpg.executable>
-                    <!-- TODO use: .Values.secrets.gpg.passphrase when it is always populated -->
+                    <!-- TODO use: .Values.jx.secrets.gpg.passphrase when it is always populated -->
                     <gpg.passphrase></gpg.passphrase>
                 </properties>
             </profile>

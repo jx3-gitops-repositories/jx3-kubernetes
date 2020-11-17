@@ -3,8 +3,8 @@ webhook:
 
 auth:
   git:
-    username: "{{ .Values.secrets.pipelineUser.username }}"
-    password: "{{ .Values.secrets.pipelineUser.token }}"
+    username: "{{ .Values.jx.secrets.pipelineUser.username }}"
+    password: "{{ .Values.jx.secrets.pipelineUser.token }}"
     url: {{ .Values.jxRequirements.cluster.gitServer | default "https://github.com" }}
   docker:
     # lets use tekton config.json style secrets:

@@ -15,8 +15,8 @@ env:
     AUTH_ANONYMOUS_GET: true
     DISABLE_API: false
   secret:
-    BASIC_AUTH_USER: {{ .Values.secrets.adminUser.username }}
-    BASIC_AUTH_PASS: {{ .Values.secrets.adminUser.password }}
+    BASIC_AUTH_USER: {{ .Values.jx.secrets.adminUser.username }}
+    BASIC_AUTH_PASS: {{ .Values.jx.secrets.adminUser.password }}
 image:
   tag: v0.7.1
 resources:
