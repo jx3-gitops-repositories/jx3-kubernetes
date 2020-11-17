@@ -10,7 +10,7 @@ repositories:
   - https://cdfoundation.github.io/tekton-helm-chart
 - prefix: external-secrets
   urls:
-  - https://godaddy.github.io/kubernetes-external-secrets
+  - https://external-secrets.github.io/kubernetes-external-secrets
 - prefix: flagger
   urls:
   - https://flagger.app

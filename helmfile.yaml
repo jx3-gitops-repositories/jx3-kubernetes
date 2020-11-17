@@ -12,7 +12,7 @@ repositories:
 - name: bitnami
   url: https://charts.bitnami.com/bitnami
 - name: external-secrets
-  url: https://godaddy.github.io/kubernetes-external-secrets
+  url: https://external-secrets.github.io/kubernetes-external-secrets
 - name: jx3
   url: https://storage.googleapis.com/jenkinsxio/charts
 - name: stable
