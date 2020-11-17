@@ -47,7 +47,7 @@ releases:
   values:
   - versionStream/charts/stable/nginx-ingress/values.yaml.gotmpl
 - chart: cdf/tekton-pipeline
-  version: 0.17.3
+  version: 0.18.0-1
   name: tekton-pipeline
   namespace: tekton-pipelines
   values:
