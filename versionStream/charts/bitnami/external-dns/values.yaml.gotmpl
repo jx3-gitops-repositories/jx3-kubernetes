@@ -31,7 +31,7 @@ serviceAccount:
 {{- else if eq .Values.jxRequirements.cluster.provider "eks" }}
 serviceAccount:
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.jxRequirements.cluster.project }}:role/{{ .Values.jxRequirements.cluster.clusterName }}-{{ .Values.jxRequirements.cluster.namespace }}-external-dns
+    eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.jxRequirements.cluster.project }}:role/{{ .Values.jxRequirements.cluster.clusterName }}-external-dns
 {{- end }}
 
 domainFilters:
