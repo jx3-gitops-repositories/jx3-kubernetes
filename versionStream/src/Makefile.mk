@@ -230,4 +230,4 @@ release: lint
 .PHONY: dev-ns
 dev-ns:
 	@echo changing to the jx namespace to verify
-	jx ns jx
+	jx ns jx --quiet
