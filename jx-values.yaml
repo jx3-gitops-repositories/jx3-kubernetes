@@ -8,7 +8,7 @@ jxRequirements:
       gitRef: master
       gitURL: https://github.com/jenkins-x/jx3-pipeline-catalog.git
   cluster:
-    chartRepository: http://bucketrepo/bucketrepo/charts
+    chartRepository: http://bucketrepo.jx.svc.cluster.local/bucketrepo/charts
     clusterName: kind
     devEnvApprovers:
     - todo

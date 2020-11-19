@@ -175,6 +175,10 @@ write-completed:
 	echo completed > jx-boot-completed.txt
 	echo wrote completed file
 
+.PHONY: failed
+failed: write-completed
+	exit 1
+
 .PHONY: kubectl-apply
 kubectl-apply:
 	# NOTE be very careful about these 2 labels as getting them wrong can remove stuff in you cluster!
