@@ -2,6 +2,13 @@ controller:
   replicaCount: 3
   extraArgs:
     publish-service: nginx/nginx-ingress-controller
+{{- if .Values.jxRequirements.ingress.tls.enabled }}
+{{- if .Values.jxRequirements.ingress.tls.production }}
+    default-ssl-certificate: "jx/tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-p"
+{{- else }}
+    default-ssl-certificate: "jx/tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-s"
+{{- end }}
+{{- end }}
   service:
     omitClusterIP: true
   {{- if eq .Values.jxRequirements.cluster.provider "kind" }}
