@@ -24,7 +24,7 @@ spec:
         env:
         - name: XDG_CONFIG_HOME
           value: /workspace/xdg_config
-        image: gcr.io/jenkinsxio/jx-boot:3.0.754
+        image: gcr.io/jenkinsxio/jx-boot:3.0.755
         name: git-clone
         volumeMounts:
         - mountPath: /workspace
@@ -38,7 +38,7 @@ spec:
         env:
         - name: XDG_CONFIG_HOME
           value: /workspace/xdg_config
-        image: gcr.io/jenkinsxio/jx-boot:3.0.734
+        image: gcr.io/jenkinsxio/jx-boot:3.0.755
         imagePullPolicy: Always
         name: job
         volumeMounts:
