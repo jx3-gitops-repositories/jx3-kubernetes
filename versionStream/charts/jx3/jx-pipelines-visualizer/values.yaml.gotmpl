@@ -22,6 +22,12 @@ ingress:
       "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-s": {}
 {{- end }}
 
+{{- if eq .Values.jxRequirements.cluster.provider "eks" }}
+pod:
+  env:
+    AWS_REGION: {{ .Values.jxRequirements.cluster.region }}
+{{- end }}
+
 serviceAccount:
   annotations:
 {{- if eq .Values.jxRequirements.cluster.provider "gke" }}

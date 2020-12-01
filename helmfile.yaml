@@ -35,7 +35,7 @@ releases:
   forceNamespace: ""
   skipDeps: null
 - chart: jx3/jx-pipelines-visualizer
-  version: 0.0.52
+  version: 0.0.53
   name: jx-pipelines-visualizer
   namespace: jx
   values:
