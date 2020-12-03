@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/jenkins-x/jx-api/pkg/config"
+	config "github.com/jenkins-x/jx-api/v4/pkg/apis/core/v4beta1"
 	"github.com/jenkins-x/jx-secret/pkg/cmd/populate/templatertesting"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -60,71 +60,12 @@ func TestSecretSchemaTemplates(t *testing.T) {
 	runner := templatertesting.Runner{
 		TestCases: []templatertesting.TestCase{
 			{
-				TestName:   "docker-aks",
-				ObjectName: "jenkins-docker-cfg",
-				Property:   "config.json",
-				Format:     "json",
+				TestName:   "bucketrepo",
+				ObjectName: "bucketrepo-config",
+				Property:   "config.yaml",
+				Format:     "yaml",
 				Requirements: &config.RequirementsConfig{
-					Repository: "nexus",
-					Cluster: config.ClusterConfig{
-						Provider:    "aks",
-						Registry:    "my-registry",
-						ProjectID:   "myproject",
-						ClusterName: "mycluster",
-					},
-				},
-			},
-			{
-				TestName:   "docker-aws",
-				ObjectName: "jenkins-docker-cfg",
-				Property:   "config.json",
-				Format:     "json",
-				Requirements: &config.RequirementsConfig{
-					Repository: "nexus",
-					Cluster: config.ClusterConfig{
-						Provider:    "aws",
-						Registry:    "my-registry",
-						ProjectID:   "myproject",
-						ClusterName: "mycluster",
-					},
-				},
-			},
-			{
-				TestName:   "docker-eks",
-				ObjectName: "jenkins-docker-cfg",
-				Property:   "config.json",
-				Format:     "json",
-				Requirements: &config.RequirementsConfig{
-					Repository: "nexus",
-					Cluster: config.ClusterConfig{
-						Provider:    "eks",
-						Registry:    "my-registry",
-						ProjectID:   "myproject",
-						ClusterName: "mycluster",
-					},
-				},
-			},
-			{
-				TestName:   "docker-gke",
-				ObjectName: "jenkins-docker-cfg",
-				Property:   "config.json",
-				Format:     "json",
-				Requirements: &config.RequirementsConfig{
-					Repository: "nexus",
-					Cluster: config.ClusterConfig{
-						Provider:    "gke",
-						ProjectID:   "myproject",
-						ClusterName: "mycluster",
-					},
-				},
-			},
-			{
-				TestName:   "docker-minikube",
-				ObjectName: "jenkins-docker-cfg",
-				Property:   "config.json",
-				Format:     "json",
-				Requirements: &config.RequirementsConfig{
-					Repository: "nexus",
+					Repository: "bucketrepo",
 					Cluster: config.ClusterConfig{
 						Provider:    "minikube",
 						ProjectID:   "myproject",
@@ -132,6 +73,83 @@ func TestSecretSchemaTemplates(t *testing.T) {
 					},
 				},
 			},
+
+			/*
+				{
+					TestName:   "docker-aks",
+					ObjectName: "jenkins-docker-cfg",
+					Property:   "config.json",
+					Format:     "json",
+					Requirements: &config.RequirementsConfig{
+						Repository: "nexus",
+						Cluster: config.ClusterConfig{
+							Provider:    "aks",
+							Registry:    "my-registry",
+							ProjectID:   "myproject",
+							ClusterName: "mycluster",
+						},
+					},
+				},
+				{
+					TestName:   "docker-aws",
+					ObjectName: "jenkins-docker-cfg",
+					Property:   "config.json",
+					Format:     "json",
+					Requirements: &config.RequirementsConfig{
+						Repository: "nexus",
+						Cluster: config.ClusterConfig{
+							Provider:    "aws",
+							Registry:    "my-registry",
+							ProjectID:   "myproject",
+							ClusterName: "mycluster",
+						},
+					},
+				},
+				{
+					TestName:   "docker-eks",
+					ObjectName: "jenkins-docker-cfg",
+					Property:   "config.json",
+					Format:     "json",
+					Requirements: &config.RequirementsConfig{
+						Repository: "nexus",
+						Cluster: config.ClusterConfig{
+							Provider:    "eks",
+							Registry:    "my-registry",
+							ProjectID:   "myproject",
+							ClusterName: "mycluster",
+						},
+					},
+				},
+
+				{
+					TestName:   "docker-gke",
+					ObjectName: "jenkins-docker-cfg",
+					Property:   "config.json",
+					Format:     "json",
+					Requirements: &config.RequirementsConfig{
+						Repository: "nexus",
+						Cluster: config.ClusterConfig{
+							Provider:    "gke",
+							ProjectID:   "myproject",
+							ClusterName: "mycluster",
+						},
+					},
+				},
+				{
+					TestName:   "docker-minikube",
+					ObjectName: "jenkins-docker-cfg",
+					Property:   "config.json",
+					Format:     "json",
+					Requirements: &config.RequirementsConfig{
+						Repository: "nexus",
+						Cluster: config.ClusterConfig{
+							Provider:    "minikube",
+							ProjectID:   "myproject",
+							ClusterName: "mycluster",
+						},
+					},
+				},
+			*/
 			{
 				TestName:   "nexus",
 				ObjectName: "jenkins-maven-settings",
@@ -141,20 +159,6 @@ func TestSecretSchemaTemplates(t *testing.T) {
 					Repository: "nexus",
 					Cluster: config.ClusterConfig{
 						Provider:    "gke",
-						ProjectID:   "myproject",
-						ClusterName: "mycluster",
-					},
-				},
-			},
-			{
-				TestName:   "bucketrepo",
-				ObjectName: "jenkins-maven-settings",
-				Property:   "settings.xml",
-				Format:     "xml",
-				Requirements: &config.RequirementsConfig{
-					Repository: "nexus",
-					Cluster: config.ClusterConfig{
-						Provider:    "minikube",
 						ProjectID:   "myproject",
 						ClusterName: "mycluster",
 					},
