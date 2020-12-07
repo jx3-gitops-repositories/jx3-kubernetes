@@ -7,6 +7,9 @@ VAULT_ADDR ?= https://vault.secret-infra:8200
 # You can disable force mode on kubectl apply by modifying this line:
 KUBECTL_APPLY_FLAGS ?= --force
 
+SOURCE_DIR ?= /workspace/source
+
+
 # NOTE to enable debug logging of 'helmfile template' to diagnose any issues with values.yaml templating
 # you can run:
 #
@@ -51,9 +54,15 @@ fetch: init
 	# this line avoids the next helmfile command failing...
 	helm repo add jx http://chartmuseum.jenkins-x.io
 
+	#sleep infinity
 	# generate the yaml from the charts in helmfile.yaml and moves them to the right directory tree (cluster or namespaces/foo)
-	jx gitops helmfile template $(HELMFILE_TEMPLATE_FLAGS) --args="--values=jx-values.yaml --values=versionStream/src/fake-secrets.yaml.gotmpl --values=imagePullSecrets.yaml" --output-dir $(OUTPUT_DIR)
+	#jx gitops helmfile template $(HELMFILE_TEMPLATE_FLAGS) --args="--values=/workspace/source/jx-values.yaml --values=/workspace/source/versionStream/src/fake-secrets.yaml.gotmpl --values=/workspace/source/imagePullSecrets.yaml" --output-dir $(OUTPUT_DIR)
+	helmfile --file helmfile.yaml template --include-crds --values=$(SOURCE_DIR)/jx-values.yaml --values=$(SOURCE_DIR)/versionStream/src/fake-secrets.yaml.gotmpl --values=$(SOURCE_DIR)/imagePullSecrets.yaml --output-dir-template /tmp/generate/{{.Release.Namespace}}
 	
+	jx gitops split --dir /tmp/generate
+	jx gitops rename --dir /tmp/generate
+	jx gitops helmfile move --output-dir config-root --dir /tmp/generate
+
 	# convert k8s Secrets => ExternalSecret resources using secret mapping + schemas
 	# see: https://github.com/jenkins-x/jx-secret#mappings
 	jx secret convert --source-dir $(OUTPUT_DIR)
@@ -65,7 +74,8 @@ fetch: init
 	jx gitops namespace --dir-mode --dir $(OUTPUT_DIR)/namespaces
 
 	# lets publish the requirements metadata into the dev Environment.Spec.TeamSettings.BootRequirements so its easy to access them via CRDs
-	jx gitops requirements publish
+	# we dont use team settings on the dev environment anymore so maybe we can get rid of this?
+	# jx gitops requirements publish
 
 .PHONY: build
 # uncomment this line to enable kustomize

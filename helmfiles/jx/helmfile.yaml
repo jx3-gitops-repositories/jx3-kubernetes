@@ -1,0 +1,68 @@
+filepath: ""
+environments:
+  default:
+    values:
+    - ../../jx-values.yaml
+    - ../../versionStream/src/fake-secrets.yaml.gotmpl
+namespace: jx
+repositories:
+- name: jenkins-x
+  url: https://storage.googleapis.com/chartmuseum.jenkins-x.io
+- name: jx3
+  url: https://storage.googleapis.com/jenkinsxio/charts
+releases:
+- chart: jenkins-x/jxboot-helmfile-resources
+  version: 1.0.17
+  name: jxboot-helmfile-resources
+  values:
+  - ../../versionStream/charts/jenkins-x/jxboot-helmfile-resources/values.yaml.gotmpl
+  forceNamespace: ""
+  skipDeps: null
+- chart: jx3/jenkins-x-crds
+  version: 3.0.5
+  name: jenkins-x-crds
+  values:
+  - ../../versionStream/charts/jx3/jenkins-x-crds/values.yaml.gotmpl
+  forceNamespace: ""
+  skipDeps: null
+- chart: jx3/jx-pipelines-visualizer
+  version: 0.0.53
+  name: jx-pipelines-visualizer
+  values:
+  - ../../versionStream/charts/jx3/jx-pipelines-visualizer/values.yaml.gotmpl
+  forceNamespace: ""
+  skipDeps: null
+- chart: jx3/jx-preview
+  version: 0.0.116
+  name: jx-preview
+  forceNamespace: ""
+  skipDeps: null
+- chart: jenkins-x/lighthouse
+  version: 0.0.879
+  name: lighthouse
+  values:
+  - ../../versionStream/charts/jenkins-x/lighthouse/values.yaml.gotmpl
+  forceNamespace: ""
+  skipDeps: null
+- chart: jenkins-x/bucketrepo
+  version: 0.1.47
+  name: bucketrepo
+  values:
+  - ../../versionStream/charts/jenkins-x/bucketrepo/values.yaml.gotmpl
+  forceNamespace: ""
+  skipDeps: null
+- chart: jx3/jx-build-controller
+  version: 0.0.14
+  name: jx-build-controller
+  values:
+  - ../../versionStream/charts/jx3/jx-build-controller/values.yaml.gotmpl
+  forceNamespace: ""
+  skipDeps: null
+- chart: jx3/local-external-secrets
+  version: 0.0.6
+  name: local-external-secrets
+  forceNamespace: ""
+  skipDeps: null
+templates: {}
+missingFileHandler: ""
+renderedvalues: {}
