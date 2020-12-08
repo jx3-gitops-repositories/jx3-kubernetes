@@ -11,7 +11,7 @@ repositories:
   url: https://storage.googleapis.com/jenkinsxio/charts
 releases:
 - chart: jenkins-x/jxboot-helmfile-resources
-  version: 1.0.17
+  version: 1.0.18
   name: jxboot-helmfile-resources
   values:
   - ../../versionStream/charts/jenkins-x/jxboot-helmfile-resources/values.yaml.gotmpl
@@ -27,7 +27,7 @@ releases:
   forceNamespace: ""
   skipDeps: null
 - chart: jx3/jx-pipelines-visualizer
-  version: 0.0.53
+  version: 0.0.54
   name: jx-pipelines-visualizer
   values:
   - ../../versionStream/charts/jx3/jx-pipelines-visualizer/values.yaml.gotmpl
@@ -35,14 +35,14 @@ releases:
   forceNamespace: ""
   skipDeps: null
 - chart: jx3/jx-preview
-  version: 0.0.116
+  version: 0.0.131
   name: jx-preview
   values:
   - jx-values.yaml
   forceNamespace: ""
   skipDeps: null
 - chart: jenkins-x/lighthouse
-  version: 0.0.879
+  version: 0.0.881
   name: lighthouse
   values:
   - ../../versionStream/charts/jenkins-x/lighthouse/values.yaml.gotmpl
@@ -58,7 +58,7 @@ releases:
   forceNamespace: ""
   skipDeps: null
 - chart: jx3/jx-build-controller
-  version: 0.0.14
+  version: 0.0.15
   name: jx-build-controller
   values:
   - ../../versionStream/charts/jx3/jx-build-controller/values.yaml.gotmpl
