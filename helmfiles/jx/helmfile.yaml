@@ -2,8 +2,7 @@ filepath: ""
 environments:
   default:
     values:
-    - ../../jx-values.yaml
-    - ../../versionStream/src/fake-secrets.yaml.gotmpl
+    - jx-values.yaml
 namespace: jx
 repositories:
 - name: jenkins-x
@@ -16,6 +15,7 @@ releases:
   name: jxboot-helmfile-resources
   values:
   - ../../versionStream/charts/jenkins-x/jxboot-helmfile-resources/values.yaml.gotmpl
+  - jx-values.yaml
   forceNamespace: ""
   skipDeps: null
 - chart: jx3/jenkins-x-crds
@@ -23,6 +23,7 @@ releases:
   name: jenkins-x-crds
   values:
   - ../../versionStream/charts/jx3/jenkins-x-crds/values.yaml.gotmpl
+  - jx-values.yaml
   forceNamespace: ""
   skipDeps: null
 - chart: jx3/jx-pipelines-visualizer
@@ -30,11 +31,14 @@ releases:
   name: jx-pipelines-visualizer
   values:
   - ../../versionStream/charts/jx3/jx-pipelines-visualizer/values.yaml.gotmpl
+  - jx-values.yaml
   forceNamespace: ""
   skipDeps: null
 - chart: jx3/jx-preview
   version: 0.0.116
   name: jx-preview
+  values:
+  - jx-values.yaml
   forceNamespace: ""
   skipDeps: null
 - chart: jenkins-x/lighthouse
@@ -42,6 +46,7 @@ releases:
   name: lighthouse
   values:
   - ../../versionStream/charts/jenkins-x/lighthouse/values.yaml.gotmpl
+  - jx-values.yaml
   forceNamespace: ""
   skipDeps: null
 - chart: jenkins-x/bucketrepo
@@ -49,6 +54,7 @@ releases:
   name: bucketrepo
   values:
   - ../../versionStream/charts/jenkins-x/bucketrepo/values.yaml.gotmpl
+  - jx-values.yaml
   forceNamespace: ""
   skipDeps: null
 - chart: jx3/jx-build-controller
@@ -56,11 +62,14 @@ releases:
   name: jx-build-controller
   values:
   - ../../versionStream/charts/jx3/jx-build-controller/values.yaml.gotmpl
+  - jx-values.yaml
   forceNamespace: ""
   skipDeps: null
 - chart: jx3/local-external-secrets
   version: 0.0.6
   name: local-external-secrets
+  values:
+  - jx-values.yaml
   forceNamespace: ""
   skipDeps: null
 templates: {}
