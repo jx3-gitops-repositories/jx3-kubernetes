@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   annotations:
-    lighthouse.jenkins-x.io/prependStepsURL: https://raw.githubusercontent.com/jenkins-x/jx3-pipeline-catalog/005e78cf69b643862344397a635736a51dd1bd89/tasks/git-clone/git-clone.yaml
+    lighthouse.jenkins-x.io/prependStepsURL: https://raw.githubusercontent.com/jenkins-x/jx3-pipeline-catalog/90dffaf666a091fb1bcf2d5fd65307ba04de6330/tasks/git-clone/git-clone.yaml
   name: release
 spec:
   pipelineSpec:
@@ -39,7 +39,7 @@ spec:
               memory: 512Mi
           workingDir: /workspace/source
         steps:
-        - image: gcr.io/jenkinsxio/jx-cli:3.1.6
+        - image: gcr.io/jenkinsxio/jx-cli:3.1.9
           name: admin-log
           script: |
             #!/usr/bin/env sh
