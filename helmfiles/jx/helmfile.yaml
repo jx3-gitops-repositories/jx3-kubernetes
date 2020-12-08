@@ -35,7 +35,7 @@ releases:
   forceNamespace: ""
   skipDeps: null
 - chart: jx3/jx-preview
-  version: 0.0.131
+  version: 0.0.133
   name: jx-preview
   values:
   - jx-values.yaml
