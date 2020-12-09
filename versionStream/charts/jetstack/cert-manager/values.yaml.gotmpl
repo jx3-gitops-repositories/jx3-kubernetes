@@ -20,6 +20,3 @@ serviceAccount:
   annotations:
     iam.gke.io/gcp-service-account: {{ .Values.jxRequirements.cluster.clusterName }}-dn@{{ .Values.jxRequirements.cluster.project }}.iam.gserviceaccount.com
 {{- end }}
-
-webhook:
-  enabled: false
