@@ -35,14 +35,14 @@ releases:
   forceNamespace: ""
   skipDeps: null
 - chart: jx3/jx-preview
-  version: 0.0.133
+  version: 0.0.135
   name: jx-preview
   values:
   - jx-values.yaml
   forceNamespace: ""
   skipDeps: null
 - chart: jenkins-x/lighthouse
-  version: 0.0.881
+  version: 0.0.882
   name: lighthouse
   values:
   - ../../versionStream/charts/jenkins-x/lighthouse/values.yaml.gotmpl
