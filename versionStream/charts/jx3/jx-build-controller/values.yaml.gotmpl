@@ -8,7 +8,8 @@ serviceaccount:
     eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.jxRequirements.cluster.project }}:role/{{ .Values.jxRequirements.cluster.clusterName }}-build-ctrl
 {{- end }}
 
-{{- if eq .Values.jxRequirements.cluster.provider "eks" }}
 env:
+{{- if eq .Values.jxRequirements.cluster.provider "eks" }}
   AWS_REGION: {{ .Values.jxRequirements.cluster.region }}
 {{- end }}
+  GIT_SECRET_SERVER: {{ .Values.jxRequirements.cluster.gitServer | replace  "https://" "" }}
