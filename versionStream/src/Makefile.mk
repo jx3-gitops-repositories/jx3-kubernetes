@@ -54,9 +54,7 @@ fetch: init
 	# this line avoids the next helmfile command failing...
 	helm repo add jx http://chartmuseum.jenkins-x.io
 
-	#sleep infinity
 	# generate the yaml from the charts in helmfile.yaml and moves them to the right directory tree (cluster or namespaces/foo)
-	#jx gitops helmfile template $(HELMFILE_TEMPLATE_FLAGS) --args="--values=/workspace/source/jx-values.yaml --values=/workspace/source/versionStream/src/fake-secrets.yaml.gotmpl --values=/workspace/source/imagePullSecrets.yaml" --output-dir $(OUTPUT_DIR)
 	helmfile --file helmfile.yaml template --include-crds --output-dir-template /tmp/generate/{{.Release.Namespace}}
 	
 	jx gitops split --dir /tmp/generate
@@ -72,10 +70,6 @@ fetch: init
 
 	# lets make sure all the namespaces exist for environments of the replicated secrets
 	jx gitops namespace --dir-mode --dir $(OUTPUT_DIR)/namespaces
-
-	# lets publish the requirements metadata into the dev Environment.Spec.TeamSettings.BootRequirements so its easy to access them via CRDs
-	# we dont use team settings on the dev environment anymore so maybe we can get rid of this?
-	# jx gitops requirements publish
 
 .PHONY: build
 # uncomment this line to enable kustomize
