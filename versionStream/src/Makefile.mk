@@ -51,6 +51,9 @@ fetch: init
 	# lets make sure we are using the latest jx-cli in the git operator Job
 	jx gitops image -s .jx/git-operator
 
+	# lets generate any jenkins job-values.yaml files to import projects into Jenkins
+	jx gitops jenkins jobs
+
 	# this line avoids the next helmfile command failing...
 	helm repo add jx http://chartmuseum.jenkins-x.io
 
@@ -145,7 +148,7 @@ verify-ignore: verify-ingress-ignore
 secrets-populate:
 	# lets populate any missing secrets we have a generator in `charts/repoName/chartName/secret-schema.yaml`
 	# they can be modified/regenerated at any time via `jx secret edit`
-	-VAULT_ADDR=$(VAULT_ADDR) jx secret populate -n jx
+	-VAULT_ADDR=$(VAULT_ADDR) jx secret populate
 
 .PHONY: secrets-wait
 secrets-wait:
