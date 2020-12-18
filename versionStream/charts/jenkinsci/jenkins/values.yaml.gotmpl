@@ -16,13 +16,26 @@ controller:
   # the jenkins jobs configuration with the contents of Jobs every time the pod starts.
   overwriteJobs: true
 
+  # List of plugins to be install during Jenkins controller start
+  installPlugins:
+    - kubernetes:1.27.6
+    - workflow-aggregator:2.6
+    - git:4.5.0
+    - configuration-as-code:1.46
+
   additionalPlugins:
   # enable the job DSL so we can use JCasC and GitOps to populate jobs
   - job-dsl:1.77
 
-  # uncomment when there is a new version with updated dependencies so that jenkins
-  # jobs get reported as PipelineActivity resources so they appear in the jx UIs
-  # - jx-resources:1.0.38
+  # allow github multi branch projects to be used
+  - github-branch-source:2.9.2
+
+  # allow jenkins to get credentials from kubernetes secrets & support External Secrets for vault / cloud secret managers
+  - kubernetes-credentials-provider:0.15
+
+  # jobs get reported as PipelineActivity resources so they appear in the jx UIs like octant
+  - jx-resources:1.0.38
+
 
   ingress:
     enabled: true
@@ -34,3 +47,8 @@ controller:
       enabled: true
 rbac:
   create: true
+
+  # lets allow jenkins to read secrets in its namespace
+  # by default so that we can use Kubernetes External Secrets to populate kubernetes Secretes for Jenkins
+  # which are then converted to Jenkins Credentials via https://plugins.jenkins.io/kubernetes-credentials-provider/
+  readSecrets: true
