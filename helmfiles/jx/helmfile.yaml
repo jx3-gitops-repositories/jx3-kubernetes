@@ -40,7 +40,7 @@ releases:
   - ../../versionStream/charts/jenkins-x/lighthouse/values.yaml.gotmpl
   - jx-values.yaml
 - chart: jenkins-x/bucketrepo
-  version: 0.1.47
+  version: 0.1.53
   name: bucketrepo
   values:
   - ../../versionStream/charts/jenkins-x/bucketrepo/values.yaml.gotmpl
