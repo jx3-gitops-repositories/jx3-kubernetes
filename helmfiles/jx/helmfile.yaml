@@ -11,7 +11,7 @@ repositories:
   url: https://storage.googleapis.com/jenkinsxio/charts
 releases:
 - chart: jenkins-x/jxboot-helmfile-resources
-  version: 1.0.22
+  version: 1.0.23
   name: jxboot-helmfile-resources
   values:
   - ../../versionStream/charts/jenkins-x/jxboot-helmfile-resources/values.yaml.gotmpl
@@ -23,7 +23,7 @@ releases:
   - ../../versionStream/charts/jx3/jenkins-x-crds/values.yaml.gotmpl
   - jx-values.yaml
 - chart: jx3/jx-pipelines-visualizer
-  version: 0.0.60
+  version: 0.0.61
   name: jx-pipelines-visualizer
   values:
   - ../../versionStream/charts/jx3/jx-pipelines-visualizer/values.yaml.gotmpl
