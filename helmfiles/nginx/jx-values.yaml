@@ -36,6 +36,7 @@ jxRequirements:
   ingress:
     domain: ""
     externalDNS: false
+    kind: ingress
     namespaceSubDomain: -nginx.
     tls:
       email: ""
