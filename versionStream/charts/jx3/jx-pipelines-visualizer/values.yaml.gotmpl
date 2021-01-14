@@ -26,6 +26,10 @@ ingress:
 pod:
   env:
     AWS_REGION: {{ .Values.jxRequirements.cluster.region }}
+{{- else if eq .Values.jxRequirements.cluster.provider "aks" }}
+pod:
+  env:
+    AZURE_STORAGE_ACCOUNT: {{ .Values.jxRequirements.cluster.azure.storage.storageAccountName }}
 {{- end }}
 
 serviceAccount:
