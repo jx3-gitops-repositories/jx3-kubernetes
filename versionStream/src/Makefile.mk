@@ -173,7 +173,7 @@ regen-check:
 regen-phase-1: git-setup resolve-metadata all $(KUBEAPPLY) verify-ingress-ignore commit
 
 .PHONY: regen-phase-2
-regen-phase-2: verify-ingress-ignore all verify-ignore secrets-populate commit
+regen-phase-2: verify-ingress-ignore all verify-ignore secrets-populate report commit
 
 .PHONY: regen-phase-3
 regen-phase-3: push secrets-wait
@@ -184,6 +184,10 @@ regen-none:
 
 .PHONY: apply
 apply: regen-check kubectl-apply secrets-populate verify write-completed
+	
+.PHONY: report
+report:
+	jx gitops helmfile report
 
 .PHONY: write-completed
 write-completed:
