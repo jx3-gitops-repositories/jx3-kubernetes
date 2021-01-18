@@ -77,10 +77,10 @@
 		      <td colspan='4'><h3>tekton-pipelines</h3></td>
 		    </tr>
 	    <tr>
-	      <td><a href='' title=''> <img src='' width='24px' height='24px'> tekton-pipeline </a></td>
+	      <td><a href='https://github.com/cdfoundation/tekton-helm-chart' title='A Helm chart for Tekton Pipelines'> <img src='https://avatars2.githubusercontent.com/u/47602533' width='24px' height='24px'> tekton-pipeline </a></td>
 	      <td>0.19.1</td>
 	      <td></td>
-	      <td></td>
+	      <td><a href='https://github.com/cdfoundation/tekton-helm-chart'>source</a></td>
 	    </tr>
 
   </tbody>
