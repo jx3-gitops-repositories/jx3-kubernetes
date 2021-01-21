@@ -40,6 +40,10 @@ spec:
           value: /workspace/xdg_config
         - name: AZURE_AD_RESOURCE
           value: https://vault.azure.net
+        envFrom:
+        - secretRef:
+            name: jx-boot-job-env-vars
+            optional: true
         image: gcr.io/jenkinsxio/jx-boot:3.1.155
         imagePullPolicy: Always
         name: job
