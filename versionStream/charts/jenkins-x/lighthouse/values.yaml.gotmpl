@@ -26,6 +26,9 @@ env:
   DEFAULT_PIPELINE_RUN_TIMEOUT: "2h0m0s"
   FILE_BROWSER: "git"
 
+  # the pipeline catalog version streams:
+  LIGHTHOUSE_VERSIONSTREAM_JENKINS_X_JX3_PIPELINE_CATALOG: {{ readFile "../../../git/github.com/jenkins-x/jx3-pipeline-catalog.yml" | fromYaml | get "version" | quote }}
+
 image:
   repository: gcr.io/jenkinsxio/lighthouse
 

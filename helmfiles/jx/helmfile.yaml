@@ -34,7 +34,7 @@ releases:
   values:
   - jx-values.yaml
 - chart: jenkins-x/lighthouse
-  version: 0.0.917
+  version: 0.0.918
   name: lighthouse
   values:
   - ../../versionStream/charts/jenkins-x/lighthouse/values.yaml.gotmpl
@@ -46,7 +46,7 @@ releases:
   - ../../versionStream/charts/jenkins-x/bucketrepo/values.yaml.gotmpl
   - jx-values.yaml
 - chart: jx3/jx-build-controller
-  version: 0.0.26
+  version: 0.0.27
   name: jx-build-controller
   values:
   - ../../versionStream/charts/jx3/jx-build-controller/values.yaml.gotmpl
