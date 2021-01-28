@@ -35,14 +35,14 @@
     <tr>
 	      <td><a href='https://github.com/jenkins-x/jx-preview' title='This chart installs the jx-preview CRD and garbagecollection job
 '> <img src='https://raw.githubusercontent.com/jenkins-x/jenkins-x-website/master/images/logo/jenkinsx-icon-color.svg' width='24px' height='24px'> jx-preview </a></td>
-	      <td>0.0.144</td>
+	      <td>0.0.147</td>
 	      <td></td>
 	      <td><a href='https://github.com/jenkins-x/jx-preview'>source</a></td>
 	    </tr>
     <tr>
 	      <td><a href='https://github.com/jenkins-x/lighthouse' title='This chart bootstraps installation of [Lighthouse](https://github.com/jenkins-x/lighthouse).
 '> <img src='https://raw.githubusercontent.com/jenkins-x/jenkins-x-website/master/images/logo/jenkinsx-icon-color.svg' width='24px' height='24px'> lighthouse </a></td>
-	      <td>0.0.921</td>
+	      <td>0.0.922</td>
 	      <td></td>
 	      <td><a href='https://github.com/jenkins-x/lighthouse'>source</a></td>
 	    </tr>
