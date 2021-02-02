@@ -43,3 +43,16 @@ serviceAccount:
 {{- else }}
     installed-by: jenkins-x
 {{- end }}
+
+# allow the UI to query the long-term storage directly to find an old pipeline
+{{- if hasKey .Values.jxRequirements "storage" }}
+{{- range .Values.jxRequirements.storage }}
+{{- if eq .name "logs" }}
+config:
+  archivedLogsURLTemplate: >-
+    {{ .url }}{{`/jenkins-x/logs/{{.Owner}}/{{.Repository}}/{{if hasPrefix .Branch "pr"}}{{.Branch | upper}}{{else}}{{.Branch}}{{end}}/{{.Build}}.log`}}
+  archivedPipelinesURLTemplate: >-
+    {{ .url }}{{`/jenkins-x/logs/{{.Owner}}/{{.Repository}}/{{if hasPrefix .Branch "pr"}}{{.Branch | upper}}{{else}}{{.Branch}}{{end}}/{{.Build}}.yaml`}}
+{{- end }}
+{{- end }}
+{{- end }}
