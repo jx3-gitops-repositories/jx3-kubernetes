@@ -58,7 +58,7 @@ fetch: init
 	helm repo add jx http://chartmuseum.jenkins-x.io
 
 	# generate the yaml from the charts in helmfile.yaml and moves them to the right directory tree (cluster or namespaces/foo)
-	helmfile --file helmfile.yaml template --include-crds --output-dir-template /tmp/generate/{{.Release.Namespace}}/{{.Release.Name}}
+	helmfile --file helmfile.yaml template --validate --include-crds --output-dir-template /tmp/generate/{{.Release.Namespace}}/{{.Release.Name}}
 
 	jx gitops split --dir /tmp/generate
 	jx gitops rename --dir /tmp/generate
