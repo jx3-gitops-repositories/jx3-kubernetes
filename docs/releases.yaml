@@ -46,7 +46,7 @@
     repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
     version: 0.0.153
   - apiVersion: v1
-    appVersion: 0.0.922
+    appVersion: 0.0.923
     description: |
       This chart bootstraps installation of [Lighthouse](https://github.com/jenkins-x/lighthouse).
     home: https://github.com/jenkins-x/lighthouse
@@ -54,7 +54,7 @@
     name: lighthouse
     repositoryName: jenkins-x
     repositoryUrl: https://storage.googleapis.com/chartmuseum.jenkins-x.io
-    version: 0.0.922
+    version: 0.0.923
   - apiVersion: v1
     appVersion: 0.1.53
     description: A Helm chart for bucketrepo service
