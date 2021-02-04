@@ -23,7 +23,7 @@ releases:
   - ../../versionStream/charts/jx3/jenkins-x-crds/values.yaml.gotmpl
   - jx-values.yaml
 - chart: jx3/jx-pipelines-visualizer
-  version: 1.1.4
+  version: 1.1.5
   name: jx-pipelines-visualizer
   values:
   - ../../versionStream/charts/jx3/jx-pipelines-visualizer/values.yaml.gotmpl
@@ -40,7 +40,7 @@ releases:
   - ../../versionStream/charts/jenkins-x/lighthouse/values.yaml.gotmpl
   - jx-values.yaml
 - chart: jenkins-x/bucketrepo
-  version: 0.1.53
+  version: 0.1.54
   name: bucketrepo
   values:
   - ../../versionStream/charts/jenkins-x/bucketrepo/values.yaml.gotmpl

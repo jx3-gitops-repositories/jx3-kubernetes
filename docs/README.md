@@ -28,7 +28,7 @@
 	    </tr>
     <tr>
 	      <td><a href='https://github.com/jenkins-x/jx-pipelines-visualizer' title='Web UI for Jenkins X, with a clear goal - visualize the pipelines - and their logs.'> <img src='' width='24px' height='24px'> jx-pipelines-visualizer </a></td>
-	      <td>1.1.4</td>
+	      <td>1.1.5</td>
 	      <td></td>
 	      <td><a href='https://github.com/jenkins-x/jx-pipelines-visualizer'>source</a></td>
 	    </tr>
@@ -48,7 +48,7 @@
 	    </tr>
     <tr>
 	      <td><a href='' title='A Helm chart for bucketrepo service'> <img src='https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/d273e09/images/go.png' width='24px' height='24px'> bucketrepo </a></td>
-	      <td>0.1.53</td>
+	      <td>0.1.54</td>
 	      <td></td>
 	      <td></td>
 	    </tr>
