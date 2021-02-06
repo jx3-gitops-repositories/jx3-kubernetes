@@ -14,13 +14,29 @@ replicaCount: 0
 
 {{- if eq .Values.jxRequirements.secretStorage "vault" }}
 env:
-  VAULT_ADDR: https://vault:8200
+  VAULT_ADDR: https://vault.jx-vault:8200
   NODE_EXTRA_CA_CERTS: "/usr/local/share/ca-certificates/ca.crt"
 
-filesFromSecret:
+deploymentInitContainers:
+  initContainers:
+  - name: init-vault-secret
+    image: bitnami/kubectl:1.20.2
+    command: ["/bin/sh", "-c"]
+    args: ["kubectl get secret -n jx-vault vault-tls -o jsonpath='{.data.ca\\.crt}' | base64 --decode > /tmp/vault/ca.crt"]
+    volumeMounts:
+    - name: vault-ca
+      mountPath: /tmp/vault
+
+emptyDirVolumes:
   vault-ca:
-    secret: vault-tls
     mountPath: /usr/local/share/ca-certificates
+
+customClusterRoles:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["vault-tls"]
+    verbs: ["get", "list"]
+
 {{- end }}
 
 {{- if eq .Values.jxRequirements.secretStorage "gsm" }}

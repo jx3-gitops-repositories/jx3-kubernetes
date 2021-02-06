@@ -2,7 +2,9 @@ FETCH_DIR := build/base
 TMP_TEMPLATE_DIR := build/tmp
 OUTPUT_DIR := config-root
 KUBEAPPLY ?= kubectl-apply
-VAULT_ADDR ?= https://vault.secret-infra:8200
+VAULT_ADDR ?= https://vault.jx-vault:8200
+VAULT_NAMESPACE ?= jx-vault
+VAULT_ROLE ?= jx-vault
 
 # You can disable force mode on kubectl apply by modifying this line:
 KUBECTL_APPLY_FLAGS ?= --force
@@ -66,10 +68,13 @@ fetch: init
 
 	# convert k8s Secrets => ExternalSecret resources using secret mapping + schemas
 	# see: https://github.com/jenkins-x/jx-secret#mappings
-	jx secret convert --source-dir $(OUTPUT_DIR)
+	jx secret convert --source-dir $(OUTPUT_DIR) -r $(VAULT_ROLE)
 
 	# replicate secrets to local staging/production namespaces
 	jx secret replicate --selector secret.jenkins-x.io/replica-source=true
+
+	# populate secrets from filesystem definitions
+	-VAULT_ADDR=$(VAULT_ADDR) VAULT_NAMESPACE=$(VAULT_NAMESPACE) jx secret populate --source filesystem --secret-namespace $(VAULT_NAMESPACE)
 
 	# lets make sure all the namespaces exist for environments of the replicated secrets
 	jx gitops namespace --dir-mode --dir $(OUTPUT_DIR)/namespaces
@@ -152,7 +157,7 @@ verify-ignore: verify-ingress-ignore
 secrets-populate:
 	# lets populate any missing secrets we have a generator in `charts/repoName/chartName/secret-schema.yaml`
 	# they can be modified/regenerated at any time via `jx secret edit`
-	-VAULT_ADDR=$(VAULT_ADDR) jx secret populate
+	-VAULT_ADDR=$(VAULT_ADDR) VAULT_NAMESPACE=$(VAULT_NAMESPACE) jx secret populate --secret-namespace $(VAULT_NAMESPACE)
 
 .PHONY: secrets-wait
 secrets-wait:
@@ -173,7 +178,7 @@ regen-check:
 regen-phase-1: git-setup resolve-metadata all $(KUBEAPPLY) verify-ingress-ignore commit
 
 .PHONY: regen-phase-2
-regen-phase-2: verify-ingress-ignore all verify-ignore secrets-populate report commit
+regen-phase-2: verify-ingress-ignore all verify-ignore report commit
 
 .PHONY: regen-phase-3
 regen-phase-3: push secrets-wait
@@ -184,7 +189,7 @@ regen-none:
 
 .PHONY: apply
 apply: regen-check kubectl-apply secrets-populate verify write-completed
-	
+
 .PHONY: report
 report:
 	jx gitops helmfile report
