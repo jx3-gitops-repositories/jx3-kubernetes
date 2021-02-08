@@ -17,7 +17,7 @@
     name: jxboot-helmfile-resources
     repositoryName: jenkins-x
     repositoryUrl: https://storage.googleapis.com/chartmuseum.jenkins-x.io
-    version: 1.0.27
+    version: 1.0.29
   - apiVersion: v2
     appVersion: 3.0.5
     description: Custom Resource Definitions for Jenkins X
@@ -35,7 +35,7 @@
     repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
     sources:
     - https://github.com/jenkins-x/jx-pipelines-visualizer
-    version: 1.1.6
+    version: 1.1.8
   - apiVersion: v1
     description: |
       This chart installs the jx-preview CRD and garbagecollection job
@@ -76,7 +76,7 @@
     repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
     sources:
     - https://github.com/jenkins-x-plugins/jx-build-controller
-    version: 0.0.28
+    version: 0.0.31
   - apiVersion: v2
     appVersion: 0.0.6
     description: Local External Secrets

@@ -16,7 +16,7 @@
 		    </tr>
 	    <tr>
 	      <td><a href='https://github.com/jenkins-x-charts/jxboot-helmfile-resources' title='A Helm chart for the resources for JX Boot'> <img src='https://raw.githubusercontent.com/jenkins-x/jenkins-x-website/master/images/logo/jenkinsx-icon-color.svg' width='24px' height='24px'> jxboot-helmfile-resources </a></td>
-	      <td>1.0.27</td>
+	      <td>1.0.29</td>
 	      <td></td>
 	      <td><a href='https://github.com/jenkins-x-charts/jxboot-helmfile-resources'>source</a></td>
 	    </tr>
@@ -28,7 +28,7 @@
 	    </tr>
     <tr>
 	      <td><a href='https://github.com/jenkins-x/jx-pipelines-visualizer' title='Web UI for Jenkins X, with a clear goal - visualize the pipelines - and their logs.'> <img src='' width='24px' height='24px'> jx-pipelines-visualizer </a></td>
-	      <td>1.1.6</td>
+	      <td>1.1.8</td>
 	      <td></td>
 	      <td><a href='https://github.com/jenkins-x/jx-pipelines-visualizer'>source</a></td>
 	    </tr>
@@ -54,7 +54,7 @@
 	    </tr>
     <tr>
 	      <td><a href='https://jenkins-x.io/' title='Jenkins X next gen cloud CI / CD platform for Kubernetes'> <img src='https://jenkins-x.github.io/jenkins-x-website/img/profile.png' width='24px' height='24px'> jx-build-controller </a></td>
-	      <td>0.0.28</td>
+	      <td>0.0.31</td>
 	      <td></td>
 	      <td><a href='https://jenkins-x.io/'>source</a></td>
 	    </tr>
