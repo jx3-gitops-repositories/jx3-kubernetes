@@ -39,6 +39,11 @@ vault:
   enabled: false
 {{- end }}
 
+# bitbucket cloud doesn't support hmac token for webhooks which is crazy insecure but what can we do?
+{{- if eq .Values.jxRequirements.cluster.gitKind "bitbucketcloud" }}
+hmacTokenEnabled: false
+{{- end }}
+
 {{- if hasKey .Values.jxRequirements.cluster "clusterName" }}
 clusterName: "{{ .Values.jxRequirements.cluster.clusterName }}"
 {{- end }}
