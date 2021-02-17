@@ -27,8 +27,12 @@ deploymentInitContainers:
     - name: vault-ca
       mountPath: /tmp/vault
 
-emptyDirVolumes:
-  vault-ca:
+extraVolumes:
+  - name: vault-ca
+    emptyDir: {}
+
+extraVolumeMounts:
+  - name: vault-ca
     mountPath: /usr/local/share/ca-certificates
 
 customClusterRoles:
