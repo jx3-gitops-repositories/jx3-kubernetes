@@ -30,12 +30,13 @@
     appVersion: latest
     description: Web UI for Jenkins X, with a clear goal - visualize the pipelines - and their logs.
     home: https://github.com/jenkins-x/jx-pipelines-visualizer
+    icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-website/master/images/logo/jenkinsx-icon-color.svg
     name: jx-pipelines-visualizer
     repositoryName: jx3
     repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
     sources:
     - https://github.com/jenkins-x/jx-pipelines-visualizer
-    version: 1.1.9
+    version: 1.1.10
   - apiVersion: v1
     description: |
       This chart installs the jx-preview CRD and garbagecollection job
@@ -67,7 +68,7 @@
     appVersion: 3.0.0
     description: Jenkins X next gen cloud CI / CD platform for Kubernetes
     home: https://jenkins-x.io/
-    icon: https://jenkins-x.github.io/jenkins-x-website/img/profile.png
+    icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-website/master/images/logo/jenkinsx-icon-color.svg
     maintainers:
     - email: jenkins-x@googlegroups.com
       name: Jenkins X Team
@@ -76,7 +77,7 @@
     repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
     sources:
     - https://github.com/jenkins-x-plugins/jx-build-controller
-    version: 0.0.31
+    version: 0.0.32
   - apiVersion: v2
     appVersion: 0.0.6
     description: Local External Secrets
@@ -117,12 +118,13 @@
     appVersion: latest
     description: Web UI for Jenkins X, with a clear goal - visualize the pipelines - and their logs.
     home: https://github.com/jenkins-x/jx-pipelines-visualizer
+    icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-website/master/images/logo/jenkinsx-icon-color.svg
     name: jx-pipelines-visualizer
     repositoryName: jx3
     repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
     sources:
     - https://github.com/jenkins-x/jx-pipelines-visualizer
-    version: 1.1.9
+    version: 1.1.10
   - apiVersion: v1
     description: |
       This chart installs the jx-preview CRD and garbagecollection job
@@ -154,7 +156,7 @@
     appVersion: 3.0.0
     description: Jenkins X next gen cloud CI / CD platform for Kubernetes
     home: https://jenkins-x.io/
-    icon: https://jenkins-x.github.io/jenkins-x-website/img/profile.png
+    icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-website/master/images/logo/jenkinsx-icon-color.svg
     maintainers:
     - email: jenkins-x@googlegroups.com
       name: Jenkins X Team
@@ -163,7 +165,7 @@
     repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
     sources:
     - https://github.com/jenkins-x-plugins/jx-build-controller
-    version: 0.0.31
+    version: 0.0.32
   - apiVersion: v2
     appVersion: 0.0.6
     description: Local External Secrets
