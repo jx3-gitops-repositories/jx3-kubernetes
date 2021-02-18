@@ -39,3 +39,6 @@ repositories:
 - prefix: stable
   urls:
   - https://charts.helm.sh/stable
+- prefix: grafana
+  urls:
+  - https://grafana.github.io/helm-charts

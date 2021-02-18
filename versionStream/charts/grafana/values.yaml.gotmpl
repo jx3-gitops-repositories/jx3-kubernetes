@@ -1,0 +1,30 @@
+ingress:
+  enabled: true
+  hosts:
+    - grafana{{ .Values.jxRequirements.ingress.namespaceSubDomain }}{{ .Values.jxRequirements.ingress.domain }}
+
+serviceAccount:
+  annotations:
+    # iam.gke.io/gcp-service-account: {{ .Values.jxRequirements.cluster.clusterName }}-grafana@{{ .Values.jxRequirements.cluster.project }}.iam.gserviceaccount.com
+
+persistence:
+  enabled: true
+
+grafana.ini:
+  server:
+    domain: grafana{{ .Values.jxRequirements.ingress.namespaceSubDomain }}{{ .Values.jxRequirements.ingress.domain }}
+    root_url: "http://grafana{{ .Values.jxRequirements.ingress.namespaceSubDomain }}{{ .Values.jxRequirements.ingress.domain }}"
+    serve_from_sub_path: true
+
+deploymentStrategy: { "type": "Recreate" }
+testFramework.enabled: false
+
+# to interpolate secrets into variables to use with ${FOO} in this file
+# envFromSecret: grafana-jx
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources: 
+
+plugins: 
