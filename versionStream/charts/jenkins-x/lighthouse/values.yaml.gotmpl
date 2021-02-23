@@ -57,4 +57,6 @@ user: "{{ .Values.jxRequirements.pipelineUser.username }}"
 oauthToken: "{{ .Values.jx.secrets.pipelineUser.token }}"
 
 webhooks:
+  labels:
+    git.jenkins-x.io/sha: annotate
   customDeploymentTriggerCommand: "jx"
