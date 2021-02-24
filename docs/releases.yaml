@@ -17,7 +17,7 @@
     name: jxboot-helmfile-resources
     repositoryName: jenkins-x
     repositoryUrl: https://storage.googleapis.com/chartmuseum.jenkins-x.io
-    version: 1.0.29
+    version: 1.0.30
   - apiVersion: v2
     appVersion: 3.0.5
     description: Custom Resource Definitions for Jenkins X
@@ -105,7 +105,7 @@
     name: jxboot-helmfile-resources
     repositoryName: jenkins-x
     repositoryUrl: https://storage.googleapis.com/chartmuseum.jenkins-x.io
-    version: 1.0.29
+    version: 1.0.30
   - apiVersion: v2
     appVersion: 3.0.5
     description: Custom Resource Definitions for Jenkins X
