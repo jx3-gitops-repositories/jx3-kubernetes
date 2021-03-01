@@ -17,6 +17,10 @@ spec:
             value: pullrequest
           - name: JX_BATCH_MODE
             value: "true"
+          envFrom:
+          - secretRef:
+              name: jx-boot-job-env-vars
+              optional: true
           name: ""
           resources:
             requests:
@@ -28,7 +32,7 @@ spec:
           - pr
           command:
           - make
-          image: ghcr.io/jenkins-x/jx-boot:3.1.284
+          image: ghcr.io/jenkins-x/jx-boot:3.1.285
           name: make-pr
           resources: {}
   podTemplate: {}
