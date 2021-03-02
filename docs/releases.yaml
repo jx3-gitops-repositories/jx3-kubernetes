@@ -43,9 +43,9 @@
     home: https://github.com/jenkins-x/jx-preview
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-website/master/images/logo/jenkinsx-icon-color.svg
     name: jx-preview
-    repositoryName: jx3
-    repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
-    version: 0.0.153
+    repositoryName: jxgh
+    repositoryUrl: https://jenkins-x-charts.github.io/repo
+    version: 0.0.167
   - apiVersion: v1
     appVersion: 0.0.939
     description: |
@@ -131,9 +131,9 @@
     home: https://github.com/jenkins-x/jx-preview
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-website/master/images/logo/jenkinsx-icon-color.svg
     name: jx-preview
-    repositoryName: jx3
-    repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
-    version: 0.0.153
+    repositoryName: jxgh
+    repositoryUrl: https://jenkins-x-charts.github.io/repo
+    version: 0.0.167
   - apiVersion: v1
     appVersion: 0.0.939
     description: |

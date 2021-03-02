@@ -9,6 +9,8 @@ repositories:
   url: https://storage.googleapis.com/chartmuseum.jenkins-x.io
 - name: jx3
   url: https://storage.googleapis.com/jenkinsxio/charts
+- name: jxgh
+  url: https://jenkins-x-charts.github.io/repo
 releases:
 - chart: jenkins-x/jxboot-helmfile-resources
   version: 1.0.31
@@ -28,8 +30,8 @@ releases:
   values:
   - ../../versionStream/charts/jx3/jx-pipelines-visualizer/values.yaml.gotmpl
   - jx-values.yaml
-- chart: jx3/jx-preview
-  version: 0.0.153
+- chart: jxgh/jx-preview
+  version: 0.0.167
   name: jx-preview
   values:
   - jx-values.yaml
