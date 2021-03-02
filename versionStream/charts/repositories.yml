@@ -35,7 +35,7 @@ repositories:
   - https://storage.googleapis.com/jenkinsxio/charts
 - prefix: jxgh
   urls:
-  - https://jenkins-x-charts.github.io/repo/
+  - https://jenkins-x-charts.github.io/repo
 - prefix: presslabs
   urls:
   - https://presslabs.github.io/charts
