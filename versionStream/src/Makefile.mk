@@ -24,7 +24,7 @@ HELMFILE_TEMPLATE_FLAGS ?=
 
 .PHONY: clean
 clean:
-	rm -rf build $(OUTPUT_DIR)
+	@rm -rf build $(OUTPUT_DIR)
 
 .PHONY: setup
 setup:
@@ -127,8 +127,8 @@ kustomize: pre-build
 
 .PHONY: copy-resources
 copy-resources: pre-build
-	cp -r ./build/base/* $(OUTPUT_DIR)
-	rm $(OUTPUT_DIR)/kustomization.yaml
+	@cp -r ./build/base/* $(OUTPUT_DIR)
+	@rm $(OUTPUT_DIR)/kustomization.yaml
 
 .PHONY: lint
 lint:
@@ -169,7 +169,7 @@ secrets-wait:
 .PHONY: git-setup
 git-setup:
 	jx gitops git setup
-	git pull
+	@git pull
 
 .PHONY: regen-check
 regen-check:
@@ -242,7 +242,6 @@ resolve-metadata:
 .PHONY: commit
 commit:
 	-git add --all
-	-git status
 # lets ignore commit errors in case there's no changes and to stop pipelines failing
 	-git commit -m "chore: regenerated" -m "/pipeline cancel"
 
@@ -267,8 +266,8 @@ push-pr-branch:
 
 .PHONY: push
 push:
-	git pull
-	git push -f
+	@git pull
+	@git push -f
 
 .PHONY: release
 release: lint

@@ -38,6 +38,10 @@ spec:
         env:
         - name: XDG_CONFIG_HOME
           value: /workspace/xdg_config
+        envFrom:
+        - secretRef:
+            name: jx-boot-job-env-vars
+            optional: true
         image: ghcr.io/jenkins-x/jx-boot:3.1.290
         imagePullPolicy: Always
         name: job
