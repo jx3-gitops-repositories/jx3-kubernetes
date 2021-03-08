@@ -86,6 +86,71 @@
     repositoryName: jx3
     repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
     version: 0.0.6
+  - apiVersion: v2
+    appVersion: 3.0.0
+    description: Jenkins X next gen cloud CI / CD platform for Kubernetes
+    home: https://jenkins-x.io/
+    icon: https://jenkins-x.github.io/jenkins-x-website/img/profile.png
+    maintainers:
+    - email: jenkins-x@googlegroups.com
+      name: Jenkins X Team
+    name: jx-kh-check
+    repositoryName: jx3
+    repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
+    sources:
+    - https://github.com/jenkins-x-plugins/jx-kh-check
+    version: 0.0.56
+- namespace: kuberhealthy
+  path: helmfiles/kuberhealthy/helmfile.yaml
+  releases:
+  - apiVersion: v2
+    appVersion: 2.2.0
+    description: An operator for synthetic test and monitoring.  Works great with Prometheus.
+    home: https://comcast.github.io/kuberhealthy/
+    icon: https://raw.githubusercontent.com/Comcast/kuberhealthy/master/images/logo-square.png
+    keywords:
+    - kuberhealthy
+    - kubernetes
+    - operator
+    - monitoring
+    - synthetic
+    - testing
+    - comcast
+    - health
+    - prometheus
+    maintainers:
+    - email: eric.greer@comcast.com
+      name: integrii
+    - email: jacob.martin@comcast.com
+      name: lolimjake
+    - email: ianhoegen@gmail.com
+      name: ihoegen
+    - email: jonathan_phan@comcast.com
+      name: jonnydawg
+    - email: joshulyne_park@comcast.com
+      name: joshulyne
+    name: kuberhealthy
+    repositoryName: kuberhealthy
+    repositoryUrl: https://comcast.github.io/kuberhealthy/helm-repos
+    sources:
+    - https://github.com/Comcast/kuberhealthy
+    - https://github.com/helm/charts/tree/master/stable/kuberhealthy
+    type: application
+    version: 2.2.0
+  - apiVersion: v2
+    appVersion: 3.0.0
+    description: Jenkins X next gen cloud CI / CD platform for Kubernetes
+    home: https://jenkins-x.io/
+    icon: https://jenkins-x.github.io/jenkins-x-website/img/profile.png
+    maintainers:
+    - email: jenkins-x@googlegroups.com
+      name: Jenkins X Team
+    name: jx-kh-check
+    repositoryName: jx3
+    repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
+    sources:
+    - https://github.com/jenkins-x-plugins/jx-kh-check
+    version: 0.0.56
 - namespace: nginx
   path: helmfiles/nginx/helmfile.yaml
   releases:

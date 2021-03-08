@@ -38,7 +38,7 @@ jxRequirements:
     domain: change.me
     externalDNS: false
     kind: ingress
-    namespaceSubDomain: -jx.
+    namespaceSubDomain: -kuberhealthy.
     tls:
       email: ""
       enabled: false
