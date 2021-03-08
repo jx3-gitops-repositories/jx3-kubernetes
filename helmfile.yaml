@@ -1,6 +1,7 @@
 filepath: ""
 helmfiles:
 - path: helmfiles/jx/helmfile.yaml
+- path: helmfiles/kuberhealthy/helmfile.yaml
 - path: helmfiles/nginx/helmfile.yaml
 - path: helmfiles/tekton-pipelines/helmfile.yaml
 templates: {}
