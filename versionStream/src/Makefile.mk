@@ -2,9 +2,18 @@ FETCH_DIR := build/base
 TMP_TEMPLATE_DIR := build/tmp
 OUTPUT_DIR := config-root
 KUBEAPPLY ?= kubectl-apply
+
+# this target is only needed for development clusters
+# for remote staging/production clusters try:
+#
+#     export GENERATE_SCHEDULER=no-gitops-scheduler
+GENERATE_SCHEDULER ?= gitops-scheduler
+
+# these values are only required for vault - you can ignore if you are using a cloud secret store
 VAULT_ADDR ?= https://vault.jx-vault:8200
 VAULT_NAMESPACE ?= jx-vault
 VAULT_ROLE ?= jx-vault
+
 GIT_SHA ?= $(shell git rev-parse HEAD)
 
 # You can disable force mode on kubectl apply by modifying this line:
@@ -95,10 +104,17 @@ build-nokustomise: copy-resources post-build
 .PHONY: pre-build
 pre-build:
 
-.PHONY: post-build
-post-build:
-# lets generate the lighthouse configuration
+.PHONY: gitops-scheduler
+gitops-scheduler:
+# lets generate the lighthouse configuration as we are in a development cluster
 	jx gitops scheduler
+
+.PHONY: no-gitops-scheduler
+no-gitops-scheduler:
+	@echo "disabled the scheduler generation as we are not a development cluster"
+
+.PHONY: post-build
+post-build: $(GENERATE_SCHEDULER)
 
 # lets add the kubectl-apply prune annotations
 #
