@@ -15,9 +15,9 @@
     home: https://github.com/jenkins-x-charts/jxboot-helmfile-resources
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-website/master/images/logo/jenkinsx-icon-color.svg
     name: jxboot-helmfile-resources
-    repositoryName: jenkins-x
-    repositoryUrl: https://storage.googleapis.com/chartmuseum.jenkins-x.io
-    version: 1.0.31
+    repositoryName: jx3
+    repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
+    version: 1.0.37
   - apiVersion: v2
     appVersion: 3.0.5
     description: Custom Resource Definitions for Jenkins X

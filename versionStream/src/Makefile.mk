@@ -2,12 +2,32 @@ FETCH_DIR := build/base
 TMP_TEMPLATE_DIR := build/tmp
 OUTPUT_DIR := config-root
 KUBEAPPLY ?= kubectl-apply
+HELM_TMP_GENERATE ?= /tmp/generate
+HELM_TMP_SECRETS ?= /tmp/secrets/jx-helm
+
+# this target is only needed for development clusters
+# for remote staging/production clusters try:
+#
+#     export COPY_SOURCE=no-copy-source
+COPY_SOURCE ?= copy-source
 
 # this target is only needed for development clusters
 # for remote staging/production clusters try:
 #
 #     export GENERATE_SCHEDULER=no-gitops-scheduler
 GENERATE_SCHEDULER ?= gitops-scheduler
+
+# this target is only needed for development clusters
+# for remote staging/production clusters try:
+#
+#     export REPOSITORY_RESOLVE=no-repository-resolve
+REPOSITORY_RESOLVE ?= repository-resolve
+
+# this target is only needed for development clusters
+# for remote staging/production clusters try:
+#
+#     export GITOPS_WEBHOOK_UPDATE=no-gitops-webhook-update
+GITOPS_WEBHOOK_UPDATE ?= gitops-webhook-update
 
 # these values are only required for vault - you can ignore if you are using a cloud secret store
 VAULT_ADDR ?= https://vault.jx-vault:8200
@@ -33,30 +53,59 @@ HELMFILE_TEMPLATE_FLAGS ?=
 
 .PHONY: clean
 clean:
-	@rm -rf build $(OUTPUT_DIR)
+	@rm -rf build $(OUTPUT_DIR) $(HELM_TMP_SECRETS) $(HELM_TMP_GENERATE)
 
 .PHONY: setup
 setup:
-# lets create any missing SourceRepository defined in .jx/gitops/source-config.yaml which are not in: versionStream/src/base/namespaces/jx/source-repositories
-	jx gitops repository create
+
+.PHONY: copy-source
+copy-source:
+	@cp -r versionStream/src/* build
+
+.PHONY: no-copy-source
+no-copy-source:
+	@echo "disabled the copy source as we are not a development cluster"
 
 .PHONY: init
 init: setup
 	@mkdir -p $(FETCH_DIR)
 	@mkdir -p $(TMP_TEMPLATE_DIR)
 	@mkdir -p $(OUTPUT_DIR)/namespaces/jx
-	@cp -r versionStream/src/* build
 	@mkdir -p $(FETCH_DIR)/cluster/crds
 
 
-.PHONY: fetch
-fetch: init
+
+.PHONY: repository-resolve
+repository-resolve:
+# lets create any missing SourceRepository defined in .jx/gitops/source-config.yaml which are not in: versionStream/src/base/namespaces/jx/source-repositories
+	jx gitops repository create
+
 # lets configure the cluster gitops repository URL on the requirements if its missing
 	jx gitops repository resolve --source-dir $(OUTPUT_DIR)/namespaces
 
 # lets generate any jenkins job-values.yaml files to import projects into Jenkins
 	jx gitops jenkins jobs
 
+
+.PHONY: no-repository-resolve
+no-repository-resolve:
+	@echo "disabled the repository resolve as we are not a development cluster"
+
+.PHONY: gitops-scheduler
+gitops-scheduler:
+# lets generate the lighthouse configuration as we are in a development cluster
+	jx gitops scheduler
+
+# lets force a rolling upgrade of lighthouse pods whenever we update the lighthouse config...
+	jx gitops hash -s config-root/namespaces/jx/lighthouse-config/config-cm.yaml -s config-root/namespaces/jx/lighthouse-config/plugins-cm.yaml -d config-root/namespaces/jx/lighthouse
+
+
+.PHONY: no-gitops-scheduler
+no-gitops-scheduler:
+	@echo "disabled the lighthouse scheduler generation as we are not a development cluster"
+
+.PHONY: fetch
+fetch: init $(COPY_SOURCE) $(REPOSITORY_RESOLVE)
 # set any missing defaults in the secrets mapping file
 	jx secret convert edit
 
@@ -104,14 +153,6 @@ build-nokustomise: copy-resources post-build
 .PHONY: pre-build
 pre-build:
 
-.PHONY: gitops-scheduler
-gitops-scheduler:
-# lets generate the lighthouse configuration as we are in a development cluster
-	jx gitops scheduler
-
-.PHONY: no-gitops-scheduler
-no-gitops-scheduler:
-	@echo "disabled the scheduler generation as we are not a development cluster"
 
 .PHONY: post-build
 post-build: $(GENERATE_SCHEDULER)
@@ -134,9 +175,6 @@ post-build: $(GENERATE_SCHEDULER)
 # by modifying the underlying secret store (e.g. vault / GSM / ASM) which then causes External Secrets to modify the k8s Secrets
 	jx gitops annotate --dir  $(OUTPUT_DIR)/namespaces --kind Deployment --selector app=pusher-wave --invert-selector wave.pusher.com/update-on-config-change=true
 
-# lets force a rolling upgrade of lighthouse pods whenever we update the lighthouse config...
-	jx gitops hash -s config-root/namespaces/jx/lighthouse-config/config-cm.yaml -s config-root/namespaces/jx/lighthouse-config/plugins-cm.yaml -d config-root/namespaces/jx/lighthouse
-
 .PHONY: kustomize
 kustomize: pre-build
 	kustomize build ./build  -o $(OUTPUT_DIR)/namespaces
@@ -144,7 +182,7 @@ kustomize: pre-build
 .PHONY: copy-resources
 copy-resources: pre-build
 	@cp -r ./build/base/* $(OUTPUT_DIR)
-	@rm $(OUTPUT_DIR)/kustomization.yaml
+	@rm -rf $(OUTPUT_DIR)/kustomization.yaml
 
 .PHONY: lint
 lint:
@@ -164,9 +202,18 @@ verify-install:
 	-jx verify install --pod-wait-time=2m
 
 .PHONY: verify
-verify: dev-ns verify-ingress
-	jx gitops webhook update --warn-on-fail
+verify: dev-ns verify-ingress $(GITOPS_WEBHOOK_UPDATE)
 	jx health status -A
+
+
+.PHONY: gitops-webhook-update
+gitops-webhook-update:
+	jx gitops webhook update --warn-on-fail
+
+.PHONY: no-gitops-webhook-update
+no-gitops-webhook-update:
+	@echo "disabled 'jx gitops webhook update' as we are not a development cluster"
+
 
 .PHONY: dev-ns verify-ignore
 verify-ignore: verify-ingress-ignore
