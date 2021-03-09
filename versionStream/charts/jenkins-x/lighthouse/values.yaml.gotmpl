@@ -33,6 +33,10 @@ env:
   # the pipeline catalog version streams:
   LIGHTHOUSE_VERSIONSTREAM_JENKINS_X_JX3_PIPELINE_CATALOG: {{ readFile "../../../git/github.com/jenkins-x/jx3-pipeline-catalog.yml" | fromYaml | get "version" | quote }}
 
+keeper:
+  env:
+    LIGHTHOUSE_TRIGGER_ON_MISSING: disable
+    
 image:
   repository: gcr.io/jenkinsxio/lighthouse
 
