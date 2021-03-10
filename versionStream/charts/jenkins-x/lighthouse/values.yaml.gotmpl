@@ -36,12 +36,15 @@ env:
 keeper:
   env:
     LIGHTHOUSE_TRIGGER_ON_MISSING: disable
-    
+{{- if eq .Values.jxRequirements.cluster.gitKind "bitbucketserver" }}
+    GIT_CLONE_PATH_PREFIX: "scm"
+{{- end }}
+
 image:
   repository: gcr.io/jenkinsxio/lighthouse
 
   # TODO until this Pull Request merges: https://github.com/jenkins-x/lighthouse/pull/1254
-  tag: 0.0.0-SNAPSHOT-PR-1254-35
+  tag: 0.0.0-PR-1254-5-SNAPSHOT
 
 vault:
 {{- if eq .Values.jxRequirements.secretStorage "vault" }}

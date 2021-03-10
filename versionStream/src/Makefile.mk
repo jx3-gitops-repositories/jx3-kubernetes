@@ -97,7 +97,7 @@ gitops-scheduler:
 	jx gitops scheduler
 
 # lets force a rolling upgrade of lighthouse pods whenever we update the lighthouse config...
-	jx gitops hash -s config-root/namespaces/jx/lighthouse-config/config-cm.yaml -s config-root/namespaces/jx/lighthouse-config/plugins-cm.yaml -d config-root/namespaces/jx/lighthouse
+	jx gitops hash --pod-spec --kind Deployment -s config-root/namespaces/jx/lighthouse-config/config-cm.yaml -s config-root/namespaces/jx/lighthouse-config/plugins-cm.yaml -d config-root/namespaces/jx/lighthouse
 
 
 .PHONY: no-gitops-scheduler
