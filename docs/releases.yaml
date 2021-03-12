@@ -186,4 +186,4 @@
     name: tekton-pipeline
     repositoryName: cdf
     repositoryUrl: https://cdfoundation.github.io/tekton-helm-chart
-    version: 0.21.0
+    version: 0.21.1
