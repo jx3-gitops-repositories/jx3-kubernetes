@@ -2,22 +2,13 @@
   path: helmfiles/jx/helmfile.yaml
   releases:
   - apiVersion: v1
-    dependencies:
-    - alias: gcactivities
-      name: jx
-      repository: http://chartmuseum.jenkins-x.io
-      version: 2.0.1143
-    - alias: gcpods
-      name: jx
-      repository: http://chartmuseum.jenkins-x.io
-      version: 2.0.1143
     description: A Helm chart for the resources for JX Boot
     home: https://github.com/jenkins-x-charts/jxboot-helmfile-resources
     icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-website/master/images/logo/jenkinsx-icon-color.svg
     name: jxboot-helmfile-resources
     repositoryName: jx3
     repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
-    version: 1.0.37
+    version: 1.0.40
   - apiVersion: v2
     appVersion: 3.0.5
     description: Custom Resource Definitions for Jenkins X
