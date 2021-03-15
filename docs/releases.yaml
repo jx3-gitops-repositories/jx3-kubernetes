@@ -68,7 +68,7 @@
     repositoryUrl: https://storage.googleapis.com/jenkinsxio/charts
     sources:
     - https://github.com/jenkins-x-plugins/jx-build-controller
-    version: 0.0.33
+    version: 0.0.34
   - apiVersion: v2
     appVersion: 0.0.6
     description: Local External Secrets
