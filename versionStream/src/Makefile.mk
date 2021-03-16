@@ -115,9 +115,6 @@ fetch: init $(COPY_SOURCE) $(REPOSITORY_RESOLVE)
 # lets make sure we are using the latest jx-cli in the git operator Job
 	jx gitops image -s .jx/git-operator
 
-# this line avoids the next helmfile command failing...
-	helm repo add jx http://chartmuseum.jenkins-x.io
-
 # generate the yaml from the charts in helmfile.yaml and moves them to the right directory tree (cluster or namespaces/foo)
 	helmfile --file helmfile.yaml template --validate --include-crds --output-dir-template /tmp/generate/{{.Release.Namespace}}/{{.Release.Name}}
 
