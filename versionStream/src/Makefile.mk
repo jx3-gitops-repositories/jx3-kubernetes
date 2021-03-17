@@ -254,7 +254,11 @@ apply: regen-check $(KUBEAPPLY) annotate-resources secrets-populate verify apply
 
 .PHONY: report
 report:
+# lets generate the markdown and yaml reports in the docs dir
 	jx gitops helmfile report
+
+# lets update the deployment status to your git repository (e.g. https://github.com)
+	jx gitops helmfile status
 
 .PHONY: apply-completed
 apply-completed:
