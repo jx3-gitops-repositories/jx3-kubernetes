@@ -23,7 +23,6 @@ repositories:
 - prefix: jenkins-x
   urls:
   - https://storage.googleapis.com/chartmuseum.jenkins-x.io
-  - http://chartmuseum.jenkins-x.io
 - prefix: jenkinsci
   urls:
   - https://charts.jenkins.io
