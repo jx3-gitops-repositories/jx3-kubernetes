@@ -1,30 +1,55 @@
-ingress:
-  enabled: true
-  hosts:
-    - grafana{{ .Values.jxRequirements.ingress.namespaceSubDomain }}{{ .Values.jxRequirements.ingress.domain }}
+# https://github.com/grafana/helm-charts/blob/grafana-6.6.3/charts/grafana/values.yaml
 
-serviceAccount:
-  annotations:
-    # iam.gke.io/gcp-service-account: {{ .Values.jxRequirements.cluster.clusterName }}-grafana@{{ .Values.jxRequirements.cluster.project }}.iam.gserviceaccount.com
-
-persistence:
-  enabled: true
+plugins:
+  - grafana-piechart-panel 1.6.1
+  - briangann-datatable-panel 1.0.3
 
 grafana.ini:
   server:
     domain: grafana{{ .Values.jxRequirements.ingress.namespaceSubDomain }}{{ .Values.jxRequirements.ingress.domain }}
     root_url: "http://grafana{{ .Values.jxRequirements.ingress.namespaceSubDomain }}{{ .Values.jxRequirements.ingress.domain }}"
     serve_from_sub_path: true
-
-deploymentStrategy: { "type": "Recreate" }
-testFramework.enabled: false
-
-# to interpolate secrets into variables to use with ${FOO} in this file
-# envFromSecret: grafana-jx
+  analytics:
+    reporting_enabled: false
+    check_for_updates: false
 
 datasources:
   datasources.yaml:
     apiVersion: 1
-    datasources: 
+    datasources:
+      - name: Loki
+        uid: loki
+        type: loki
+        access: proxy
+        url: http://loki.jx-observability:3100
+        version: 1
+      - name: Prometheus
+        uid: prometheus
+        type: prometheus
+        access: proxy
+        url: http://prometheus-server.jx-observability
+        httpMethod: POST
+        version: 1
 
-plugins: 
+# automatically load all dashboards stored in ConfigMaps with the given label
+sidecar:
+  dashboards:
+    enabled: true
+    label: jenkins-x.io/grafana-dashboard
+    folder: /tmp/dashboards
+    provider:
+      allowUiUpdates: true
+
+ingress:
+  enabled: true
+  hosts:
+    - grafana{{ .Values.jxRequirements.ingress.namespaceSubDomain }}{{ .Values.jxRequirements.ingress.domain }}
+
+persistence:
+  enabled: true
+
+deploymentStrategy:
+  type: Recreate
+
+testFramework:
+  enabled: false

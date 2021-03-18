@@ -1,0 +1,20 @@
+# https://github.com/prometheus-community/helm-charts/blob/prometheus-13.6.0/charts/prometheus/values.yaml
+
+server:
+  enabled: true
+  persistentVolume:
+    enabled: true
+  strategy:
+    type: Recreate
+  # configure a 30d retention period - same as for loki
+  retention: "30d"
+alertmanager:
+  enabled: true
+  persistentVolume:
+    enabled: false
+kubeStateMetrics:
+  enabled: true
+nodeExporter:
+  enabled: true
+pushgateway:
+  enabled: false
