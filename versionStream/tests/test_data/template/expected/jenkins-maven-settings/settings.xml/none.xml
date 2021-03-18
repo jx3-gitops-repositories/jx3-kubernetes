@@ -17,12 +17,12 @@
         <server>
             <id>local-nexus</id>
             <username>admin</username>
-            <password>my-nexus-password</password>
+            <password></password>
         </server>
         <server>
             <id>nexus</id>
             <username>admin</username>
-            <password>my-nexus-password</password>
+            <password></password>
         </server>
         <server>
             <id>chartmuseum</id>
@@ -36,8 +36,8 @@
         </server>
         <server>
             <id>oss-sonatype-staging</id>
-            <username>my-sonatype-username</username>
-            <password>my-sonatype-password</password>
+            <username></username>
+            <password></password>
         </server>
         <server>
             <id>docker.io</id>
@@ -50,7 +50,7 @@
         <profile>
             <id>nexus</id>
             <properties>
-              <altDeploymentRepository>local-nexus::default::http://nexus/repository/maven-snapshots/</altDeploymentRepository>
+              <altDeploymentRepository>local-nexus::default::http://nexus/repository/maven-releases/</altDeploymentRepository>
               <altReleaseDeploymentRepository>local-nexus::default::http://nexus/repository/maven-releases/</altReleaseDeploymentRepository>
               <altSnapshotDeploymentRepository>local-nexus::default::http://nexus/repository/maven-snapshots/</altSnapshotDeploymentRepository>
             </properties>
@@ -95,7 +95,7 @@
             <properties>
                 <gpg.executable>gpg</gpg.executable>
                 <!-- TODO use: .Parameters.gpg.passphrase when it is always populated -->
-                <gpg.passphrase>my-secret-gpg-passphrase</gpg.passphrase>
+                <gpg.passphrase></gpg.passphrase>
             </properties>
         </profile>
     </profiles>
