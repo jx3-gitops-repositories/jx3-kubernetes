@@ -48,3 +48,7 @@ serviceAccount:
   annotations:
     iam.gke.io/gcp-service-account: {{ .Values.jxRequirements.cluster.clusterName }}-sm@{{ .Values.jxRequirements.cluster.project }}.iam.gserviceaccount.com
 {{- end }}
+
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "3001"
