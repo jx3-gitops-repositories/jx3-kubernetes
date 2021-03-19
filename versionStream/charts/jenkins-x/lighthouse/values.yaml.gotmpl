@@ -34,6 +34,9 @@ env:
   LIGHTHOUSE_VERSIONSTREAM_JENKINS_X_JX3_PIPELINE_CATALOG: {{ readFile "../../../git/github.com/jenkins-x/jx3-pipeline-catalog.yml" | fromYaml | get "version" | quote }}
 
 keeper:
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9090"
   env:
     LIGHTHOUSE_TRIGGER_ON_MISSING: disable
 {{- if eq .Values.jxRequirements.cluster.gitKind "bitbucketserver" }}
@@ -73,4 +76,11 @@ oauthToken: "{{ .Values.jx.secrets.pipelineUser.token }}"
 webhooks:
   labels:
     git.jenkins-x.io/sha: annotate
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "2112"
   customDeploymentTriggerCommand: "jx"
+
+# TODO remove once https://github.com/jenkins-x/lighthouse/pull/1259 is merged
+podAnnotations:
+  key: value
