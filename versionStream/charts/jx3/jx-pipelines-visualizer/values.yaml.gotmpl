@@ -53,6 +53,8 @@ config:
     {{ .url }}{{`/jenkins-x/logs/{{.Owner}}/{{.Repository}}/{{if hasPrefix .Branch "pr"}}{{.Branch | upper}}{{else}}{{.Branch}}{{end}}/{{.Build}}.log`}}
   archivedPipelinesURLTemplate: >-
     {{ .url }}{{`/jenkins-x/logs/{{.Owner}}/{{.Repository}}/{{if hasPrefix .Branch "pr"}}{{.Branch | upper}}{{else}}{{.Branch}}{{end}}/{{.Build}}.yaml`}}
+  archivedPipelineRunsURLTemplate: >-
+    {{ .url }}{{`/jenkins-x/pipelineruns/{{.Namespace}}/{{.Name}}.yaml`}}
 {{- end }}
 {{- end }}
 {{- end }}
