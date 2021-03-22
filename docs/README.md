@@ -74,8 +74,8 @@
 		      <td colspan='4'><h3>kuberhealthy</h3></td>
 		    </tr>
 	    <tr>
-	      <td><a href='https://comcast.github.io/kuberhealthy/' title='An operator for synthetic test and monitoring.  Works great with Prometheus.'> <img src='https://raw.githubusercontent.com/Comcast/kuberhealthy/master/images/logo-square.png' width='24px' height='24px'> kuberhealthy </a></td>
-	      <td>2.2.0</td>
+	      <td><a href='https://comcast.github.io/kuberhealthy/' title='An operator for synthetic test and monitoring. Works great with Prometheus.'> <img src='https://raw.githubusercontent.com/Comcast/kuberhealthy/master/images/logo-square.png' width='24px' height='24px'> kuberhealthy </a></td>
+	      <td>54</td>
 	      <td></td>
 	      <td><a href='https://comcast.github.io/kuberhealthy/'>source</a></td>
 	    </tr>
