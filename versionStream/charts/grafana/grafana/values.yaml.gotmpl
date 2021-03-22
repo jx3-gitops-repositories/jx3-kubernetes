@@ -12,6 +12,9 @@ grafana.ini:
   analytics:
     reporting_enabled: false
     check_for_updates: false
+  dashboards:
+    # this dashboard is defined in https://github.com/jenkins-x-charts/grafana-dashboard
+    default_home_dashboard_path: /tmp/dashboards/jenkins-x.json
 
 datasources:
   datasources.yaml:
@@ -36,9 +39,30 @@ sidecar:
   dashboards:
     enabled: true
     label: jenkins-x.io/grafana-dashboard
+    searchNamespace: ALL
     folder: /tmp/dashboards
     provider:
       allowUiUpdates: true
+  datasources:
+    enabled: true
+    label: jenkins-x.io/grafana-datasource
+    searchNamespace: ALL
+  notifiers:
+    enabled: true
+    label: jenkins-x.io/grafana-notifier
+    searchNamespace: ALL
+
+notifiers:
+  notifiers.yaml:
+    notifiers:
+      - name: prometheus-alertmanager
+        type: prometheus-alertmanager
+        uid: prometheus-alertmanager
+        org_id: 1
+        is_default: true
+        settings:
+          url: http://prometheus-alertmanager.jx-observability
+    delete_notifiers: []
 
 ingress:
   enabled: true
