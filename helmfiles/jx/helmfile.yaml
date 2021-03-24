@@ -35,11 +35,11 @@ releases:
   name: jx-preview
   values:
   - jx-values.yaml
-- chart: jenkins-x/lighthouse
-  version: 0.0.939
+- chart: jx3/lighthouse
+  version: 1.0.3
   name: lighthouse
   values:
-  - ../../versionStream/charts/jenkins-x/lighthouse/values.yaml.gotmpl
+  - ../../versionStream/charts/jx3/lighthouse/values.yaml.gotmpl
   - jx-values.yaml
 - chart: jenkins-x/bucketrepo
   version: 0.1.54
