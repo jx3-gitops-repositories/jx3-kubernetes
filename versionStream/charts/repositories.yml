@@ -44,3 +44,6 @@ repositories:
 - prefix: grafana
   urls:
   - https://grafana.github.io/helm-charts
+- prefix: prometheus-community
+  urls:
+  - https://prometheus-community.github.io/helm-charts
