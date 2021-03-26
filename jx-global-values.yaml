@@ -1,8 +1,11 @@
-# optional list of image pull secrets to use to pull images
+# global values passed into all helm charts by default
 jx:
+  # optional list of image pull secrets to use to pull container images
   imagePullSecrets:
     - tekton-container-registry-auth
 
+  # whether to create a Release CRD when installing charts with Release CRDs included
+  releaseCRD: true
 
   # these variables are used by 'jx gitops variables' to default environment variables
   # into the .jx/variables.sh file which can be overriden on a pre repository basis
