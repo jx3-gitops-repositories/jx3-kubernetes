@@ -5,7 +5,7 @@ metadata:
 upstream:
   type: git
   git:
-    commit: 54e3c08f7c6b48a4cea9d2bbd87c8218f32627ae
+    commit: ed7ae4699abdfadd55dfd5d652a2d909c4681ae9
     repo: https://github.com/jenkins-x/jx3-pipeline-catalog
     directory: /environment/.lighthouse/jenkins-x
     ref: master
