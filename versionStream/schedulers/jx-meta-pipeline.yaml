@@ -13,97 +13,98 @@ spec:
     merge_method: merge
     policy:
       from-branch-protection: true
-      optional-contexts: {}
-      required-contexts: {}
-      required-if-present-contexts: {}
+      optional-contexts: { }
+      required-contexts: { }
+      required-if-present-contexts: { }
       skip-unknown-contexts: false
     pr_status_base_url: ""
     squash_label: ""
-    target_url: http://dashboard{{ .Requirements.ingress.namespaceSubDomain }}{{ .Requirements.ingress.domain
-      }}
+    target_url: http://dashboard{{ .Requirements.ingress.namespaceSubDomain }}{{ .Requirements.ingress.domain }}
   plugins:
     entries:
-    - approve
-    - assign
-    - blunderbuss
-    - help
-    - hold
-    - lgtm
-    - lifecycle
-    - override
-    - size
-    - trigger
-    - wip
-    - heart
-    - cat
-    - dog
-    - pony
+      - approve
+      - assign
+      - blunderbuss
+      - help
+      - hold
+      - lgtm
+      - lifecycle
+      - override
+      - size
+      - trigger
+      - wip
+      - heart
+      - cat
+      - dog
+      - pony
   policy:
     protect_tested: true
   postsubmits:
     entries:
-    - agent: tekton-pipeline
-      branches:
-      - master
-      - main
-      labels:
-        aadpodidbinding: tekton-bot
-      max_concurrency: 0
-      name: release
-      report: false
-      run_if_changed: ""
-      pipeline_run_spec:
-        pipelineRef:
-          name: jx-meta-pipeline
-        serviceAccountName: tekton-bot
+      - agent: tekton-pipeline
+        branches:
+          - master
+          - main
+        labels:
+          aadpodidbinding: tekton-bot
+        max_concurrency: 0
+        name: release
+        report: false
+        run_if_changed: ""
+        pipeline_run_spec:
+          pipelineRef:
+            name: jx-meta-pipeline
+          serviceAccountName: tekton-bot
+
   presubmits:
     entries:
-    - agent: tekton-pipeline
-      always_run: true
-      context: pr-build
-      labels:
-        aadpodidbinding: tekton-bot
-      max_concurrency: 0
-      name: pr-build
-      optional: false
-      pipeline_run_spec:
-        pipelineRef:
-          name: jx-meta-pipeline
-        serviceAccountName: tekton-bot
-      report: true
-      rerun_command: /test this
-      run_if_changed: ""
-      trigger: (?m)^/test( all| this),?(\s+|$)
+      - agent: tekton-pipeline
+        always_run: true
+        context: pr-build
+        labels:
+          aadpodidbinding: tekton-bot
+        max_concurrency: 0
+        name: pr-build
+        optional: false
+        pipeline_run_spec:
+          pipelineRef:
+            name: jx-meta-pipeline
+          serviceAccountName: tekton-bot
+        report: true
+        rerun_command: /test this
+        run_if_changed: ""
+        trigger: (?m)^/test( all| this),?(\s+|$)
+
   merge_method: ""
   queries:
-  - excludedBranches: {}
-    included_branches: {}
-    labels:
-      entries:
-      - approved
-    milestone: ""
-    missingLabels:
-      entries:
-      - do-not-merge
-      - do-not-merge/hold
-      - do-not-merge/work-in-progress
-      - needs-ok-to-test
-      - needs-rebase
-    review_approved_required: false
-  - excludedBranches: {}
-    included_branches: {}
-    labels:
-      entries:
-      - updatebot
-    milestone: ""
-    missingLabels:
-      entries:
-      - do-not-merge
-      - do-not-merge/hold
-      - do-not-merge/work-in-progress
-      - needs-ok-to-test
-      - needs-rebase
-    review_approved_required: false
+    - excludedBranches: { }
+      included_branches: { }
+      labels:
+        entries:
+          - approved
+      milestone: ""
+      missingLabels:
+        entries:
+          - do-not-merge
+          - do-not-merge/hold
+          - do-not-merge/work-in-progress
+          - needs-ok-to-test
+          - needs-rebase
+      review_approved_required: false
+    - excludedBranches: { }
+      included_branches: { }
+      labels:
+        entries:
+          - updatebot
+      milestone: ""
+      missingLabels:
+        entries:
+          - do-not-merge
+          - do-not-merge/hold
+          - do-not-merge/work-in-progress
+          - needs-ok-to-test
+          - needs-rebase
+      review_approved_required: false
   schedulerAgent:
     agent: tekton
   trigger:
@@ -111,4 +112,4 @@ spec:
     join_org_url: ""
     only_org_members: false
   welcome:
-  - message_template: Welcome
+    - message_template: Welcome

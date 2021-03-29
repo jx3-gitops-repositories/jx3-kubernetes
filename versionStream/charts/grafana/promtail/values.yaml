@@ -4,49 +4,49 @@ config:
   lokiAddress: http://loki.jx-observability:3100/loki/api/v1/push
   snippets:
     pipelineStages:
-    - cri: {}
+      - cri: {}
     prelabelConfigs:
-    # ignore logs from tekton pipelines pods (already available in the jx pipelines visualizer)
-    - action: drop
-      regex: 'tekton-pipelines'
-      source_labels:
-      - __meta_kubernetes_pod_label_app_kubernetes_io_managed_by
-    # ignore logs from static jenkins slave pods
-    - action: drop
-      regex: 'slave'
-      source_labels:
-      - __meta_kubernetes_pod_label_jenkins
+      # ignore logs from tekton pipelines pods (already available in the jx pipelines visualizer)
+      - action: drop
+        regex: 'tekton-pipelines'
+        source_labels:
+          - __meta_kubernetes_pod_label_app_kubernetes_io_managed_by
+      # ignore logs from static jenkins slave pods
+      - action: drop
+        regex: 'slave'
+        source_labels:
+          - __meta_kubernetes_pod_label_jenkins
     postlabelConfigs:
-    - action: replace
-      source_labels:
-      - __meta_kubernetes_pod_node_name
-      target_label: node_name
-    - action: replace
-      source_labels:
-      - __meta_kubernetes_namespace
-      target_label: namespace
-    - action: replace
-      replacement: $1
-      separator: /
-      source_labels:
-      - namespace
-      - app
-      target_label: job
-    - action: replace
-      source_labels:
-      - __meta_kubernetes_pod_name
-      target_label: pod
-    - action: replace
-      source_labels:
-      - __meta_kubernetes_pod_container_name
-      target_label: container
-    - action: replace
-      replacement: /var/log/pods/*$1/*.log
-      separator: /
-      source_labels:
-      - __meta_kubernetes_pod_uid
-      - __meta_kubernetes_pod_container_name
-      target_label: __path__
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_pod_node_name
+        target_label: node_name
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+          - namespace
+          - app
+        target_label: job
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_pod_container_name
+        target_label: container
+      - action: replace
+        replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+          - __meta_kubernetes_pod_uid
+          - __meta_kubernetes_pod_container_name
+        target_label: __path__
     scrapeConfigs: |
       # See also https://github.com/grafana/loki/blob/master/production/ksonnet/promtail/scrape_config.libsonnet for reference
       # Pods with a label 'app.kubernetes.io/name'
@@ -210,6 +210,7 @@ config:
             target_label: scrape_job
           {{- end }}
           {{- toYaml .Values.config.snippets.postlabelConfigs | nindent 4 }}
+
 podAnnotations:
   prometheus.io/scrape: "true"
   prometheus.io/port: "http-metrics"

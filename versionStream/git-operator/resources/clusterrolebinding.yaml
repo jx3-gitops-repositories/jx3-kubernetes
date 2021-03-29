@@ -8,5 +8,5 @@ subjects:
   namespace: jx-git-operator
 roleRef:
   kind: ClusterRole
-  name: jx-boot-job
+  name:  jx-boot-job
   apiGroup: rbac.authorization.k8s.io

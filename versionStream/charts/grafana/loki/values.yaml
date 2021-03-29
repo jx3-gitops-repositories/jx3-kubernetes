@@ -2,6 +2,7 @@
 
 persistence:
   enabled: true
+
 config:
   # configure a 30 days retention by default
   # note that data might be available for up to 60 days, because of the internal implementation

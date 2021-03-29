@@ -25,7 +25,7 @@ repositories:
   - https://storage.googleapis.com/chartmuseum.jenkins-x.io
 - prefix: jenkinsci
   urls:
-  - https://charts.jenkins.io
+  -  https://charts.jenkins.io
 - prefix: jetstack
   urls:
   - https://charts.jetstack.io

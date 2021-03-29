@@ -9,15 +9,15 @@ cluster:
   provider: gke
   zone: europe-west1-c
 environments:
-- key: dev
-  owner: ""
-  repository: ""
-- key: staging
-  owner: ""
-  repository: ""
-- key: production
-  owner: ""
-  repository: ""
+  - key: dev
+    owner: ""
+    repository: ""
+  - key: staging
+    owner: ""
+    repository: ""
+  - key: production
+    owner: ""
+    repository: ""
 ingress:
   domain: ""
   externalDNS: false
@@ -44,3 +44,4 @@ vault:
 versionStream:
   ref: "master"
   url: https://github.com/jenkins-x/jenkins-x-versions.git
+
