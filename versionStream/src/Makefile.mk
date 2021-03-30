@@ -5,6 +5,9 @@ KUBEAPPLY ?= kubectl-apply
 HELM_TMP_GENERATE ?= /tmp/generate
 HELM_TMP_SECRETS ?= /tmp/secrets/jx-helm
 
+# lets you define a post apply hook such as to run custom validation
+POST_APPLY_HOOK ?=
+
 # this target is only needed for development clusters
 # for remote staging/production clusters try:
 #
@@ -261,7 +264,7 @@ report:
 	jx gitops helmfile status
 
 .PHONY: apply-completed
-apply-completed:
+apply-completed: $(POST_APPLY_HOOK)
 	@echo "completed the boot Job"
 
 .PHONY: failed
@@ -310,7 +313,7 @@ commit:
 	-git commit -m "chore: regenerated" -m "/pipeline cancel"
 
 .PHONY: all
-all: clean fetch build lint
+all: clean fetch build lint 
 
 
 .PHONY: pr
@@ -318,7 +321,12 @@ pr:
 	jx gitops apply --pull-request
 
 .PHONY: pr-regen
-pr-regen: all commit push-pr-branch
+pr-regen: all pr-report commit push-pr-branch
+
+.PHONY: pr-report
+pr-report:
+# lets generate the markdown and yaml reports in the docs dir
+	jx gitops helmfile report
 
 .PHONY: push-pr-branch
 push-pr-branch:
