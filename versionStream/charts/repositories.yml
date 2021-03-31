@@ -47,3 +47,6 @@ repositories:
 - prefix: prometheus-community
   urls:
   - https://prometheus-community.github.io/helm-charts
+- prefix: osiris
+  urls:
+  - https://dailymotion-oss.github.io/osiris/charts
