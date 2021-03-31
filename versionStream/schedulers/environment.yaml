@@ -36,6 +36,11 @@ spec:
       - heart
       - cat
       - override
+  external_plugins:
+    Replace: true
+    entries:
+    - name: cd-indicators
+      endpoint: "http://cd-indicators.jx.svc.cluster.local/lighthouse/events"
   policy:
     protect_tested: true
   postsubmits:
