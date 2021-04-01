@@ -36,7 +36,7 @@ releases:
   values:
   - jx-values.yaml
 - chart: jx3/lighthouse
-  version: 1.0.12
+  version: 1.0.13
   name: lighthouse
   values:
   - ../../versionStream/charts/jx3/lighthouse/values.yaml.gotmpl
