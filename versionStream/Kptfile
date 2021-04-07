@@ -8,4 +8,4 @@ upstream:
     commit: 4fd6b20d537e6f254003196a4b3c52320a053a41
     repo: https://github.com/jenkins-x/jxr-versions
     directory: /
-    ref: master
+    ref: main
