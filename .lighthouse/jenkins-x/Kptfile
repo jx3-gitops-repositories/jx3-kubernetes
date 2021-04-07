@@ -8,4 +8,4 @@ upstream:
     commit: 777c9b864e5b855bf7201aa992c9d3c0584d5413
     repo: https://github.com/jenkins-x/jx3-pipeline-catalog
     directory: /environment/.lighthouse/jenkins-x
-    ref: main
+    ref: master
