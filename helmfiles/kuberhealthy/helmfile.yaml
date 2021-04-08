@@ -17,7 +17,7 @@ releases:
   - ../../versionStream/charts/kuberhealthy/kuberhealthy/values.yaml.gotmpl
   - jx-values.yaml
 - chart: jx3/jx-kh-check
-  version: 0.0.58
+  version: 0.0.59
   name: jx-kh-check
   values:
   - ../../versionStream/charts/jx3/jx-kh-check/values.yaml.gotmpl
