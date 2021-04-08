@@ -44,17 +44,24 @@ serviceAccount:
     installed-by: jenkins-x
 {{- end }}
 
-# allow the UI to query the long-term storage directly to find an old pipeline
-{{- if hasKey .Values.jxRequirements "storage" }}
-{{- range .Values.jxRequirements.storage }}
-{{- if eq .name "logs" }}
 config:
+
+  # build a link for the pipeline trace, to our Grafana instance running in the jx-observability namespace
+  # Note that we have to fix the ingress.namespaceSubDomain with the same logic used in jx-gitops:
+  # https://github.com/jenkins-x-plugins/jx-gitops/blob/v0.2.47/pkg/cmd/helmfile/resolve/resolve.go#L236
+  pipelineTraceURLTemplate: >-
+    http://grafana{{ .Values.jxRequirements.ingress.namespaceSubDomain | replace "jx" "jx-observability" }}{{ .Values.jxRequirements.ingress.domain }}/explore?left=%5B%22now%22,%22now%22,%22Tempo%22,%7B%22query%22:%22{{`{{.TraceID}}`}}%22%7D%5D
+
+  # allow the UI to query the long-term storage directly to find an old pipeline
+  {{- if hasKey .Values.jxRequirements "storage" }}
+  {{- range .Values.jxRequirements.storage }}
+  {{- if eq .name "logs" }}
   archivedLogsURLTemplate: >-
     {{ .url }}{{`/jenkins-x/logs/{{.Owner}}/{{.Repository}}/{{if hasPrefix .Branch "pr"}}{{.Branch | upper}}{{else}}{{.Branch}}{{end}}/{{.Build}}.log`}}
   archivedPipelinesURLTemplate: >-
     {{ .url }}{{`/jenkins-x/logs/{{.Owner}}/{{.Repository}}/{{if hasPrefix .Branch "pr"}}{{.Branch | upper}}{{else}}{{.Branch}}{{end}}/{{.Build}}.yaml`}}
   archivedPipelineRunsURLTemplate: >-
     {{ .url }}{{`/jenkins-x/pipelineruns/{{.Namespace}}/{{.Name}}.yaml`}}
-{{- end }}
-{{- end }}
-{{- end }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
