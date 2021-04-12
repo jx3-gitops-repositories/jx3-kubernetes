@@ -1,4 +1,4 @@
-version: 3.2.26
+version: 3.2.27
 upperLimit: 4.0.0
 gitUrl: https://github.com/jenkins-x/jx.git
 url: https://jenkins-x.io
