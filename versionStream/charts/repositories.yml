@@ -50,3 +50,6 @@ repositories:
 - prefix: osiris
   urls:
   - https://dailymotion-oss.github.io/osiris/charts
+- prefix: k8s-at-home
+  urls:
+  - https://k8s-at-home.com/charts
