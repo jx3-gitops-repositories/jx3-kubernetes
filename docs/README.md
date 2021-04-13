@@ -52,7 +52,7 @@
 	    </tr>
     <tr>
 	      <td><a href='https://jenkins-x.io/' title='Jenkins X next gen cloud CI / CD platform for Kubernetes'> <img src='https://raw.githubusercontent.com/jenkins-x/jenkins-x-website/master/images/logo/jenkinsx-icon-color.svg' width='24px' height='24px'> jx-build-controller </a></td>
-	      <td>0.2.3</td>
+	      <td>0.2.4</td>
 	      <td></td>
 	      <td><a href='https://jenkins-x.io/'>source</a></td>
 	    </tr>
