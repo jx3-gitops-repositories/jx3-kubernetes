@@ -35,7 +35,7 @@
     name: jx-preview
     repositoryName: jxgh
     repositoryUrl: https://jenkins-x-charts.github.io/repo
-    version: 0.0.177
+    version: 0.0.178
   - apiVersion: v1
     description: 'This chart bootstraps installation of [Lighthouse](https://github.com/jenkins-x/lighthouse). '
     home: https://github.com/jenkins-x/lighthouse
