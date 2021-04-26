@@ -243,7 +243,7 @@ regen-check:
 regen-phase-1: git-setup resolve-metadata all $(KUBEAPPLY) annotate-resources verify-ingress-ignore commit
 
 .PHONY: regen-phase-2
-regen-phase-2: verify-ingress-ignore all verify-ignore report commit
+regen-phase-2: verify-ingress-ignore all verify-ignore commit
 
 .PHONY: regen-phase-3
 regen-phase-3: push secrets-wait
@@ -313,7 +313,7 @@ commit:
 	-git commit -m "chore: regenerated" -m "/pipeline cancel"
 
 .PHONY: all
-all: clean fetch build lint 
+all: clean fetch report build lint
 
 
 .PHONY: pr
