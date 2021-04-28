@@ -253,12 +253,16 @@ regen-none:
 # we just merged a PR so lets perform any extra checks after the merge but before the kubectl apply
 
 .PHONY: apply
-apply: regen-check $(KUBEAPPLY) annotate-resources secrets-populate verify apply-completed
+apply: regen-check $(KUBEAPPLY) annotate-resources secrets-populate verify apply-completed status
 
 .PHONY: report
 report:
 # lets generate the markdown and yaml reports in the docs dir
 	jx gitops helmfile report
+
+
+.PHONY: status
+status:
 
 # lets update the deployment status to your git repository (e.g. https://github.com)
 	jx gitops helmfile status
@@ -321,12 +325,7 @@ pr:
 	jx gitops apply --pull-request
 
 .PHONY: pr-regen
-pr-regen: all pr-report commit push-pr-branch
-
-.PHONY: pr-report
-pr-report:
-# lets generate the markdown and yaml reports in the docs dir
-	jx gitops helmfile report
+pr-regen: all commit push-pr-branch
 
 .PHONY: push-pr-branch
 push-pr-branch:
