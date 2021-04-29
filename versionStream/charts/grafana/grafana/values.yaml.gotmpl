@@ -98,3 +98,7 @@ deploymentStrategy:
 
 testFramework:
   enabled: false
+
+# this fake password is not used (it will be replaced by the password from the external secret)
+# it is only set here to avoid Helm regenerating a random new one each time the templates are rendered
+adminPassword: fakepassword
