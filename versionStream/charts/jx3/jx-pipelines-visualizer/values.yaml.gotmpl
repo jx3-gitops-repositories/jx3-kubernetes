@@ -16,7 +16,9 @@ ingress:
   tls:
     enabled: {{ .Values.jxRequirements.ingress.tls.enabled }}
     secrets:
-{{- if .Values.jxRequirements.ingress.tls.production }}
+{{- if and (.Values.jxRequirements.ingress.tls.enabled) (hasKey .Values.jxRequirements.ingress "tls") (hasKey .Values.jxRequirements.ingress.tls "secretName") }}
+      "{{ .Values.jxRequirements.ingress.tls.secretName }}": {}
+{{- else if .Values.jxRequirements.ingress.tls.production }}
       "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-p": {}
 {{- else }}
       "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-s": {}
