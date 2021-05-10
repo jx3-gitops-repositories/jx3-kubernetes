@@ -312,6 +312,8 @@ resolve-metadata:
 
 .PHONY: commit
 commit:
+# lets make sure the git user name and email are setup for the commit to ensure we don't attribute this commit to random user
+	jx gitops git setup
 	-git add --all
 # lets ignore commit errors in case there's no changes and to stop pipelines failing
 	-git commit -m "chore: regenerated" -m "/pipeline cancel"
