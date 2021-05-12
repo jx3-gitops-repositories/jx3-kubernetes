@@ -24,7 +24,6 @@ spec:
           resources: {}
         - name: make-pr
           resources: {}
-        - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/kubetest/environment.yaml@versionStream
   podTemplate: {}
   serviceAccountName: tekton-bot
   timeout: 240h0m0s
