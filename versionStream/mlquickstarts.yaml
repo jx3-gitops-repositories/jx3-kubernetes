@@ -1,0 +1,21 @@
+apiVersion: project.jenkins-x.io/v1alpha1
+kind: Quickstarts
+spec:
+  defaultOwner: machine-learning-quickstarts
+  quickstarts:
+  - downloadZipURL: https://github.com/machine-learning-quickstarts/ML-python-pytorch-cpu-service/archive/refs/tags/v1.3.0.zip
+    language: Python
+    name: ML-python-pytorch-cpu-service
+    version: 1.3.0
+  - downloadZipURL: https://github.com/machine-learning-quickstarts/ML-python-pytorch-cpu-training/archive/refs/tags/v1.3.0.zip
+    language: Python
+    name: ML-python-pytorch-cpu-training
+    version: 1.3.0
+  - downloadZipURL: https://github.com/machine-learning-quickstarts/ML-python-pytorch-mlpc-cpu-service/archive/refs/tags/v1.3.0.zip
+    language: Python
+    name: ML-python-pytorch-mlpc-cpu-service
+    version: 1.3.0
+  - downloadZipURL: https://github.com/machine-learning-quickstarts/ML-python-pytorch-mlpc-cpu-training/archive/refs/tags/v1.3.0.zip
+    language: Python
+    name: ML-python-pytorch-mlpc-cpu-training
+    version: 1.3.0
