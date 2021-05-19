@@ -155,7 +155,7 @@ pre-build:
 
 
 .PHONY: post-build
-post-build: annotate-resources $(GENERATE_SCHEDULER)
+post-build: $(GENERATE_SCHEDULER)
 
 # lets add the kubectl-apply prune annotations
 #
@@ -253,7 +253,7 @@ regen-none:
 # we just merged a PR so lets perform any extra checks after the merge but before the kubectl apply
 
 .PHONY: apply
-apply: regen-check $(KUBEAPPLY) secrets-populate verify apply-completed status
+apply: regen-check $(KUBEAPPLY) secrets-populate verify annotate-resources apply-completed status
 
 .PHONY: report
 report:
@@ -303,7 +303,7 @@ kapp-apply:
 .PHONY: annotate-resources
 annotate-resources:
 	@echo "annotating some deployments with the latest git SHA: $(GIT_SHA)"
-	jx gitops annotate --pod-spec --dir  $(OUTPUT_DIR)/namespaces --kind Deployment --selector git.jenkins-x.io/sha=annotate git.jenkins-x.io/sha=$(GIT_SHA)
+	jx gitops patch --selector git.jenkins-x.io/sha=annotate  --data '{"spec":{"template":{"metadata":{"annotations":{"git.jenkins-x.io/sha": "$(GIT_SHA)"}}}}}'
 
 .PHONY: resolve-metadata
 resolve-metadata:
