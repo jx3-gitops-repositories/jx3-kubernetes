@@ -53,3 +53,6 @@ repositories:
 - prefix: k8s-at-home
   urls:
   - https://k8s-at-home.com/charts
+- prefix: argocd
+  urls:
+  - https://argoproj.github.io/argo-helm
