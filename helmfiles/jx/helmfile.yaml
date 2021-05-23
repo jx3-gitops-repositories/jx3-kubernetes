@@ -42,13 +42,13 @@ releases:
   - ../../versionStream/charts/jx3/lighthouse/values.yaml.gotmpl
   - jx-values.yaml
 - chart: jx3/bucketrepo
-  version: 0.1.61
+  version: 0.1.62
   name: bucketrepo
   values:
   - ../../versionStream/charts/jx3/bucketrepo/values.yaml.gotmpl
   - jx-values.yaml
 - chart: jx3/jx-build-controller
-  version: 0.2.7
+  version: 0.2.8
   name: jx-build-controller
   values:
   - ../../versionStream/charts/jx3/jx-build-controller/values.yaml.gotmpl
