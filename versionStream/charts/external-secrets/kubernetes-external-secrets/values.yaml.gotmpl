@@ -59,7 +59,19 @@ securityContext:
 
 serviceAccount:
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.jxRequirements.cluster.project }}:role/{{ .Values.jxRequirements.cluster.clusterName }}-external-secrets
+    eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.jxRequirements.cluster.project }}:role/{{ .Values.jxRequirements.cluster.clusterName }}-external-secrets-secrets-manager
+{{- end }}
+
+{{- if eq .Values.jxRequirements.secretStorage "systemManager" }}
+env:
+  AWS_REGION: {{ .Values.jxRequirements.cluster.region }}
+
+securityContext:
+  fsGroup: 65534
+
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.jxRequirements.cluster.project }}:role/{{ .Values.jxRequirements.cluster.clusterName }}-external-secrets-parameter-store
 {{- end }}
 
 podAnnotations:
