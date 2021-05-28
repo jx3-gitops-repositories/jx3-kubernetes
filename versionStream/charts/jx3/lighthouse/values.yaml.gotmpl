@@ -24,7 +24,7 @@ tektoncontroller:
   dashboardTemplate: "namespaces/{{"{{"}} .Namespace {{"}}"}}/pipelineruns/{{"{{"}} .PipelineRun {{"}}"}}"
 
 env:
-  JX_DEFAULT_IMAGE: gcr.io/jenkinsxio/builder-maven:2.1.142-761
+  JX_DEFAULT_IMAGE: ghcr.io/jenkins-x/builder-maven:2.1.149-768
   LIGHTHOUSE_DASHBOARD_TEMPLATE: "namespaces/{{"{{"}} .Namespace {{"}}"}}/pipelineruns/{{"{{"}} .PipelineRun {{"}}"}}"
   DEFAULT_PIPELINE_RUN_SERVICE_ACCOUNT: tekton-bot
   DEFAULT_PIPELINE_RUN_TIMEOUT: "2h0m0s"
