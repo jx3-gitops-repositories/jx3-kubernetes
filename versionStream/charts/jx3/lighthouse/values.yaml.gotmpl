@@ -42,7 +42,7 @@ keeper:
     prometheus.io/scrape: "true"
     prometheus.io/port: "9090"
   env:
-    LIGHTHOUSE_TRIGGER_ON_MISSING: disable
+    LIGHTHOUSE_TRIGGER_ON_MISSING: enable
 {{- if eq .Values.jxRequirements.cluster.gitKind "bitbucketserver" }}
     GIT_CLONE_PATH_PREFIX: "scm"
 {{- end }}
