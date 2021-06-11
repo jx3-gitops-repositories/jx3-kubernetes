@@ -44,6 +44,8 @@ spec:
     entries:
     - name: cd-indicators
       endpoint: "http://cd-indicators.jx.svc.cluster.local/lighthouse/events"
+    - name: lighthouse-webui-plugin
+      endpoint: "http://lighthouse-webui-plugin.jx.svc.cluster.local/lighthouse/events"
   queries:
     - excludedBranches: { }
       included_branches: { }
