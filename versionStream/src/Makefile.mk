@@ -336,7 +336,8 @@ pr-regen: all commit push-pr-branch
 .PHONY: push-pr-branch
 push-pr-branch:
 # lets push changes to the Pull Request branch
-	jx gitops pr push --ignore-no-pr
+# we need to force push due to rebasing of PRs after new commits merge to the main branch after the PR is created
+	jx gitops pr push --ignore-no-pr --force
 
 # now lets label the Pull Request so that lighthouse keeper can auto merge it
 	jx gitops pr label --name updatebot --matches "env/.*" --ignore-no-pr
