@@ -33,3 +33,14 @@ config:
   # https://github.com/jenkins-x-plugins/jx-gitops/blob/v0.2.47/pkg/cmd/helmfile/resolve/resolve.go#L236
   eventTraceURLTemplate: >-
     http://grafana{{ .Values.jxRequirements.ingress.namespaceSubDomain | replace "jx" "jx-observability" }}{{ .Values.jxRequirements.ingress.domain }}/explore?left=%5B%22now%22,%22now%22,%22Tempo%22,%7B%22query%22:%22{{`{{.TraceID}}`}}%22%7D%5D
+
+  # don't store more than 1k events by default
+  store:
+    gc:
+      maxEventsToKeep: 1000
+
+persistence:
+  enabled: true
+deployment:
+  strategy:
+    type: Recreate
