@@ -12,6 +12,8 @@ ingress:
     # message to display with an appropriate context why the authentication is required
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Jenkins X Lighthouse Dashboard'
 
+  apiVersion: "networking.k8s.io/v1"
+
   hosts:
   - "lighthouse{{ .Values.jxRequirements.ingress.namespaceSubDomain | default "." }}{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}"
 
