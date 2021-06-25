@@ -32,7 +32,7 @@ securityContext:
 
 serviceAccount:
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.jxRequirements.cluster.project }}:role/{{ .Values.jxRequirements.cluster.clusterName }}-external-secrets-parameter-store
+    eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.jxRequirements.cluster.project }}:role/{{ .Values.jxRequirements.cluster.clusterName }}-external-secrets-system-manager
 {{- end }}
 {{- if eq .Values.jxRequirements.secretStorage "vault" }}
   VAULT_ADDR: https://vault.jx-vault:8200
