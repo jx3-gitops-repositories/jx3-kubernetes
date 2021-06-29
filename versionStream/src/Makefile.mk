@@ -133,7 +133,7 @@ fetch: init $(COPY_SOURCE) $(REPOSITORY_RESOLVE)
 	jx secret replicate --selector secret.jenkins-x.io/replica-source=true
 
 # populate secrets from filesystem definitions
-	-VAULT_ADDR=$(VAULT_ADDR) VAULT_NAMESPACE=$(VAULT_NAMESPACE) jx secret populate --source filesystem --secret-namespace $(VAULT_NAMESPACE)
+#	-VAULT_ADDR=$(VAULT_ADDR) VAULT_NAMESPACE=$(VAULT_NAMESPACE) jx secret populate --source filesystem --secret-namespace $(VAULT_NAMESPACE)
 
 # lets make sure all the namespaces exist for environments of the replicated secrets
 	jx gitops namespace --dir-mode --dir $(OUTPUT_DIR)/namespaces
@@ -224,6 +224,7 @@ secrets-populate:
 # they can be modified/regenerated at any time via `jx secret edit`
 	-VAULT_ADDR=$(VAULT_ADDR) VAULT_NAMESPACE=$(VAULT_NAMESPACE) jx secret populate --secret-namespace $(VAULT_NAMESPACE)
 
+
 .PHONY: secrets-wait
 secrets-wait:
 # lets wait for the ExternalSecrets service to populate the mandatory Secret resources
@@ -246,14 +247,14 @@ regen-phase-1: git-setup resolve-metadata all $(KUBEAPPLY) verify-ingress-ignore
 regen-phase-2: verify-ingress-ignore all verify-ignore commit
 
 .PHONY: regen-phase-3
-regen-phase-3: push secrets-wait
+regen-phase-3: push secrets-populate secrets-wait
 
 .PHONY: regen-none
 regen-none:
 # we just merged a PR so lets perform any extra checks after the merge but before the kubectl apply
 
 .PHONY: apply
-apply: regen-check $(KUBEAPPLY) secrets-populate verify annotate-resources apply-completed status
+apply: regen-check $(KUBEAPPLY) verify annotate-resources apply-completed status
 
 .PHONY: report
 report:
