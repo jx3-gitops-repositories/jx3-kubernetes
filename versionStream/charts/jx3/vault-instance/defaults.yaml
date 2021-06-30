@@ -1,3 +1,0 @@
-gitUrl: https://github.com/jenkins-x-charts/vault-instance
-namespace: secret-infra
-version: 1.0.19
