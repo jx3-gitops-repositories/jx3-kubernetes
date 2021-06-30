@@ -42,7 +42,7 @@ releases:
   - ../../versionStream/charts/jx3/lighthouse/values.yaml.gotmpl
   - jx-values.yaml
 - chart: jx3/bucketrepo
-  version: 0.1.64
+  version: 0.1.65
   name: bucketrepo
   values:
   - ../../versionStream/charts/jx3/bucketrepo/values.yaml.gotmpl
