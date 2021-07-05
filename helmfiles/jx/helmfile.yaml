@@ -55,7 +55,7 @@ releases:
   values:
   - jx-values.yaml
 - chart: jxgh/jx-kh-check
-  version: 0.0.74
+  version: 0.0.78
   name: health-checks-jx
   values:
   - ../../versionStream/charts/jxgh/health-checks-jx/values.yaml.gotmpl
