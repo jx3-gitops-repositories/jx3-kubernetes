@@ -81,3 +81,11 @@ webhooks:
     prometheus.io/scrape: "true"
     prometheus.io/port: "2112"
   customDeploymentTriggerCommand: "jx"
+
+poller:
+  labels:
+    git.jenkins-x.io/sha: annotate
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "2112"
+
