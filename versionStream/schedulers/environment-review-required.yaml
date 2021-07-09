@@ -1,7 +1,7 @@
 apiVersion: gitops.jenkins-x.io/v1alpha1
 kind: Scheduler
 metadata:
-  name: environment
+  name: environment-review-required
 spec:
   approve:
     issue_required: false
