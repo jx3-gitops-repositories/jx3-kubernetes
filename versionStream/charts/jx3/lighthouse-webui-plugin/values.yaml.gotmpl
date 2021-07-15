@@ -46,3 +46,14 @@ persistence:
 deployment:
   strategy:
     type: Recreate
+
+secrets:
+  lighthouse:
+    hmac:
+      secretKeyRef:
+        name: lighthouse-hmac-token
+        key: hmac
+        # bitbucket cloud doesn't support hmac token for webhooks which is crazy insecure but what can we do?
+{{- if and (hasKey .Values.jxRequirements.cluster "gitKind") (eq .Values.jxRequirements.cluster.gitKind "bitbucketcloud") }}
+        optional: true
+{{- end }}
