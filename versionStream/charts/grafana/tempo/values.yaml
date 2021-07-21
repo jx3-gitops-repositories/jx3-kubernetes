@@ -24,3 +24,8 @@ tempo:
 
 persistence:
   enabled: true
+
+# allow prometheus to scrape metrics
+podAnnotations:
+  prometheus.io/port: prom-metrics
+  prometheus.io/scrape: "true"
