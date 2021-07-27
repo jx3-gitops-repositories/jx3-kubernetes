@@ -6,9 +6,11 @@ global:
 
 cert-manager:
   enabled: {{ .Values.jxRequirements.ingress.tls.enabled }}
-{{- if and (hasKey .Values.jxRequirements.cluster "project") (hasKey .Values.jxRequirements.cluster "clusterName") (eq .Values.jxRequirements.cluster.provider "eks") }}
+
 extraArgs:
   - --issuer-ambient-credentials
+
+{{- if and (hasKey .Values.jxRequirements.cluster "project") (hasKey .Values.jxRequirements.cluster "clusterName") (eq .Values.jxRequirements.cluster.provider "eks") }}
 securityContext:
   enabled: true
   fsGroup: 1001
