@@ -1,5 +1,5 @@
 versions:
-  jxl: 0.0.130
+  jx: {{ readFile "../../../packages/jx.yml" | fromYaml | get "version" | quote }}
 
 sourceRepositoriesEnvKey: true
 
