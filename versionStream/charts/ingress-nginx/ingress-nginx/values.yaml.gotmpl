@@ -5,7 +5,9 @@ controller:
   extraArgs:
     publish-service: nginx/ingress-nginx-controller
 {{- if .Values.jxRequirements.ingress.tls.enabled }}
-{{- if .Values.jxRequirements.ingress.tls.production }}
+{{- if hasKey .Values.jxRequirements.ingress.tls "secretName" }}
+    default-ssl-certificate: "default/{{ .Values.jxRequirements.ingress.tls.secretName }}"
+{{- else if .Values.jxRequirements.ingress.tls.production }}
     default-ssl-certificate: "jx/tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-p"
 {{- else }}
     default-ssl-certificate: "jx/tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-s"
