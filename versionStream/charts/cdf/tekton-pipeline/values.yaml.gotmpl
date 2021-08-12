@@ -20,3 +20,8 @@ serviceaccount:
   annotations:
     iam.gke.io/gcp-service-account: {{ .Values.jxRequirements.cluster.clusterName }}-tekton@{{ .Values.jxRequirements.cluster.project }}.iam.gserviceaccount.com
 {{- end }}
+
+# overrides any feature flags in the feature-flags ConfigMap
+featureFlags:
+  # enable debugging
+  enable-api-fields: alpha
