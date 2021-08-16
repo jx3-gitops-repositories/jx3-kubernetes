@@ -44,6 +44,11 @@
             <username></username>
             <password></password>
         </server>
+        <server>
+          <id>github</id>
+          <username></username>
+          <password></password>
+      </server>
     </servers>
 
     <profiles>

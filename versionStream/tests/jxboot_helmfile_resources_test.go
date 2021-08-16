@@ -1,12 +1,14 @@
 package main
 
 import (
+	v1 "github.com/jenkins-x-plugins/jx-secret/pkg/apis/external/v1"
+	"github.com/jenkins-x-plugins/secretfacade/pkg/secretstore"
 	"github.com/jenkins-x/jx-helpers/v3/pkg/gitclient/giturl"
 	"path/filepath"
 	"testing"
 
+	"github.com/jenkins-x-plugins/jx-secret/pkg/cmd/populate/templatertesting"
 	config "github.com/jenkins-x/jx-api/v4/pkg/apis/core/v4beta1"
-	"github.com/jenkins-x/jx-secret/pkg/cmd/populate/templatertesting"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -14,7 +16,7 @@ import (
 
 var (
 	// generateTestOutput enable to regenerate the expected output
-	generateTestOutput = false
+	generateTestOutput = true
 
 	ns = "jx"
 )
@@ -24,6 +26,16 @@ func TestSecretSchemaTemplatesMavenSettings(t *testing.T) {
 		&corev1.Secret{
 			ObjectMeta: metav1.ObjectMeta{
 				Name:      "jx-boot",
+				Namespace: ns,
+			},
+			Data: map[string][]byte{
+				"username": []byte("gitoperatorUsername"),
+				"password": []byte("gitoperatorpassword"),
+			},
+		},
+		&corev1.Secret{
+			ObjectMeta: metav1.ObjectMeta{
+				Name:      "tekton-git",
 				Namespace: ns,
 			},
 			Data: map[string][]byte{
@@ -65,6 +77,56 @@ func TestSecretSchemaTemplatesMavenSettings(t *testing.T) {
 
 	testCases := []templatertesting.TestCase{
 		{
+			TestName:   "github",
+			ObjectName: "jenkins-maven-settings",
+			Property:   "settings.xml",
+			Format:     "xml",
+			Requirements: &config.RequirementsConfig{
+				Repository: "github",
+				Cluster: config.ClusterConfig{
+					Provider:    "gke",
+					ProjectID:   "myproject",
+					ClusterName: "mycluster",
+				},
+			},
+			ExternalSecrets: []templatertesting.ExternalSecret{
+				{
+					Location: "tekton-git",
+					Name:     "tekton-git",
+					Value: secretstore.SecretValue{
+						Value: "cheese",
+						PropertyValues: map[string]string{
+							"username": "gitoperatorUsername",
+							"password": "gitoperatorpassword",
+						},
+						Overwrite: false,
+					},
+					ExternalSecret: v1.ExternalSecret{
+						ObjectMeta: metav1.ObjectMeta{
+							Name:      "tekton-git",
+							Namespace: ns,
+						},
+						Spec: v1.ExternalSecretSpec{
+							BackendType: "local",
+							Data: []v1.Data{
+								{
+									Name:     "username",
+									Key:      "tekton-git",
+									Property: "username",
+								},
+								{
+									Name:     "password",
+									Key:      "tekton-git",
+									Property: "password",
+								},
+							},
+							Template: v1.Template{},
+						},
+					},
+				},
+			},
+		},
+		{
 			TestName:   "nexus",
 			ObjectName: "jenkins-maven-settings",
 			Property:   "settings.xml",
@@ -100,7 +162,7 @@ func TestSecretSchemaTemplatesMavenSettings(t *testing.T) {
 	}
 	runner := templatertesting.Runner{
 		TestCases:   testCases,
-		SchemaFile:  filepath.Join("..", "charts", "jx3", "jxboot-helmfile-resources", "secret-schema.yaml"),
+		SchemaFile:  filepath.Join("..", "charts", "jxgh", "jxboot-helmfile-resources", "secret-schema.yaml"),
 		Namespace:   ns,
 		KubeObjects: testSecrets,
 	}
@@ -395,7 +457,7 @@ func TestSecretSchemaTemplatesContainerRegistry(t *testing.T) {
 	}
 	runner := templatertesting.Runner{
 		TestCases:   testCases,
-		SchemaFile:  filepath.Join("..", "charts", "jx3", "jxboot-helmfile-resources", "secret-schema.yaml"),
+		SchemaFile:  filepath.Join("..", "charts", "jxgh", "jxboot-helmfile-resources", "secret-schema.yaml"),
 		Namespace:   ns,
 		KubeObjects: testSecrets,
 	}
@@ -428,7 +490,7 @@ func TestSecretSchemaTemplatesBucketRepo(t *testing.T) {
 	}
 	runner := templatertesting.Runner{
 		TestCases:   testCases,
-		SchemaFile:  filepath.Join("..", "charts", "jenkins-x", "bucketrepo", "secret-schema.yaml"),
+		SchemaFile:  filepath.Join("..", "charts", "jxgh", "bucketrepo", "secret-schema.yaml"),
 		Namespace:   ns,
 		KubeObjects: testSecrets,
 	}

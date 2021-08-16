@@ -55,9 +55,9 @@
         <profile>
             <id>nexus</id>
             <properties>
-              <altDeploymentRepository>local-nexus::default::http://nexus/repository/maven-releases/</altDeploymentRepository>
-              <altReleaseDeploymentRepository>local-nexus::default::http://nexus/repository/maven-releases/</altReleaseDeploymentRepository>
-              <altSnapshotDeploymentRepository>local-nexus::default::http://nexus/repository/maven-snapshots/</altSnapshotDeploymentRepository>
+        <altDeploymentRepository>github::default::https://maven.pkg.github.com/mentor-medier/maven-packages/</altDeploymentRepository>
+        <altReleaseDeploymentRepository>github::default::https://maven.pkg.github.com/mentor-medier/maven-packages/</altReleaseDeploymentRepository>
+        <altSnapshotDeploymentRepository>github::default::https://maven.pkg.github.com/mentor-medier/maven-packages/</altSnapshotDeploymentRepository>
             </properties>
 
             <repositories>

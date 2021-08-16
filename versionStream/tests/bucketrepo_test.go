@@ -4,8 +4,8 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/jenkins-x-plugins/jx-secret/pkg/cmd/populate/templatertesting"
 	config "github.com/jenkins-x/jx-api/v4/pkg/apis/core/v4beta1"
-	"github.com/jenkins-x/jx-secret/pkg/cmd/populate/templatertesting"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -74,7 +74,7 @@ func TestBucketRepoSecrets(t *testing.T) {
 				},
 			},
 		},
-		SchemaFile:  filepath.Join("..", "charts", "jenkins-x", "bucketrepo", "secret-schema.yaml"),
+		SchemaFile:  filepath.Join("..", "charts", "jxgh", "bucketrepo", "secret-schema.yaml"),
 		Namespace:   ns,
 		KubeObjects: testSecrets,
 	}
