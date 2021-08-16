@@ -10,4 +10,4 @@ The file layout is `package.yml` containing:
 
 e.g.
 
-* [kubectl.yml](kubectl.yml)
+* [jx.yml](jx.yml)
