@@ -49,15 +49,20 @@
           <username></username>
           <password></password>
         </server>
+        <server>
+          <id>custom</id>
+          <username></username>
+          <password></password>
+        </server>
     </servers>
 
     <profiles>
         <profile>
             <id>nexus</id>
             <properties>
-              <altDeploymentRepository>local-nexus::default::http://nexus/repository/maven-releases/</altDeploymentRepository>
-              <altReleaseDeploymentRepository>local-nexus::default::http://nexus/repository/maven-releases/</altReleaseDeploymentRepository>
-              <altSnapshotDeploymentRepository>local-nexus::default::http://nexus/repository/maven-snapshots/</altSnapshotDeploymentRepository>
+              <altDeploymentRepository>local-nexus::custom::https://maven.acme.com/myowner/myrepo/</altDeploymentRepository>
+              <altReleaseDeploymentRepository>local-nexus::custom::https://maven.acme.com/myowner/myrepo/</altReleaseDeploymentRepository>
+              <altSnapshotDeploymentRepository>local-nexus::custom::https://maven.acme.com/myowner/mysnapshots/</altSnapshotDeploymentRepository>
             </properties>
 
             <repositories>

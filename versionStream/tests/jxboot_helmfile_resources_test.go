@@ -77,6 +77,26 @@ func TestSecretSchemaTemplatesMavenSettings(t *testing.T) {
 
 	testCases := []templatertesting.TestCase{
 		{
+			TestName:   "custom",
+			ObjectName: "jenkins-maven-settings",
+			Property:   "settings.xml",
+			Format:     "xml",
+			Requirements: &config.RequirementsConfig{
+				Repository: "custom",
+				Cluster: config.ClusterConfig{
+					Provider:    "gke",
+					ProjectID:   "myproject",
+					ClusterName: "mycluster",
+				},
+				Repositories: &config.RepositoryConfig{
+					Maven: &config.MavenRepositoryConfig{
+						ReleaseURL:  "https://maven.acme.com/myowner/myrepo/",
+						SnapshotURL: "https://maven.acme.com/myowner/mysnapshots/",
+					},
+				},
+			},
+		},
+		{
 			TestName:   "github",
 			ObjectName: "jenkins-maven-settings",
 			Property:   "settings.xml",
@@ -87,6 +107,12 @@ func TestSecretSchemaTemplatesMavenSettings(t *testing.T) {
 					Provider:    "gke",
 					ProjectID:   "myproject",
 					ClusterName: "mycluster",
+				},
+				Repositories: &config.RepositoryConfig{
+					Maven: &config.MavenRepositoryConfig{
+						ReleaseURL:  "https://maven.pkg.github.com/myowner/myrepo/",
+						SnapshotURL: "https://maven.pkg.github.com/myowner/mysnapshots/",
+					},
 				},
 			},
 			ExternalSecrets: []templatertesting.ExternalSecret{
