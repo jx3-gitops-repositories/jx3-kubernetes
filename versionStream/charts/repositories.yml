@@ -29,9 +29,6 @@ repositories:
 - prefix: jetstack
   urls:
   - https://charts.jetstack.io
-- prefix: jx3
-  urls:
-  - https://storage.googleapis.com/jenkinsxio/charts
 - prefix: jxgh
   urls:
   - https://jenkins-x-charts.github.io/repo
