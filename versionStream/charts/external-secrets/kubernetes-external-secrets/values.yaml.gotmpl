@@ -37,9 +37,20 @@ serviceAccount:
 {{- if eq .Values.jxRequirements.secretStorage "vault" }}
 {{- if hasKey .Values.jxRequirements.vault "url" }}
   VAULT_ADDR: {{ .Values.jxRequirements.vault.url }}
+deploymentInitContainers:
+  initContainers:
+  - name: init-vault-secret
+    image: vault:1.8.3
+    command: ["/bin/sh", "-c"]
+    args: ["vault login ${VAULT_TOKEN}"]
+    env:
+    - name: VAULT_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: vault-token-external
+          key: token
 {{- else }}
   VAULT_ADDR: https://vault.jx-vault:8200
-{{- end }}
   NODE_EXTRA_CA_CERTS: "/usr/local/share/ca-certificates/ca.crt"
 deploymentInitContainers:
   initContainers:
@@ -64,7 +75,7 @@ customClusterRoles:
     resources: ["secrets"]
     resourceNames: ["vault-tls"]
     verbs: ["get", "list"]
-
+{{- end }}
 {{- end }}
 
 {{- if eq .Values.jxRequirements.secretStorage "gsm" }}
