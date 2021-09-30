@@ -35,9 +35,12 @@ serviceAccount:
     eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.jxRequirements.cluster.project }}:role/{{ .Values.jxRequirements.cluster.clusterName }}-external-secrets-system-manager
 {{- end }}
 {{- if eq .Values.jxRequirements.secretStorage "vault" }}
+{{- if hasKey .Values.jxRequirements.vault "url" }}
+  VAULT_ADDR: {{ .Values.jxRequirements.vault.url }}
+{{- else }}
   VAULT_ADDR: https://vault.jx-vault:8200
+{{- end }}
   NODE_EXTRA_CA_CERTS: "/usr/local/share/ca-certificates/ca.crt"
-
 deploymentInitContainers:
   initContainers:
   - name: init-vault-secret
