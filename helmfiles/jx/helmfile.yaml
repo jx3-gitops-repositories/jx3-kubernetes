@@ -44,7 +44,7 @@ releases:
   - ../../versionStream/charts/jxgh/bucketrepo/values.yaml.gotmpl
   - jx-values.yaml
 - chart: jxgh/jx-build-controller
-  version: 0.3.3
+  version: 0.3.5
   name: jx-build-controller
   values:
   - ../../versionStream/charts/jxgh/jx-build-controller/values.yaml.gotmpl
