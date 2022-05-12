@@ -36,6 +36,7 @@ GITOPS_WEBHOOK_UPDATE ?= gitops-webhook-update
 VAULT_ADDR ?= https://vault.jx-vault:8200
 VAULT_NAMESPACE ?= jx-vault
 VAULT_ROLE ?= jx-vault
+VAULT_MOUNT_POINT ?= kubernetes
 EXTERNAL_VAULT ?= false
 
 GIT_SHA ?= $(shell git rev-parse HEAD)
@@ -128,7 +129,7 @@ fetch: init $(COPY_SOURCE) $(REPOSITORY_RESOLVE)
 
 # convert k8s Secrets => ExternalSecret resources using secret mapping + schemas
 # see: https://github.com/jenkins-x/jx-secret#mappings
-	jx secret convert --source-dir $(OUTPUT_DIR) -r $(VAULT_ROLE)
+	jx secret convert --source-dir $(OUTPUT_DIR) -r $(VAULT_ROLE) -m ${VAULT_MOUNT_POINT}
 
 # replicate secrets to local staging/production namespaces
 	jx secret replicate --selector secret.jenkins-x.io/replica-source=true
@@ -223,7 +224,7 @@ verify-ignore: verify-ingress-ignore
 secrets-populate:
 # lets populate any missing secrets we have a generator in `charts/repoName/chartName/secret-schema.yaml`
 # they can be modified/regenerated at any time via `jx secret edit`
-	-VAULT_ADDR=$(VAULT_ADDR) VAULT_NAMESPACE=$(VAULT_NAMESPACE) EXTERNAL_VAULT=$(EXTERNAL_VAULT) jx secret populate --secret-namespace $(VAULT_NAMESPACE)
+	-JX_VAULT_ROLE=${VAULT_ROLE} JX_VAULT_MOUNT_POINT=${VAULT_MOUNT_POINT} VAULT_ADDR=$(VAULT_ADDR) VAULT_NAMESPACE=$(VAULT_NAMESPACE) EXTERNAL_VAULT=$(EXTERNAL_VAULT) jx secret populate --secret-namespace $(VAULT_NAMESPACE)
 
 
 .PHONY: secrets-wait
