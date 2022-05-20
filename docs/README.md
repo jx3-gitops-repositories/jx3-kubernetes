@@ -5,6 +5,7 @@
   <thead>
     <tr>
       <th scope="col">Release</th>
+      <th scope="col">Chart</th>
       <th scope="col">Version</th>
       <th scope="col">Open</th>
       <th scope="col">Source</th>
