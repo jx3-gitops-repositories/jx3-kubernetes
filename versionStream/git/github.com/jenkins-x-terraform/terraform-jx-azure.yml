@@ -1,19 +1,2 @@
 gitUrl: https://github.com/jenkins-x-terraform/terraform-jx-azure.git
-version: 0.4.1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+version: 0.5.0
