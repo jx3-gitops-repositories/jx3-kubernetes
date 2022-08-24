@@ -39,6 +39,18 @@ VAULT_ROLE ?= jx-vault
 VAULT_MOUNT_POINT ?= kubernetes
 EXTERNAL_VAULT ?= false
 
+# on the case we need to specify a different vault role between the jx secret convert and the jx secret populate commands
+# VAULT_ROLE_POPULATE is a unique vault role just for the jx secret populate command
+# VAULT_ROLE_EXTERNAL_SECRETS is a unique vault role just for the jx secret convert command
+VAULT_ROLE_POPULATE ?= ${VAULT_ROLE}
+VAULT_ROLE_EXTERNAL_SECRETS ?= ${VAULT_ROLE}
+
+# on the case we need to specify a different vault mount point between the jx secret convert and the jx secret populate commands
+# VAULT_MOUNT_POINT_POPULATE is a unique vault mount point just for the jx secret populate command
+# VAULT_MOUNT_POINT_EXTERNAL_SECRETS is a unique vault mount point just for the jx secret convert command
+VAULT_MOUNT_POINT_POPULATE ?= ${VAULT_MOUNT_POINT}
+VAULT_MOUNT_POINT_EXTERNAL_SECRETS ?= ${VAULT_MOUNT_POINT}
+
 GIT_SHA ?= $(shell git rev-parse HEAD)
 
 # You can disable force mode on kubectl apply by modifying this line:
@@ -129,7 +141,7 @@ fetch: init $(COPY_SOURCE) $(REPOSITORY_RESOLVE)
 
 # convert k8s Secrets => ExternalSecret resources using secret mapping + schemas
 # see: https://github.com/jenkins-x/jx-secret#mappings
-	jx secret convert --source-dir $(OUTPUT_DIR) -r $(VAULT_ROLE) -m ${VAULT_MOUNT_POINT}
+	jx secret convert --source-dir $(OUTPUT_DIR) -r $(VAULT_ROLE_EXTERNAL_SECRETS) -m ${VAULT_MOUNT_POINT_EXTERNAL_SECRETS}
 
 # replicate secrets to local staging/production namespaces
 	jx secret replicate --selector secret.jenkins-x.io/replica-source=true
@@ -224,7 +236,7 @@ verify-ignore: verify-ingress-ignore
 secrets-populate:
 # lets populate any missing secrets we have a generator in `charts/repoName/chartName/secret-schema.yaml`
 # they can be modified/regenerated at any time via `jx secret edit`
-	-JX_VAULT_ROLE=${VAULT_ROLE} JX_VAULT_MOUNT_POINT=${VAULT_MOUNT_POINT} VAULT_ADDR=$(VAULT_ADDR) VAULT_NAMESPACE=$(VAULT_NAMESPACE) EXTERNAL_VAULT=$(EXTERNAL_VAULT) jx secret populate --secret-namespace $(VAULT_NAMESPACE)
+	-JX_VAULT_ROLE=${VAULT_ROLE_POPULATE} JX_VAULT_MOUNT_POINT=${VAULT_MOUNT_POINT_POPULATE} VAULT_ADDR=$(VAULT_ADDR) VAULT_NAMESPACE=$(VAULT_NAMESPACE) EXTERNAL_VAULT=$(EXTERNAL_VAULT) jx secret populate --secret-namespace $(VAULT_NAMESPACE)
 
 
 .PHONY: secrets-wait
