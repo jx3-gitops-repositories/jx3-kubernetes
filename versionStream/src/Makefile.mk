@@ -133,7 +133,7 @@ fetch: init $(COPY_SOURCE) $(REPOSITORY_RESOLVE)
 	jx gitops image -s .jx/git-operator
 
 # generate the yaml from the charts in helmfile.yaml and moves them to the right directory tree (cluster or namespaces/foo)
-	helmfile --file helmfile.yaml template --validate --include-crds --output-dir-template /tmp/generate/{{.Release.Namespace}}/{{.Release.Name}}
+	helmfile --file helmfile.yaml template $(HELMFILE_TEMPLATE_FLAGS) --validate --include-crds --output-dir-template /tmp/generate/{{.Release.Namespace}}/{{.Release.Name}}
 
 	jx gitops split --dir /tmp/generate
 	jx gitops rename --dir /tmp/generate
