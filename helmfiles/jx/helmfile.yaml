@@ -27,7 +27,7 @@ releases:
   - ../../versionStream/charts/jxgh/jx-pipelines-visualizer/values.yaml.gotmpl
   - jx-values.yaml
 - chart: jxgh/jx-preview
-  version: 0.0.222
+  version: 0.0.223
   name: jx-preview
   values:
   - jx-values.yaml
