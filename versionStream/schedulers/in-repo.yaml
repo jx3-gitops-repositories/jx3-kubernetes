@@ -26,7 +26,6 @@ spec:
     entries:
       - approve
       - assign
-      - blunderbuss
       - help
       - hold
       - lgtm
@@ -35,7 +34,6 @@ spec:
       - size
       - trigger
       - wip
-      - heart
       - cat
       - dog
       - pony

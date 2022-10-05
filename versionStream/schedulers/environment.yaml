@@ -25,7 +25,6 @@ spec:
       - config-updater
       - approve
       - assign
-      - blunderbuss
       - help
       - hold
       - lgtm
@@ -33,7 +32,6 @@ spec:
       - size
       - trigger
       - wip
-      - heart
       - cat
       - override
   external_plugins:
