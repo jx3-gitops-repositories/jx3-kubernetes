@@ -11,7 +11,7 @@ if [ $NEW_CLUSTER != true ]
 then
     GIT_PREV_TAG=$(git for-each-ref --sort=-taggerdate --count=1  refs/tags/$TAG\* --format '%(refname)' 2> /dev/null)
 
-    if git diff --exit-code $GIT_PREV_TAG $DIR
+    if [ -n "$GIT_PREV_TAG" ] && git diff --exit-code $GIT_PREV_TAG $DIR
     then
         echo "No changes in $DIR to apply"
         exit 0
