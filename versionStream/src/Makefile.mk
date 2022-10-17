@@ -53,8 +53,13 @@ VAULT_MOUNT_POINT_EXTERNAL_SECRETS ?= ${VAULT_MOUNT_POINT}
 
 GIT_SHA ?= $(shell git rev-parse HEAD)
 
+# NEW_CLUSTER is set on command line by jx gitops apply for regen targets
+NEW_CLUSTER ?= false
+
 # You can disable force mode on kubectl apply by modifying this line:
 KUBECTL_APPLY_FLAGS ?= --force
+
+KPT_LIVE_APPLY_FLAGS ?= --install-resource-group --inventory-policy=adopt --reconcile-timeout=15m
 
 SOURCE_DIR ?= /workspace/source
 
@@ -70,7 +75,7 @@ HELMFILE_TEMPLATE_FLAGS ?=
 
 .PHONY: clean
 clean:
-	@rm -rf build $(OUTPUT_DIR) $(HELM_TMP_SECRETS) $(HELM_TMP_GENERATE)
+	@rm -rf build $(OUTPUT_DIR)/*/*/ $(HELM_TMP_SECRETS) $(HELM_TMP_GENERATE)
 
 .PHONY: setup
 setup:
@@ -198,18 +203,15 @@ copy-resources: pre-build
 	@cp -r ./build/base/* $(OUTPUT_DIR)
 	@rm -rf $(OUTPUT_DIR)/kustomization.yaml
 
-.PHONY: lint
-lint:
-
-.PHONY: dev-ns verify-ingress
+.PHONY: verify-ingress
 verify-ingress:
 	jx verify ingress --ingress-service ingress-nginx-controller
 
-.PHONY: dev-ns verify-ingress-ignore
+.PHONY: verify-ingress-ignore
 verify-ingress-ignore:
 	-jx verify ingress --ingress-service ingress-nginx-controller
 
-.PHONY: dev-ns verify-install
+.PHONY: verify-install
 verify-install:
 # TODO lets disable errors for now
 # as some pods stick around even though they are failed causing errors
@@ -229,7 +231,7 @@ no-gitops-webhook-update:
 	@echo "disabled 'jx gitops webhook update' as we are not a development cluster"
 
 
-.PHONY: dev-ns verify-ignore
+.PHONY: verify-ignore
 verify-ignore: verify-ingress-ignore
 
 .PHONY: secrets-populate
@@ -255,7 +257,7 @@ regen-check:
 	jx gitops apply
 
 .PHONY: regen-phase-1
-regen-phase-1: git-setup resolve-metadata all $(KUBEAPPLY) verify-ingress-ignore commit
+regen-phase-1: git-setup resolve-metadata all commit $(KUBEAPPLY) verify-ingress-ignore
 
 .PHONY: regen-phase-2
 regen-phase-2: verify-ingress-ignore all verify-ignore commit
@@ -268,7 +270,7 @@ regen-none:
 # we just merged a PR so lets perform any extra checks after the merge but before the kubectl apply
 
 .PHONY: apply
-apply: regen-check $(KUBEAPPLY) verify annotate-resources apply-completed status
+apply: regen-check $(KUBEAPPLY) gitops-postprocess verify annotate-resources apply-completed status
 
 .PHONY: report
 report:
@@ -295,6 +297,11 @@ failed: apply-completed
 	@echo "boot Job failed"
 	exit 1
 
+.PHONY: gitops-postprocess
+gitops-postprocess:
+# lets apply any infrastructure specific labels or annotations to enable IAM roles on ServiceAccounts etc
+	jx gitops postprocess
+
 .PHONY: kubectl-apply
 kubectl-apply:
 	@echo "using kubectl to apply resources"
@@ -306,8 +313,8 @@ kubectl-apply:
 	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=cluster                   -R -f $(OUTPUT_DIR)/cluster
 	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=namespaces                -R -f $(OUTPUT_DIR)/namespaces
 
-# lets apply any infrastructure specific labels or annotations to enable IAM roles on ServiceAccounts etc
-	jx gitops postprocess
+.PHONY: kubectl-apply-dry-run
+kubectl-apply-dry-run:
 
 .PHONY: kapp-apply
 kapp-apply:
@@ -315,8 +322,58 @@ kapp-apply:
 
 	kapp deploy -a jx -f $(OUTPUT_DIR) -y
 
-# lets apply any infrastructure specific labels or annotations to enable IAM roles on ServiceAccounts etc
-	jx gitops postprocess
+.PHONY: kapp-apply-dry-run
+kapp-apply-dry-run:
+
+# kpt live apply is very strict on the syntax of the manifest yaml files. Before switching to kpt-apply it might be good
+# idea to use a yaml linter on the files in config-root.
+.PHONY: kpt-apply
+kpt-apply: kpt-apply-customresourcedefinitions kpt-apply-cluster kpt-apply-namespaces
+
+.PHONY: kpt-apply-customresourcedefinitions
+kpt-apply-customresourcedefinitions: $(OUTPUT_DIR)/customresourcedefinitions/Kptfile
+	@echo "using kpt to apply custom resource definitions"
+
+	[ ! -d $(OUTPUT_DIR)/customresourcedefinitions ] || ./versionStream/src/kpt-live-apply-wrapper.sh $(OUTPUT_DIR)/customresourcedefinitions crd 'Custom resource definitions applied' $(NEW_CLUSTER) $(KPT_LIVE_APPLY_FLAGS)
+
+.PHONY: kpt-apply-cluster
+kpt-apply-cluster: $(OUTPUT_DIR)/cluster/Kptfile
+	@echo "using kpt to apply cluster resources"
+
+	./versionStream/src/kpt-live-apply-wrapper.sh $(OUTPUT_DIR)/cluster cluster 'Cluster wide resources applied'  $(NEW_CLUSTER) $(KPT_LIVE_APPLY_FLAGS)
+
+.PHONY: kpt-apply-namespaces
+kpt-apply-namespaces: $(OUTPUT_DIR)/namespaces/Kptfile
+	@echo "using kpt to apply namespaced resources"
+
+	./versionStream/src/kpt-live-apply-wrapper.sh $(OUTPUT_DIR)/namespaces ns 'Namespaced resources applied' $(NEW_CLUSTER) $(KPT_LIVE_APPLY_FLAGS)
+
+.PHONY: kpt-apply-dry-run
+kpt-apply-dry-run:
+	@echo "verifying changes with kpt"
+
+	-git diff
+	kpt live apply $(KPT_LIVE_APPLY_FLAGS) --dry-run $(OUTPUT_DIR)/customresourcedefinitions
+	kpt live apply $(KPT_LIVE_APPLY_FLAGS) --dry-run $(OUTPUT_DIR)/cluster
+	kpt live apply $(KPT_LIVE_APPLY_FLAGS) --dry-run $(OUTPUT_DIR)/namespaces
+
+$(OUTPUT_DIR)/customresourcedefinitions/Kptfile:
+	@echo "initializing $(OUTPUT_DIR)/customresourcedefinitions/Kptfile"
+
+	kpt pkg init --description "Jenkins-X CRD config" $(OUTPUT_DIR)/customresourcedefinitions
+	kpt live init --namespace=jx-git-operator --name customresourcedefinitions $(OUTPUT_DIR)/customresourcedefinitions
+
+$(OUTPUT_DIR)/cluster/Kptfile:
+	@echo "initializing $(OUTPUT_DIR)/cluster/Kptfile"
+
+	kpt pkg init --description "Jenkins-X cluster config" $(OUTPUT_DIR)/cluster
+	kpt live init --namespace=jx-git-operator --name cluster $(OUTPUT_DIR)/cluster
+
+$(OUTPUT_DIR)/namespaces/Kptfile:
+	@echo "initializing $(OUTPUT_DIR)/namespaces/Kptfile"
+
+	kpt pkg init --description "Jenkins-X namespaces config" $(OUTPUT_DIR)/namespaces
+	kpt live init --namespace=jx-git-operator --name namespaces $(OUTPUT_DIR)/namespaces
 
 .PHONY: annotate-resources
 annotate-resources:
@@ -340,7 +397,7 @@ commit:
 	-git commit -m "chore: regenerated" -m "/pipeline cancel"
 
 .PHONY: all
-all: clean fetch report build lint
+all: clean fetch report build
 
 
 .PHONY: pr
@@ -348,7 +405,7 @@ pr:
 	jx gitops apply --pull-request
 
 .PHONY: pr-regen
-pr-regen: all commit push-pr-branch
+pr-regen: all $(KUBEAPPLY)-dry-run commit push-pr-branch
 
 .PHONY: push-pr-branch
 push-pr-branch:
@@ -363,9 +420,6 @@ push-pr-branch:
 push:
 	@git pull
 	@git push -f
-
-.PHONY: release
-release: lint
 
 .PHONY: dev-ns
 dev-ns:
