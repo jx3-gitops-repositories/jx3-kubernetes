@@ -61,6 +61,11 @@ KUBECTL_APPLY_FLAGS ?= --force
 
 KPT_LIVE_APPLY_FLAGS ?= --install-resource-group --inventory-policy=adopt --reconcile-timeout=15m
 
+# When using kpt live apply on a development cluster you could set
+#   PR_LINT = kpt-live-apply-dry-run
+# in the repository Makefile to get a linting of the manifests
+PR_LINT ?=
+
 SOURCE_DIR ?= /workspace/source
 
 
@@ -313,17 +318,11 @@ kubectl-apply:
 	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=cluster                   -R -f $(OUTPUT_DIR)/cluster
 	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=namespaces                -R -f $(OUTPUT_DIR)/namespaces
 
-.PHONY: kubectl-apply-dry-run
-kubectl-apply-dry-run:
-
 .PHONY: kapp-apply
 kapp-apply:
 	@echo "using kapp to apply resources"
 
 	kapp deploy -a jx -f $(OUTPUT_DIR) -y
-
-.PHONY: kapp-apply-dry-run
-kapp-apply-dry-run:
 
 # kpt live apply is very strict on the syntax of the manifest yaml files. Before switching to kpt-apply it might be good
 # idea to use a yaml linter on the files in config-root.
@@ -357,23 +356,15 @@ kpt-apply-dry-run:
 	kpt live apply $(KPT_LIVE_APPLY_FLAGS) --dry-run $(OUTPUT_DIR)/cluster
 	kpt live apply $(KPT_LIVE_APPLY_FLAGS) --dry-run $(OUTPUT_DIR)/namespaces
 
-$(OUTPUT_DIR)/customresourcedefinitions/Kptfile:
-	@echo "initializing $(OUTPUT_DIR)/customresourcedefinitions/Kptfile"
+%/Kptfile:
+	@echo "initializing $@"
 
-	kpt pkg init --description "Jenkins-X CRD config" $(OUTPUT_DIR)/customresourcedefinitions
-	kpt live init --namespace=jx-git-operator --name customresourcedefinitions $(OUTPUT_DIR)/customresourcedefinitions
-
-$(OUTPUT_DIR)/cluster/Kptfile:
-	@echo "initializing $(OUTPUT_DIR)/cluster/Kptfile"
-
-	kpt pkg init --description "Jenkins-X cluster config" $(OUTPUT_DIR)/cluster
-	kpt live init --namespace=jx-git-operator --name cluster $(OUTPUT_DIR)/cluster
-
-$(OUTPUT_DIR)/namespaces/Kptfile:
-	@echo "initializing $(OUTPUT_DIR)/namespaces/Kptfile"
-
-	kpt pkg init --description "Jenkins-X namespaces config" $(OUTPUT_DIR)/namespaces
-	kpt live init --namespace=jx-git-operator --name namespaces $(OUTPUT_DIR)/namespaces
+	kpt pkg init --description "Jenkins-X $(notdir $(@D)) config" $(@D)
+	kpt live init --namespace=jx-git-operator --name $(notdir $(@D)) $(@D)
+	find $(@D) -maxdepth 1 -type f | xargs git add
+	make  git-setup
+	git commit -m "chore: add kpt pkg $(notdir $(@D))" -m "/pipeline cancel"
+	make push
 
 .PHONY: annotate-resources
 annotate-resources:
@@ -405,7 +396,7 @@ pr:
 	jx gitops apply --pull-request
 
 .PHONY: pr-regen
-pr-regen: all $(KUBEAPPLY)-dry-run commit push-pr-branch
+pr-regen: all $(PR_LINT) commit push-pr-branch
 
 .PHONY: push-pr-branch
 push-pr-branch:
