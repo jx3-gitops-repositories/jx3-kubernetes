@@ -78,9 +78,16 @@ SOURCE_DIR ?= /workspace/source
 # HELMFILE_TEMPLATE_FLAGS ?= --debug
 HELMFILE_TEMPLATE_FLAGS ?=
 
+# this option configure use of selector to regenerate only namespaces with changes
+# by default, regenerate all. To regenerate only namespace try
+# HELMFILE_USE_SELECTORS = true
+HELMFILE_USE_SELECTORS ?= false
+CLEAN_OUTPUT_DIR ?= $(if $(findstring true,$(HELMFILE_USE_SELECTORS)),,$(OUTPUT_DIR)/*/*/)
+HELMFILE_GLOBAL_FLAGS += $(if $(findstring true,$(HELMFILE_USE_SELECTORS)),$(shell versionStream/src/get-selectors-and-clean.sh $(OUTPUT_DIR)),)
+
 .PHONY: clean
 clean:
-	@rm -rf build $(OUTPUT_DIR)/*/*/ $(HELM_TMP_SECRETS) $(HELM_TMP_GENERATE)
+	@rm -rf build $(CLEAN_OUTPUT_DIR) $(HELM_TMP_SECRETS) $(HELM_TMP_GENERATE)
 
 .PHONY: setup
 setup:
@@ -143,7 +150,7 @@ fetch: init $(COPY_SOURCE) $(REPOSITORY_RESOLVE)
 	jx gitops image -s .jx/git-operator
 
 # generate the yaml from the charts in helmfile.yaml and moves them to the right directory tree (cluster or namespaces/foo)
-	helmfile --file helmfile.yaml template $(HELMFILE_TEMPLATE_FLAGS) --validate --include-crds --output-dir-template /tmp/generate/{{.Release.Namespace}}/{{.Release.Name}}
+	helmfile $(HELMFILE_GLOBAL_FLAGS) --file helmfile.yaml template $(HELMFILE_TEMPLATE_FLAGS) --validate --include-crds --output-dir-template /tmp/generate/{{.Release.Namespace}}/{{.Release.Name}}
 
 	jx gitops split --dir /tmp/generate
 	jx gitops rename --dir /tmp/generate
