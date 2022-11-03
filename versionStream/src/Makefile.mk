@@ -62,7 +62,7 @@ KUBECTL_APPLY_FLAGS ?= --force
 KPT_LIVE_APPLY_FLAGS ?= --install-resource-group --inventory-policy=adopt --reconcile-timeout=15m
 
 # When using kpt live apply on a development cluster you could set
-#   PR_LINT = kpt-live-apply-dry-run
+#   PR_LINT = kpt-apply-dry-run
 # in the repository Makefile to get a linting of the manifests
 PR_LINT ?=
 
