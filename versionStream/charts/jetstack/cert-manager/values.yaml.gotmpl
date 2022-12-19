@@ -7,6 +7,9 @@ global:
 cert-manager:
   enabled: {{ .Values.jxRequirements.ingress.tls.enabled }}
 
+startupapicheck:
+  enabled: false
+
 extraArgs:
   - --issuer-ambient-credentials
 
