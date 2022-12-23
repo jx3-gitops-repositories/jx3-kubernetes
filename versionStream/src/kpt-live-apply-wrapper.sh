@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
-DIR=$1;shift
+set -e
+export DIR=$1;shift
 TAG=$1;shift
 MESSAGE=$1;shift
 NEW_CLUSTER=$1;shift
@@ -18,10 +19,15 @@ then
     fi
 fi
 
-if kpt live apply $KPT_LIVE_APPLY_FLAGS $DIR
+kpt live apply $KPT_LIVE_APPLY_FLAGS $DIR
+export TS=$(date "+%Y%m%d-%H%M%S")
+git tag  -m "$MESSAGE" ${TAG}-${TS}
+git push --tags
+
+if [ -x "extensions/$TAG-reconciled" ]
 then
-    git tag  -m "$MESSAGE" $(date "+${TAG}-%Y%m%d-%H%M%S")
-    git push --tags
-else
-    exit 1
+    ./extensions/$TAG-reconciled
+elif [ -x "versionStream/src/$TAG-reconciled" ]
+then
+    ./versionStream/src/$TAG-reconciled
 fi

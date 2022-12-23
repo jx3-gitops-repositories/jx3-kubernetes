@@ -1,0 +1,3 @@
+#!/bin/sh
+
+jx changelog create --tag-prefix ns- --version ns-${TS}
