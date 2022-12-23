@@ -1,7 +1,4 @@
 repositories:
-- prefix: banzaicloud-stable
-  urls:
-  - https://kubernetes-charts.banzaicloud.com
 - prefix: bitnami
   urls:
   - https://charts.bitnami.com/bitnami
