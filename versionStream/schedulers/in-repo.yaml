@@ -81,6 +81,5 @@ spec:
     ignore_ok_to_test: false
     join_org_url: ""
     only_org_members: false
-    trusted_org: todo
   welcome:
     - message_template: Welcome
