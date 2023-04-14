@@ -269,7 +269,7 @@ regen-check:
 	jx gitops apply
 
 .PHONY: regen-phase-1
-regen-phase-1: git-setup resolve-metadata all commit $(KUBEAPPLY) verify-ingress-ignore
+regen-phase-1: git-setup resolve-metadata all report commit $(KUBEAPPLY) verify-ingress-ignore
 
 .PHONY: regen-phase-2
 regen-phase-2: verify-ingress-ignore all verify-ignore commit
@@ -282,13 +282,15 @@ regen-none:
 # we just merged a PR so lets perform any extra checks after the merge but before the kubectl apply
 
 .PHONY: apply
-apply: regen-check $(KUBEAPPLY) gitops-postprocess verify annotate-resources apply-completed status
+apply: regen-check report $(KUBEAPPLY) commit push gitops-postprocess verify annotate-resources apply-completed status
 
 .PHONY: report
 report:
 # lets generate the markdown and yaml reports in the docs dir
-	jx gitops helmfile report
-
+# Prevent endless loop by verifying that the previous commit wasn't an update to the docs
+	if git log -1 --pretty=\%B | grep -vq "/pipeline cancel"; then \
+	  jx gitops helmfile report; \
+	fi
 
 .PHONY: status
 status:
@@ -395,7 +397,7 @@ commit:
 	-git commit -m "chore: regenerated" -m "/pipeline cancel"
 
 .PHONY: all
-all: clean fetch report build
+all: clean fetch build
 
 
 .PHONY: pr
@@ -408,7 +410,7 @@ pr-regen: all $(PR_LINT) commit push-pr-branch
 .PHONY: push-pr-branch
 push-pr-branch:
 # lets push changes to the Pull Request branch
-# we need to force push due to rebasing of PRs after new commits merge to the main branch after the PR is created
+# we need to force push due to rebasing of PRs after new commits are merged to the main branch after the PR is created
 	jx gitops pr push --ignore-no-pr --force
 
 # now lets label the Pull Request so that lighthouse keeper can auto merge it
@@ -417,7 +419,7 @@ push-pr-branch:
 .PHONY: push
 push:
 	@git pull
-	@git push -f
+	@git push --force-with-lease
 
 .PHONY: dev-ns
 dev-ns:
