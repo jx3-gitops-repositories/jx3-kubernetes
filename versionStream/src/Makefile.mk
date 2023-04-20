@@ -288,7 +288,7 @@ apply: regen-check report $(KUBEAPPLY) commit push gitops-postprocess verify ann
 report:
 # lets generate the markdown and yaml reports in the docs dir
 # Prevent endless loop by verifying that the previous commit wasn't an update to the docs
-	if git log -1 --pretty=\%B | grep -vq "/pipeline cancel"; then \
+	if ! git log -1 --pretty=\%B | grep -q "/pipeline cancel"; then \
 	  jx gitops helmfile report; \
 	fi
 
