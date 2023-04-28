@@ -282,7 +282,7 @@ regen-none:
 # we just merged a PR so lets perform any extra checks after the merge but before the kubectl apply
 
 .PHONY: apply
-apply: regen-check report $(KUBEAPPLY) commit push gitops-postprocess verify annotate-resources apply-completed status
+apply: regen-check report commit $(KUBEAPPLY) push gitops-postprocess verify annotate-resources apply-completed status
 
 .PHONY: report
 report:
