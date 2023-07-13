@@ -9,7 +9,7 @@ repositories:
   url: https://jenkins-x-charts.github.io/repo
 releases:
 - chart: jxgh/jxboot-helmfile-resources
-  version: 1.1.309
+  version: 1.1.310
   name: jxboot-helmfile-resources
   values:
   - ../../versionStream/charts/jxgh/jxboot-helmfile-resources/values.yaml.gotmpl
@@ -32,7 +32,7 @@ releases:
   values:
   - jx-values.yaml
 - chart: jxgh/lighthouse
-  version: 1.13.0
+  version: 1.13.1
   name: lighthouse
   values:
   - ../../versionStream/charts/jxgh/lighthouse/values.yaml.gotmpl
@@ -44,7 +44,7 @@ releases:
   - ../../versionStream/charts/jxgh/bucketrepo/values.yaml.gotmpl
   - jx-values.yaml
 - chart: jxgh/jx-build-controller
-  version: 0.4.8
+  version: 0.5.0
   name: jx-build-controller
   values:
   - ../../versionStream/charts/jxgh/jx-build-controller/values.yaml.gotmpl
