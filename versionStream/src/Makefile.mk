@@ -158,7 +158,7 @@ fetch: init $(COPY_SOURCE) $(REPOSITORY_RESOLVE)
 
 # convert k8s Secrets => ExternalSecret resources using secret mapping + schemas
 # see: https://github.com/jenkins-x/jx-secret#mappings
-	jx secret convert --source-dir $(OUTPUT_DIR) -r $(VAULT_ROLE_EXTERNAL_SECRETS) -m ${VAULT_MOUNT_POINT_EXTERNAL_SECRETS}
+	jx secret convert --source-dir $(OUTPUT_DIR) -r $(VAULT_ROLE_EXTERNAL_SECRETS) -m ${VAULT_MOUNT_POINT_EXTERNAL_SECRETS} --selector secret.jenkins-x.io/convert-exclude=true --selector-target metadata.annotations --invert-selector
 
 # replicate secrets to local staging/production namespaces
 	jx secret replicate --selector secret.jenkins-x.io/replica-source=true
