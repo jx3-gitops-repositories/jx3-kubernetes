@@ -57,7 +57,7 @@ GIT_SHA ?= $(shell git rev-parse HEAD)
 NEW_CLUSTER ?= false
 
 # You can disable force mode on kubectl apply by modifying this line:
-KUBECTL_APPLY_FLAGS ?= --server-side=true
+KUBECTL_APPLY_FLAGS ?= --server-side=true --force-conflicts
 
 KPT_LIVE_APPLY_FLAGS ?= --install-resource-group --inventory-policy=adopt --reconcile-timeout=15m
 
