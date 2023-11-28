@@ -1,13 +1,38 @@
-# https://github.com/grafana/helm-charts/blob/loki-2.5.0/charts/loki/values.yaml
+# https://github.com/grafana/loki/blob/main/production/helm/loki/values.yaml
 
-persistence:
-  enabled: true
-
-config:
-  # configure a 30 days retention by default
-  # note that data might be available for up to 60 days, because of the internal implementation
-  # see https://grafana.com/docs/loki/v2.2.0/operations/storage/retention/
-  # and https://grafana.com/docs/loki/v2.2.0/operations/storage/table-manager/
-  table_manager:
-    retention_deletes_enabled: true
+# loki config generation
+loki:
+  auth_enabled: false
+  commonConfig:
+    replication_factor: 1
+  storage:
+    type: 'filesystem'
+    filesystem:
+      rules_directory: /loki/rules
+  compactor:
+    retention_enabled: true
+  limits_config:
     retention_period: 720h
+# enable single-binary statefulset
+singleBinary:
+  replicas: 1
+  persistence:
+    enable: true
+# disable unnecessary deployments that comes with Loki Helm 3.0.0+
+rbac:
+  pspEnabled: false
+monitoring:
+  dashboards:
+    enabled: false
+  selfMonitoring:
+    enabled: false
+    grafanaAgent:
+      installOperator: false
+  lokiCanary:
+    enabled: false
+test:
+  enabled: false
+metricsInstance:
+  enabled: false
+gateway:
+  enabled: false
