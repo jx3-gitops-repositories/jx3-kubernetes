@@ -1,9 +1,11 @@
 apiVersion: batch/v1
 kind: Job
-metadata:
+metadata: # kpt-merge: /
   labels:
     app: jx-boot
     jenkins-x.io/kind: jx-git-operator
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'batch|Job|default|'
 spec:
   backoffLimit: 4
   completions: 1

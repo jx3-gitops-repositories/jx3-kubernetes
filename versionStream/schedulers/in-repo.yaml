@@ -1,7 +1,9 @@
 apiVersion: gitops.jenkins-x.io/v1alpha1
 kind: Scheduler
-metadata:
+metadata: # kpt-merge: /in-repo
   name: in-repo
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'gitops.jenkins-x.io|Scheduler|default|in-repo'
 spec:
   approve:
     issue_required: false
@@ -13,9 +15,9 @@ spec:
     merge_method: merge
     policy:
       from-branch-protection: true
-      optional-contexts: { }
-      required-contexts: { }
-      required-if-present-contexts: { }
+      optional-contexts: {}
+      required-contexts: {}
+      required-if-present-contexts: {}
       skip-unknown-contexts: false
     pr_status_base_url: ""
     squash_label: ""
@@ -40,13 +42,13 @@ spec:
   external_plugins:
     Replace: true
     entries:
-    - name: cd-indicators
-      endpoint: "http://cd-indicators.jx.svc.cluster.local/lighthouse/events"
-    - name: lighthouse-webui-plugin
-      endpoint: "http://lighthouse-webui-plugin.jx.svc.cluster.local/lighthouse/events"
+      - name: cd-indicators
+        endpoint: "http://cd-indicators.jx.svc.cluster.local/lighthouse/events"
+      - name: lighthouse-webui-plugin
+        endpoint: "http://lighthouse-webui-plugin.jx.svc.cluster.local/lighthouse/events"
   queries:
-    - excludedBranches: { }
-      included_branches: { }
+    - excludedBranches: {}
+      included_branches: {}
       labels:
         entries:
           - approved
@@ -59,8 +61,8 @@ spec:
           - needs-ok-to-test
           - needs-rebase
       review_approved_required: false
-    - excludedBranches: { }
-      included_branches: { }
+    - excludedBranches: {}
+      included_branches: {}
       labels:
         entries:
           - updatebot

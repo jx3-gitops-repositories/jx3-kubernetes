@@ -1,7 +1,9 @@
 apiVersion: gitops.jenkins-x.io/v1alpha1
 kind: Scheduler
-metadata:
+metadata: # kpt-merge: /default
   name: default
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'gitops.jenkins-x.io|Scheduler|default|default'
 spec:
   approve:
     issue_required: false
@@ -13,9 +15,9 @@ spec:
     merge_method: merge
     policy:
       from-branch-protection: true
-      optional-contexts: { }
-      required-contexts: { }
-      required-if-present-contexts: { }
+      optional-contexts: {}
+      required-contexts: {}
+      required-if-present-contexts: {}
       skip-unknown-contexts: false
     pr_status_base_url: ""
     squash_label: ""
@@ -38,10 +40,10 @@ spec:
   external_plugins:
     Replace: true
     entries:
-    - name: cd-indicators
-      endpoint: "http://cd-indicators.jx.svc.cluster.local/lighthouse/events"
-    - name: lighthouse-webui-plugin
-      endpoint: "http://lighthouse-webui-plugin.jx.svc.cluster.local/lighthouse/events"
+      - name: cd-indicators
+        endpoint: "http://cd-indicators.jx.svc.cluster.local/lighthouse/events"
+      - name: lighthouse-webui-plugin
+        endpoint: "http://lighthouse-webui-plugin.jx.svc.cluster.local/lighthouse/events"
   policy:
     protect_tested: true
   postsubmits:
@@ -58,12 +60,12 @@ spec:
         name: release
         report: false
         run_if_changed: ""
-        skip_branches: [ ]
+        skip_branches: []
   presubmits:
     entries:
       - agent: tekton
         always_run: true
-        branches: [ ]
+        branches: []
         cluster: ""
         context: pr-build
         labels:
@@ -75,7 +77,7 @@ spec:
         report: true
         rerun_command: /test this
         run_if_changed: ""
-        skip_branches: [ ]
+        skip_branches: []
         trigger: (?m)^/test( all| this),?(\s+|$)
   protection_policy:
     required_status_checks:
@@ -83,8 +85,8 @@ spec:
         entries:
           - pr-build
   queries:
-    - excludedBranches: { }
-      included_branches: { }
+    - excludedBranches: {}
+      included_branches: {}
       labels:
         entries:
           - approved
@@ -97,8 +99,8 @@ spec:
           - needs-ok-to-test
           - needs-rebase
       review_approved_required: false
-    - excludedBranches: { }
-      included_branches: { }
+    - excludedBranches: {}
+      included_branches: {}
       labels:
         entries:
           - updatebot

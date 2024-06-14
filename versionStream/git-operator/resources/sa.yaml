@@ -1,5 +1,7 @@
 apiVersion: v1
 kind: ServiceAccount
-metadata:
+metadata: # kpt-merge: jx-git-operator/jx-boot-job
   name: jx-boot-job
   namespace: jx-git-operator
+  annotations:
+    internal.kpt.dev/upstream-identifier: '|ServiceAccount|jx-git-operator|jx-boot-job'

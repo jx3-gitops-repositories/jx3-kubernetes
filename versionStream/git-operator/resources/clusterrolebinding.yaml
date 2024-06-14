@@ -1,12 +1,14 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
-metadata:
+metadata: # kpt-merge: /jx-boot-job
   name: jx-boot-job
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|ClusterRoleBinding|default|jx-boot-job'
 subjects:
 - kind: ServiceAccount
   name: jx-boot-job
   namespace: jx-git-operator
 roleRef:
   kind: ClusterRole
-  name:  jx-boot-job
+  name: jx-boot-job
   apiGroup: rbac.authorization.k8s.io

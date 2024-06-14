@@ -1,8 +1,10 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
-metadata:
+metadata: # kpt-merge: /release
   creationTimestamp: null
   name: release
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'tekton.dev|PipelineRun|default|release'
 spec:
   pipelineSpec:
     tasks:
