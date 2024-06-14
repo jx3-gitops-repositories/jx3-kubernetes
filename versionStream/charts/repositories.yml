@@ -47,3 +47,6 @@ repositories:
 - prefix: argocd
   urls:
   - https://argoproj.github.io/argo-helm
+- prefix: wave-k8s
+  urls:
+  - https://wave-k8s.github.io/wave/

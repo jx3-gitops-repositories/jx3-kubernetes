@@ -195,16 +195,16 @@ post-build: $(GENERATE_SCHEDULER)
 	jx gitops label --dir $(OUTPUT_DIR)/customresourcedefinitions gitops.jenkins-x.io/pipeline=customresourcedefinitions
 	jx gitops label --dir $(OUTPUT_DIR)/namespaces                gitops.jenkins-x.io/pipeline=namespaces
 
-# lets add kapp friendly change group identifiers to nginx-ingress and pusher-wave so we can write rules against them
-	jx gitops annotate --dir $(OUTPUT_DIR) --selector app=pusher-wave kapp.k14s.io/change-group=apps.jenkins-x.io/pusher-wave
+# lets add kapp friendly change group identifiers to nginx-ingress and wave so we can write rules against them
+	jx gitops annotate --dir $(OUTPUT_DIR) --selector app=wave kapp.k14s.io/change-group=apps.jenkins-x.io/pusher-wave
 	jx gitops annotate --dir $(OUTPUT_DIR) --selector app.kubernetes.io/name=ingress-nginx kapp.k14s.io/change-group=apps.jenkins-x.io/ingress-nginx
 
 # lets label all Namespace resources with the main namespace which creates them and contains the Environment resources
 	jx gitops label --dir $(OUTPUT_DIR)/cluster --kind=Namespace team=jx
 
-# lets enable pusher-wave to perform rolling updates of any Deployment when its underlying Secrets get modified
+# lets enable wave to perform rolling updates of any Deployment when its underlying Secrets get modified
 # by modifying the underlying secret store (e.g. vault / GSM / ASM) which then causes External Secrets to modify the k8s Secrets
-	jx gitops annotate --dir  $(OUTPUT_DIR)/namespaces --kind Deployment --selector app=pusher-wave --invert-selector wave.pusher.com/update-on-config-change=true
+	jx gitops annotate --dir  $(OUTPUT_DIR)/namespaces --kind Deployment --selector app=wave --invert-selector wave.pusher.com/update-on-config-change=true
 
 .PHONY: kustomize
 kustomize: pre-build

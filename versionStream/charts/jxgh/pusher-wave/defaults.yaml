@@ -1,3 +1,2 @@
-gitUrl: https://github.com/jenkins-x-charts/pusher-wave
-namespace: secret-infra
-version: 0.4.21
+replacementChart: wave
+replacementChartPrefix: wave-k8s
