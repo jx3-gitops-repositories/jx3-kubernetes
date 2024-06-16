@@ -2,8 +2,8 @@ apiVersion: core.jenkins-x.io/v4beta1
 kind: Requirements
 spec:
   autoUpdate:
-    enabled: false
-    schedule: ""
+    enabled: true
+    schedule: "3d"
   cluster:
     chartRepository: http://bucketrepo.jx.svc.cluster.local/bucketrepo/charts
     clusterName: kind
