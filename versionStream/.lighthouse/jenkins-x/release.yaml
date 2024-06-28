@@ -1,0 +1,71 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata: # kpt-merge: /release
+  creationTimestamp: null
+  name: release
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'tekton.dev|PipelineRun|default|release'
+spec:
+  pipelineSpec:
+    tasks:
+      - name: changelog
+        resources: {}
+        taskSpec:
+          metadata: {}
+          stepTemplate:
+            image: uses:jenkins-x/jx3-pipeline-catalog/tasks/go-plugin/release.yaml@versionStream
+            name: ""
+            resources: {}
+            volumeMounts:
+              - mountPath: /etc/podinfo
+                name: podinfo
+                readOnly: true
+            workingDir: /workspace/source
+          steps:
+            - image: uses:jenkins-x/jx3-pipeline-catalog/tasks/git-clone/git-clone.yaml@versionStream
+              name: ""
+              resources: {}
+            - name: next-version
+              resources: {}
+            - name: jx-variables
+              resources: {}
+            - image: ghcr.io/jenkins-x/jx-scm:0.1.5
+              name: release-jx-cli
+              resources: {}
+              env:
+                - name: GOPATH
+                  value: /workspace
+                - name: GITHUB_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: tekton-git
+                      key: password
+              script: |
+                #!/bin/sh
+                export JX_VERSION=$(grep 'version: ' packages/jx.yml | awk '{ print $2}')
+                export LH_VERSION=$(grep 'version: ' charts/jxgh/lighthouse/defaults.yaml | awk '{ print $2}')
+                echo "using versions JX: ${JX_VERSION} lighthouse: ${LH_VERSION}"
+                jx scm release update --owner jenkins-x --name jx --tag v$JX_VERSION --prerelease=false --kind github --server https://github.com --token $GITHUB_TOKEN
+                jx scm release update --owner jenkins-x --name lighthouse --tag v$LH_VERSION --prerelease=false --kind github --server https://github.com --token $GITHUB_TOKEN
+                ./.lighthouse/jenkins-x/release/promote-jx-website.sh
+                ./.lighthouse/jenkins-x/release/update-jx-cask.sh || echo Update of cask failed
+            - name: changelog
+              resources: {}
+            - image: ghcr.io/jenkins-x/jx-boot:3.10.150
+              name: promote-vs
+              resources: {}
+              script: |
+                #!/bin/bash
+                source .jx/variables.sh
+                ./.lighthouse/jenkins-x/release/promote-vs.sh
+          volumes:
+            - downwardAPI:
+                items:
+                  - fieldRef:
+                      fieldPath: metadata.labels
+                    path: labels
+              name: podinfo
+  podTemplate: {}
+  serviceAccountName: tekton-bot
+  timeout: 240h0m0s
+status: {}
