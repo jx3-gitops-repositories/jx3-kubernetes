@@ -1,0 +1,109 @@
+apiVersion: config.lighthouse.jenkins-x.io/v1alpha1
+kind: TriggerConfig
+spec:
+  presubmits:
+  - name: bbc
+    context: "bbc"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| bbc),?(s+|$)
+    rerun_command: /test bbc
+    source: "pullrequest-bbc.yaml"
+  - name: bbs
+    context: "bbs"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| bbs),?(s+|$)
+    rerun_command: /test bbs
+    source: "pullrequest-bbs.yaml"
+  - name: eks
+    context: "eks"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| eks),?(s+|$)
+    rerun_command: /test eks
+    source: "pullrequest-eks.yaml"
+  - name: ghe
+    context: "ghe"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| ghe),?(s+|$)
+    rerun_command: /test ghe
+    source: "pullrequest-ghe.yaml"
+  - name: gitlab
+    context: "gitlab"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| gitlab),?(s+|$)
+    rerun_command: /test gitlab
+    source: "pullrequest-gitlab.yaml"
+  - name: gitea
+    context: "gitea"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| gitea),?(s+|$)
+    rerun_command: /test gitea
+    source: "pullrequest-gitea.yaml"
+  - name: gsm
+    context: "gsm"
+    always_run: true
+    optional: false
+    trigger: (?m)^/test( all| gsm),?(s+|$)
+    rerun_command: /test gsm
+    source: "pullrequest.yaml"
+  - name: gsm-kapp
+    context: "gsm-kapp"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| gsm-kapp),?(s+|$)
+    rerun_command: /test gsm-kapp
+    source: "pullrequest.yaml"
+  - name: kube
+    context: "kube"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| kube),?(s+|$)
+    rerun_command: /test kube
+    source: "pullrequest.yaml"
+  - name: kubevault
+    context: "kubevault"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| kubevault),?(s+|$)
+    rerun_command: /test kubevault
+    source: "pullrequest.yaml"
+  - name: multi
+    context: "multi"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| multi),?(s+|$)
+    rerun_command: /test multi
+    source: "pullrequest.yaml"
+  - name: tls
+    context: "tls"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| tls),?(s+|$)
+    rerun_command: /test tls
+    source: "pullrequest.yaml"
+  - name: vault
+    context: "vault"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| vault),?(s+|$)
+    rerun_command: /test vault
+    source: "pullrequest.yaml"
+  - name: vault-kapp
+    context: "vault-kapp"
+    always_run: false
+    optional: false
+    trigger: (?m)^/test( all| vault-kapp),?(s+|$)
+    rerun_command: /test vault-kapp
+    source: "pullrequest.yaml"
+  postsubmits:
+  - name: release
+    context: "release"
+    source: "release.yaml"
+    branches:
+    - main
+    - master
