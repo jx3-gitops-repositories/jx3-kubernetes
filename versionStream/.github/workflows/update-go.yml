@@ -1,0 +1,20 @@
+name: Update go dependencies in jx repositories
+on:
+  # schedule:
+  # run at midnight
+  # - cron: '0 0 * * *'
+
+  # allow manual triggering
+  workflow_dispatch: {}
+jobs:
+  issue:
+    if: github.repository_owner == 'jenkins-x'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - env:
+          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
+        name: updatebot
+        uses: docker://ghcr.io/jenkins-x/jx-updatebot:0.4.4
+        with:
+          args: pr -c .github/workflows/update-go/updatebot.yaml --no-version --git-credentials
