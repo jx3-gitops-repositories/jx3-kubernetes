@@ -1,0 +1,15 @@
+{{- if eq .Values.jxRequirements.cluster.provider "eks" }}
+autoDiscovery:
+  enabled: true
+  clusterName: {{ .Values.jxRequirements.cluster.clusterName }}
+awsRegion: {{ .Values.jxRequirements.cluster.region }}
+{{- end }}
+
+rbac:
+  create: true
+{{- if and (hasKey .Values.jxRequirements.cluster "project") (hasKey .Values.jxRequirements.cluster "clusterName") (eq .Values.jxRequirements.cluster.provider "eks") }}
+  serviceAccount:
+    name: cluster-autoscaler
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.jxRequirements.cluster.project }}:role/{{ .Values.jxRequirements.cluster.clusterName }}-cluster-autoscaler-cluster-autoscaler
+{{- end }}

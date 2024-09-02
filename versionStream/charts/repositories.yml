@@ -50,3 +50,6 @@ repositories:
 - prefix: wave-k8s
   urls:
   - https://wave-k8s.github.io/wave/
+- prefix: autoscaler
+  urls:
+  - https://kubernetes.github.io/autoscaler
