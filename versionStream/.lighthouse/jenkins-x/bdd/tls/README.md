@@ -1,1 +1,0 @@
-## BDD test for TLS and DNS on GKE
