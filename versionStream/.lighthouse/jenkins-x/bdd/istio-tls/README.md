@@ -1,1 +1,0 @@
-## BDD test GKE + Istio + Flagger + TLS
