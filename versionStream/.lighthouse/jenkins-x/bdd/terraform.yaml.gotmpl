@@ -1,0 +1,116 @@
+apiVersion: tf.isaaguilar.com/v1alpha1
+kind: Terraform
+spec:
+  persistentVolumeSize: "4Gi"
+  env:
+  - name: KUBECONFIG
+    value: "/tmp/kubecfg"
+  - name: TF_VAR_jx_git_url
+    value: https://github.com/jenkins-x-bdd/cluster-{{ .Env.TF_VAR_cluster_name }}-dev.git
+  - name: TF_VAR_node_spot
+    value: "true"
+  - name: TF_VAR_kuberhealthy
+    value: "false"
+  - name: TF_VAR_jx_bot_username
+    value: jenkins-x-bot-bdd
+  - name: TF_VAR_jx_bot_token
+    valueFrom:
+      secretKeyRef:
+        name: bdd-git
+        key: password
+{{- range $pkey, $pval := .Env }}
+  - name: {{ $pkey }}
+    value: {{ quote $pval }}
+{{- end }}
+
+  scmAuthMethods:
+  - host: github.com
+    git:
+      https:
+        requireProxy: false
+        tokenSecretRef:
+          name: bdd-git
+          namespace: jx
+          key: password
+
+  terraformModule: https://github.com/jenkins-x-bdd/infra-{{ .Env.TF_VAR_cluster_name }}-dev.git?ref=main
+
+  customBackend: |-
+    terraform {
+      backend "kubernetes" {
+        secret_suffix = "{{ .Name }}-state"
+        namespace = "{{ .Namespace }}"
+        in_cluster_config = true
+      }
+    }
+
+  serviceAccount: tekton-bot
+
+  applyOnCreate: true
+  ignoreDelete: false
+
+
+  postApplyScript: |-
+    #!/bin/bash
+    set -e
+    set -x
+
+    echo "Terraform is done!"
+    echo "Installing terraform"
+    # Let's avoid using containers with root user
+    mkdir -p ${PWD}/.local/bin
+    export PATH=$PATH:${PWD}/.local/bin
+    curl --no-progress-meter -LO https://releases.hashicorp.com/terraform/1.1.2/terraform_1.1.2_linux_amd64.zip
+    unzip terraform_1.1.2_linux_amd64.zip || (echo failed to unzip terraform_1.1.2_linux_amd64.zip && cat terraform_1.1.2_linux_amd64.zip && false)
+    chmod +x terraform && mv terraform ${PWD}/.local/bin && rm terraform_1.1.2_linux_amd64.zip
+
+    echo "Installing jx cli ${JX_VERSION}"
+    mkdir -p /${HOME}/.jx3
+    curl --no-progress-meter -LO https://github.com/jenkins-x/jx/releases/download/v${JX_VERSION}/jx-linux-amd64.tar.gz
+    tar xzvf jx-linux-amd64.tar.gz || (echo failed to unpack jx-linux-amd64.tar.gz && cat jx-linux-amd64.tar.gz && false)
+    mv jx ${PWD}/.local/bin
+
+    echo "Installing jx plugins"
+    jx upgrade plugins --boot --path ${PWD}/.local/bin
+
+    echo "Removing kubernetes resources from state"
+    terraform state rm 'module.jx.module.cluster.helm_release.jx-git-operator[0]' || echo "Resource does not exist"
+    terraform state rm 'module.jx.module.cluster.kubernetes_config_map.jenkins_x_requirements[0]' || echo "Resource does not exist"
+    terraform state rm 'module.jx.module.cluster.module.jx-health[0].helm_release.cluster-checks' || echo "Resource does not exist"
+    terraform state rm 'module.jx.module.cluster.module.jx-health[0].helm_release.health-checks-install' || echo "Resource does not exist"
+    terraform state rm 'module.jx.module.cluster.module.jx-health[0].helm_release.kuberhealthy' || echo "Resource does not exist"
+
+    echo "Install gcloud cli"
+    curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-458.0.1-linux-x86_64.tar.gz
+    tar -xf google-cloud-cli-458.0.1-linux-x86_64.tar.gz
+    ./google-cloud-sdk/install.sh -q
+
+    export PATH=$PATH:${PWD}/google-cloud-sdk/bin
+    gcloud --version
+    gcloud components install -q gke-gcloud-auth-plugin
+
+    echo "lets connect to the remote cluster"
+    $(terraform output -raw connect)
+
+    echo "now connected to cluster:"
+    jx ns -b
+
+    echo "using jx version: $JX_VERSION"
+
+    # verify we have the correct context
+    jx verify ctx -c "gke_${TF_VAR_gcp_project}_us-central1-a_${TF_VAR_cluster_name}"
+
+    echo "lets verify the log completes"
+    jx admin log -b
+
+    echo "installing the BDD test"
+    export GIT_ORGANISATION="jenkins-x-bdd"
+    export TEST_NAME="test-create-spring"
+
+    helm version
+    helm repo add jxgh https://jenkins-x-charts.github.io/repo
+    helm upgrade --install bdd jxgh/jx-bdd  --namespace jx --create-namespace --set bdd.owner="$GIT_ORGANISATION",command.test="make $TEST_NAME",jxgoTag="$JX_VERSION",env.JAVA_VERSION=17
+
+    echo "about to wait for the BDD test to run"
+    sleep 20
+    jx verify job --name jx-bdd -n jx --log-fail
