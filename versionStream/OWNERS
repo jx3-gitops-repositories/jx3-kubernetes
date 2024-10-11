@@ -1,0 +1,6 @@
+approvers:
+- jenkins-x-labs-bot
+- maintainers
+reviewers:
+- jenkins-x-labs-bot
+- maintainers
