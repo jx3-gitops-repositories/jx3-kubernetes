@@ -8,11 +8,11 @@ upstream:
     repo: https://github.com/jenkins-x/jxr-versions
     directory: /
     ref: master
-  updateStrategy: force-delete-replace
+  updateStrategy: resource-merge
 upstreamLock:
   type: git
   git:
     repo: https://github.com/jenkins-x/jxr-versions
     directory: /
     ref: master
-    commit: bde22677e6b3365efa1adcc5ed948e116ebcd7f6
+    commit: 8f45286dcf430eaad71e8b0315cb2ffba63994bd
