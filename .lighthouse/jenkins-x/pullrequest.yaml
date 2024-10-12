@@ -1,7 +1,6 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata: # kpt-merge: /pullrequest
-  creationTimestamp: null
   name: pullrequest
   annotations:
     internal.kpt.dev/upstream-identifier: 'tekton.dev|PipelineRun|default|pullrequest'
