@@ -1,3 +1,4 @@
 gitUrl: https://github.com/jetstack/cert-manager
 namespace: cert-manager
-version: v1.16.1
+version: v1.15.3
+upperLimit: "1.16.0"
