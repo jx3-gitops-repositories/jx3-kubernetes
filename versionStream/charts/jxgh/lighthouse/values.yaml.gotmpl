@@ -47,9 +47,6 @@ keeper:
     GIT_CLONE_PATH_PREFIX: "scm"
 {{- end }}
 
-image:
-  repository: ghcr.io/jenkins-x/lighthouse
-
 vault:
 {{- if eq .Values.jxRequirements.secretStorage "vault" }}
   enabled: true
