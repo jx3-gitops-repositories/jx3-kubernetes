@@ -15,4 +15,4 @@ upstreamLock:
     repo: https://github.com/jenkins-x/jx3-pipeline-catalog
     directory: /environment/.lighthouse/jenkins-x
     ref: master
-    commit: b14ab0afd073539a25e5f2cee342f1e99537b46a
+    commit: 9ee662440d74128d3833d7e2d296a7d14a686878
