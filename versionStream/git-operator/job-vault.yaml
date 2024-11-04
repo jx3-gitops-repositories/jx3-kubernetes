@@ -31,7 +31,7 @@ spec:
             - secretRef:
                 name: jx-boot-job-env-vars
                 optional: true
-          image: ghcr.io/jenkins-x/jx-boot:3.10.172
+          image: ghcr.io/jenkins-x/jx-boot:3.10.176
           name: git-clone
           volumeMounts:
             - mountPath: /workspace
@@ -49,7 +49,7 @@ spec:
             - secretRef:
                 name: jx-boot-job-env-vars
                 optional: true
-          image: ghcr.io/jenkins-x/jx-boot:3.10.172
+          image: ghcr.io/jenkins-x/jx-boot:3.10.176
           imagePullPolicy: Always
           name: job
           volumeMounts:
