@@ -56,3 +56,6 @@ repositories:
 - prefix: bank-vaults
   urls:
   - oci://ghcr.io/bank-vaults/helm-charts
+- prefix: ingress-nginx
+  urls:
+  - https://kubernetes.github.io/ingress-nginx

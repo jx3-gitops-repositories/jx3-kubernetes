@@ -1,4 +1,4 @@
 component: ingress-nginx
-gitUrl: https://github.com/kubernetes/ingress-nginx/tree/master/charts/ingress-nginx
+gitUrl: https://github.com/kubernetes/ingress-nginx/tree/main/charts/ingress-nginx
 namespace: nginx
 version: 4.7.0
