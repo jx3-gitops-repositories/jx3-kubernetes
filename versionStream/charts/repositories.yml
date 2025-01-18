@@ -59,3 +59,6 @@ repositories:
 - prefix: ingress-nginx
   urls:
   - https://kubernetes.github.io/ingress-nginx
+- prefix: twuni
+  urls:
+  - https://helm.twun.io

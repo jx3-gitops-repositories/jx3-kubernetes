@@ -1,2 +1,1 @@
-gitUrl: https://github.com/bitnami/charts/tree/master/bitnami/external-dns
-version: 6.20.3
+replacementChartPrefix: bitnami
