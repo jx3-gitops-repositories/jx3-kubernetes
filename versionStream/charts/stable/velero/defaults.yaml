@@ -1,4 +1,0 @@
-component: velero
-gitUrl: https://github.com/heptio/velero
-namespace: velero
-version: 2.7.4
