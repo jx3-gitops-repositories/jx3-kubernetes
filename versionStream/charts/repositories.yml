@@ -1,7 +1,7 @@
 repositories:
-- prefix: bitnami
+- prefix: bitnami-oci
   urls:
-  - https://charts.bitnami.com/bitnami
+  - oci://registry-1.docker.io/bitnamicharts
 - prefix: cdf
   urls:
   - https://cdfoundation.github.io/tekton-helm-chart
