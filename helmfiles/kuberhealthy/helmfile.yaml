@@ -11,7 +11,7 @@ repositories:
   url: https://jenkins-x-charts.github.io/repo
 releases:
 - chart: kuberhealthy/kuberhealthy
-  version: "64"
+  version: "92"
   name: kuberhealthy
   values:
   - ../../versionStream/charts/kuberhealthy/kuberhealthy/values.yaml.gotmpl
