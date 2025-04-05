@@ -14,9 +14,6 @@ repositories:
 - prefix: gloo
   urls:
   - https://storage.googleapis.com/solo-public-helm
-- prefix: kuberhealthy
-  urls:
-  - https://comcast.github.io/kuberhealthy/helm-repos
 - prefix: jenkinsci
   urls:
   - https://charts.jenkins.io
