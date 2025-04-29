@@ -6,8 +6,3 @@ jx:
 
   # whether to create a Release CRD when installing charts with Release CRDs included
   releaseCRD: true
-
-  # these variables are used by 'jx gitops variables' to default environment variables
-  # into the .jx/variables.sh file which can be overriden on a pre repository basis
-  # or during a pipeline by writing to the '.jx/variables.sh' file
-  pipelineVariables: {}
