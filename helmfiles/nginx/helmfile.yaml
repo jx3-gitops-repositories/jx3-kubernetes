@@ -9,7 +9,7 @@ repositories:
   url: https://kubernetes.github.io/ingress-nginx
 releases:
 - chart: ingress-nginx/ingress-nginx
-  version: 4.12.1
+  version: 4.12.2
   name: nginx-ingress
   values:
   - ../../versionStream/charts/ingress-nginx/ingress-nginx/values.yaml.gotmpl
