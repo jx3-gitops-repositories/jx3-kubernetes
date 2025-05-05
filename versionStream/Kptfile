@@ -15,4 +15,4 @@ upstreamLock:
     repo: https://github.com/jenkins-x/jx3-versions
     directory: /
     ref: master
-    commit: b724fc8dd48d38ee0ff7c7e79d1e77da075cd1dd
+    commit: 226bf56ad0a1a87e36711519cb464c41ae598542
