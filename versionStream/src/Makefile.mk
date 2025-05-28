@@ -154,7 +154,7 @@ fetch: init $(COPY_SOURCE) $(REPOSITORY_RESOLVE)
 
 	jx gitops split --dir /tmp/generate
 	jx gitops rename --dir /tmp/generate
-	jx gitops helmfile move --output-dir config-root --dir /tmp/generate --dir-includes-release-name
+	jx gitops helmfile move --output-dir config-root --dir /tmp/generate --dir-includes-release-name --invert-selector --selector-target metadata.annotations --selector helm.sh/hook=test
 
 # convert k8s Secrets => ExternalSecret resources using secret mapping + schemas
 # see: https://github.com/jenkins-x/jx-secret#mappings

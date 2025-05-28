@@ -5,7 +5,6 @@
 jx:
   imagePullSecrets:
   - tekton-container-registry-auth
-  pipelineVariables: {}
   releaseCRD: true
   secrets:
     adminUser:
