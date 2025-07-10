@@ -18,7 +18,7 @@ The simplest way to avoid this is to manually delete existing pipeline runs befo
 done by running 
 
 ```
-kubectl delete piplinerun --all -namespace jx
+kubectl delete pipelinerun --all -namespace jx
 ```
 
 ## Existing pipelines in application repositories
