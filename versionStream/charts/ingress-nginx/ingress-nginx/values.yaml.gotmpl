@@ -1,6 +1,13 @@
 fullnameOverride: ingress-nginx
 
 controller:
+  admissionWebhooks:
+{{- if .Values.jxRequirements.ingress.tls.enabled }}
+    certManager:
+      enabled: true
+{{- else }}
+    enabled: false
+{{- end }}
   replicaCount: 3
   extraArgs:
     publish-service: nginx/ingress-nginx-controller
