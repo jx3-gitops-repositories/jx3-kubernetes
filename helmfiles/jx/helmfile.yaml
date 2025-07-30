@@ -32,7 +32,7 @@ releases:
   values:
   - jx-values.yaml
 - chart: jxgh/lighthouse
-  version: 1.25.1
+  version: 1.25.3
   name: lighthouse
   values:
   - ../../versionStream/charts/jxgh/lighthouse/values.yaml.gotmpl
