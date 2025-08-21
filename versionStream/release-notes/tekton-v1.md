@@ -33,3 +33,6 @@ pipelines in .lighthouse will be made available.
 
 The version of Tekton Pipelines is upgraded from 0.42.0 to 1.1.0. 
 You can find the release notes here: https://github.com/tektoncd/pipeline/releases
+
+## Requirements
+This version requires kubernetes >= 1.28.0, make sure your cluster is up to date.
