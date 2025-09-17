@@ -9,5 +9,3 @@ secrets:
 # https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml
 postgresql:
   existingSecret: cd-indicators-postgresql-password
-  image:
-    tag: 13.1.0-debian-10-r38
