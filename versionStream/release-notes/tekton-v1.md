@@ -18,12 +18,12 @@ The simplest way to avoid this is to manually delete existing pipeline runs befo
 done by running 
 
 ```
-kubectl delete pipelinerun --all -namespace jx
+kubectl delete pipelinerun --all --namespace jx
 ```
 
 ## Existing pipelines in application repositories
 
-So far the supported API version of the pipelines in the .ligthouse directory of your application respositories have 
+So far the supported API version of the pipelines in the .lighthouse directory of your application repositories have 
 been tekton.dev/v1beta1. From now on tekton.dev/v1 is also supported. Any pipelines with version tekton.dev/v1beta1 
 will be automatically converted to tekton.dev/v1 when read by lighthouse. After the Tekton Pipelines project remove 
 support for this conversion it will be removed from lighthouse as well. But before that tools to convert the 
