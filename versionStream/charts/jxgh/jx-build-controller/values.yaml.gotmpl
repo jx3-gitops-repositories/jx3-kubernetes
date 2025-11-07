@@ -19,6 +19,9 @@ env:
 {{- if and (eq .Values.jxRequirements.cluster.provider "eks") (hasKey .Values.jxRequirements.cluster "region") }}
   AWS_REGION: {{ .Values.jxRequirements.cluster.region }}
 {{ else if eq .Values.jxRequirements.cluster.provider "aks" }}
+  {{ if hasKey .Values.jxRequirements.cluster.azure.clusterNodes "clientID" }}
+  AZURE_CLIENT_ID: {{ .Values.jxRequirements.cluster.azure.clusterNodes.clientID }}
+  {{- end }}
   {{ if hasKey .Values.jxRequirements.cluster.azure "storage" }}
     {{ if hasKey .Values.jxRequirements.cluster.azure.storage "storageAccountName" }}
   AZURE_STORAGE_ACCOUNT: {{ .Values.jxRequirements.cluster.azure.storage.storageAccountName }}
