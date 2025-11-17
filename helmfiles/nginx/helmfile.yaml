@@ -5,13 +5,13 @@ environments:
 ---
 namespace: nginx
 repositories:
-- name: ingress-nginx
-  url: https://kubernetes.github.io/ingress-nginx
+- name: ingress-nginx-oci
+  url: registry.k8s.io/ingress-nginx/charts
+  oci: true
 releases:
-- chart: ingress-nginx/ingress-nginx
-  version: 4.14.0
+- chart: ingress-nginx-oci/ingress-nginx
+  version: v4.14.0
   name: nginx-ingress
   values:
-  - ../../versionStream/charts/ingress-nginx/ingress-nginx/values.yaml.gotmpl
-  - ../../versionStream/charts/ingress-nginx/ingress-nginx/values.yaml.gotmpl
   - jx-values.yaml
+  - ../../versionStream/charts/ingress-nginx-oci/ingress-nginx/values.yaml.gotmpl
