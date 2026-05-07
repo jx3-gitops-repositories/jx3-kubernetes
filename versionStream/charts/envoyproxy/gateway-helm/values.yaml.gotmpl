@@ -1,0 +1,12 @@
+# Note: Use server-side apply when installing these CRDs - they are too large for client-side apply to handle
+# See: https://gateway.envoyproxy.io/latest/install/install-helm/#installing-crds-separately
+
+certgen:
+  job:
+    # Increased TTL allows kpt reconciliation to complete before the job is cleaned up
+    ttlSecondsAfterFinished: 1800
+
+config:
+  envoyGateway:
+    extensionApis:
+      enableBackend: true

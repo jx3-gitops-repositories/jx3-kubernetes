@@ -62,3 +62,6 @@ repositories:
 - prefix: twuni
   urls:
   - https://helm.twun.io
+- prefix: envoyproxy
+  urls:
+  - oci://docker.io/envoyproxy

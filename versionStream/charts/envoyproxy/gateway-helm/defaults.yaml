@@ -1,0 +1,6 @@
+# This chart installs large Gateway API and Envoy Gateway CRDs.
+# Use server-side apply when applying rendered manifests.
+# See: https://gateway.envoyproxy.io/latest/install/install-helm/#installing-crds-separately
+gitUrl: https://github.com/envoyproxy/gateway/tree/main/charts/gateway-helm
+namespace: envoy-gateway-system
+version: 1.7.2
