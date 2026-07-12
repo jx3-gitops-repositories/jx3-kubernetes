@@ -16,4 +16,4 @@
   </tbody>
 </table>
 
-created by [Jenkins X](https://jenkins-x.io/) - see the docs on [how to configure these releases](https://jenkins-x.io/v3/develop/apps/)
+created by [JayeX](https://jayex.io/) - see the docs on [how to configure these releases](https://jayex.io/v3/develop/apps/)
