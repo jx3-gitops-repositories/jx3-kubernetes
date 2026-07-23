@@ -1,4 +1,5 @@
 helmfiles:
+- path: helmfiles/envoy-gateway-system/helmfile.yaml
 - path: helmfiles/jx/helmfile.yaml
 - path: helmfiles/nginx/helmfile.yaml
 - path: helmfiles/tekton-pipelines/helmfile.yaml

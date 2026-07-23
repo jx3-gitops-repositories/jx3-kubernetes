@@ -1,0 +1,32 @@
+environments:
+  default:
+    values:
+    - jx-values.yaml
+---
+namespace: envoy-gateway-system
+repositories:
+- name: envoyproxy
+  url: docker.io/envoyproxy
+  oci: true
+- name: jxgh
+  url: https://jenkins-x-charts.github.io/repo
+releases:
+- chart: envoyproxy/gateway-helm
+  version: 1.8.0
+  condition: jxRequirementsIngressHTTPRoute.enabled
+  name: gateway-helm
+  values:
+  - jx-values.yaml
+- chart: jxgh/envoy-gateway
+  version: 0.1.1
+  condition: jxRequirementsIngressHTTPRoute.enabled
+  name: envoy-gateway
+  values:
+  - jx-values.yaml
+- chart: jxgh/acme
+  version: 0.1.0
+  condition: jxRequirementsIngressHTTPRouteTLS.enabled
+  name: acme-jx
+  values:
+  - ../../versionStream/charts/jxgh/acme-jx/values.yaml.gotmpl
+  - jx-values.yaml
