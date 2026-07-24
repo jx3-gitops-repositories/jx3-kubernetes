@@ -1,3 +1,5 @@
+- namespace: envoy-gateway-system
+  path: helmfiles/envoy-gateway-system/helmfile.yaml
 - namespace: jx
   path: helmfiles/jx/helmfile.yaml
 - namespace: nginx
