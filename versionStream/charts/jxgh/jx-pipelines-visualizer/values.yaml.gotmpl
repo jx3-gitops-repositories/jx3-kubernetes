@@ -1,5 +1,5 @@
 ingress:
-  enabled: true
+  enabled: {{ ne "httproute" .Values.jxRequirements.ingress.kind }}
   annotations:
     # lets enable basic auth by default
 
@@ -25,6 +25,22 @@ ingress:
 {{- else }}
       "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-s": {}
 {{- end }}
+
+gatewayApi:
+  enabled: {{ eq "httproute" .Values.jxRequirements.ingress.kind }}
+  parentRef:
+    name: envoy-gateway
+    namespace: envoy-gateway-system
+    # override the chart default ("https") so the route binds to all Gateway
+    # listeners (http + https), matching behaviour whether or not TLS is enabled
+    sectionName: ""
+  hosts:
+  - "dashboard{{ .Values.jxRequirements.ingress.namespaceSubDomain | default "." }}{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}"
+  basicAuth:
+    enabled: true
+    kind: envoy
+    # reuse the shared htpasswd secret (see jxboot secret-schema .htpasswd key)
+    existingSecret: jx-basic-auth-htpasswd
 
 {{- if and (eq .Values.jxRequirements.cluster.provider "eks") (hasKey .Values.jxRequirements.cluster "region") }}
 pod:

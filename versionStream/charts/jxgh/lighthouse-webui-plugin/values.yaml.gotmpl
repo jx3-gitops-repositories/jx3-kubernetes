@@ -1,7 +1,7 @@
 # https://github.com/jenkins-x-plugins/lighthouse-webui-plugin/blob/main/charts/lighthouse-webui-plugin/values.yaml
 
 ingress:
-  enabled: true
+  enabled: {{ ne "httproute" .Values.jxRequirements.ingress.kind }}
   annotations:
     # lets enable basic auth by default
 
@@ -27,6 +27,20 @@ ingress:
 {{- else }}
       "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-s": {}
 {{- end }}
+
+gatewayApi:
+  enabled: {{ eq "httproute" .Values.jxRequirements.ingress.kind }}
+  parentRef:
+    name: envoy-gateway
+    namespace: envoy-gateway-system
+    # sectionName omitted → attaches to all Gateway listeners (http + https)
+  hosts:
+  - "lighthouse{{ .Values.jxRequirements.ingress.namespaceSubDomain | default "." }}{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}"
+  basicAuth:
+    enabled: true
+    kind: envoy
+    # reuse the shared htpasswd secret (see jxboot secret-schema .htpasswd key)
+    existingSecret: jx-basic-auth-htpasswd
 
 config:
 
