@@ -1,9 +1,8 @@
 apiVersion: project.jenkins-x.io/v1alpha1
 kind: PipelineCatalog
-metadata:
-  creationTimestamp: null
+metadata: {}
 spec:
   repositories:
-  - gitRef: a7be9a0a385233f1593210554a791c48945c9988
+  - gitRef: c50fcb5cca0bdcc21e8b5df16a93e233b6d1bace
     gitUrl: https://github.com/jenkins-x/jx3-pipeline-catalog
     label: JX3 Pipeline Catalog
