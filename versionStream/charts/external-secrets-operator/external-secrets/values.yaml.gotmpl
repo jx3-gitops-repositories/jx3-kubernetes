@@ -1,0 +1,140 @@
+{{- if eq .Values.jxRequirements.secretStorage "local" }}
+replicaCount: 0
+webhook:
+  replicaCount: 0
+certController:
+  replicaCount: 0
+{{- end }}
+
+serviceAccount:
+  create: true
+  # Renaming to match the SA of KES so they can share IAM/Roles defined in the TF for AWS/GCP clusters.
+  name: kubernetes-external-secrets
+{{- if eq .Values.jxRequirements.secretStorage "secretsManager" }}
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.jxRequirements.cluster.project }}:role/{{ .Values.jxRequirements.cluster.clusterName }}-external-secrets-secrets-manager
+{{- else if eq .Values.jxRequirements.secretStorage "systemManager" }}
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::{{ .Values.jxRequirements.cluster.project }}:role/{{ .Values.jxRequirements.cluster.clusterName }}-external-secrets-system-manager
+{{- else if eq .Values.jxRequirements.secretStorage "gsm" }}
+  annotations:
+    iam.gke.io/gcp-service-account: {{ .Values.jxRequirements.cluster.clusterName }}-sm@{{ .Values.jxRequirements.cluster.project }}.iam.gserviceaccount.com
+{{- end }}
+
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8080"
+
+extraObjects:
+{{- if eq .Values.jxRequirements.secretStorage "vault" }}
+  - apiVersion: external-secrets.io/v1
+    kind: ClusterSecretStore
+    metadata:
+      name: jx-secret-store
+    spec:
+      provider:
+        vault:
+          server: {{ if hasKey .Values.jxRequirements.vault "url" }}{{ .Values.jxRequirements.vault.url | quote }}{{ else }}"https://vault.jx-vault:8200"{{ end }}
+          path: secret
+          version: v2
+          {{- if not (hasKey .Values.jxRequirements.vault "url") }}
+          caProvider:
+            type: Secret
+            name: vault-tls
+            namespace: jx-vault
+            key: ca.crt
+          {{- end }}
+          auth:
+            kubernetes:
+              mountPath: kubernetes
+              role: jx-vault
+              serviceAccountRef:
+                name: kubernetes-external-secrets
+                namespace: secret-infra
+  {{- if not (hasKey .Values.jxRequirements.vault "url") }}
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: Role
+    metadata:
+      name: external-secrets-vault-ca
+      namespace: jx-vault
+    rules:
+      - apiGroups: [""]
+        resources: ["secrets"]
+        resourceNames: ["vault-tls"]
+        verbs: ["get"]
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: RoleBinding
+    metadata:
+      name: external-secrets-vault-ca
+      namespace: jx-vault
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: Role
+      name: external-secrets-vault-ca
+    subjects:
+      - kind: ServiceAccount
+        name: kubernetes-external-secrets
+        namespace: secret-infra
+  {{- end }}
+{{- end }}
+{{- if eq .Values.jxRequirements.secretStorage "secretsManager" }}
+  - apiVersion: external-secrets.io/v1
+    kind: ClusterSecretStore
+    metadata:
+      name: jx-secret-store
+    spec:
+      provider:
+        aws:
+          service: SecretsManager
+          region: {{ .Values.jxRequirements.cluster.region }}
+          auth:
+            jwt:
+              serviceAccountRef:
+                name: kubernetes-external-secrets
+                namespace: secret-infra
+{{- end }}
+{{- if eq .Values.jxRequirements.secretStorage "systemManager" }}
+  - apiVersion: external-secrets.io/v1
+    kind: ClusterSecretStore
+    metadata:
+      name: jx-secret-store
+    spec:
+      provider:
+        aws:
+          service: ParameterStore
+          region: {{ .Values.jxRequirements.cluster.region }}
+          auth:
+            jwt:
+              serviceAccountRef:
+                name: kubernetes-external-secrets
+                namespace: secret-infra
+{{- end }}
+{{- if eq .Values.jxRequirements.secretStorage "gsm" }}
+  - apiVersion: external-secrets.io/v1
+    kind: ClusterSecretStore
+    metadata:
+      name: jx-secret-store
+    spec:
+      provider:
+        gcpsm:
+          projectID: {{ .Values.jxRequirements.cluster.project }}
+          auth:
+            workloadIdentity:
+              clusterLocation: {{ .Values.jxRequirements.cluster.region }}
+              clusterName: {{ .Values.jxRequirements.cluster.clusterName }}
+              serviceAccountRef:
+                name: kubernetes-external-secrets
+                namespace: secret-infra
+{{- end }}
+{{- if eq .Values.jxRequirements.secretStorage "azurekeyvault" }}
+  - apiVersion: external-secrets.io/v1
+    kind: ClusterSecretStore
+    metadata:
+      name: jx-secret-store
+    spec:
+      provider:
+        azurekv:
+          authType: ManagedIdentity
+          identityId: "{{ .Values.jxRequirements.cluster.azure.clusterNodes.clientID }}"
+          vaultUrl: "https://{{ .Values.jxRequirements.cluster.azure.secretStorage.keyVaultName }}.vault.azure.net/"
+{{- end }}

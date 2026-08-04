@@ -8,6 +8,9 @@ repositories:
 - prefix: external-secrets
   urls:
   - https://external-secrets.github.io/kubernetes-external-secrets
+- prefix: external-secrets-operator
+  urls:
+  - https://charts.external-secrets.io
 - prefix: flagger
   urls:
   - https://flagger.app
