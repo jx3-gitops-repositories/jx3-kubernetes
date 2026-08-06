@@ -23,9 +23,9 @@ repositories:
 - prefix: jenkinsci
   urls:
   - https://charts.jenkins.io
-- prefix: jetstack
+- prefix: jetstack-oci
   urls:
-  - https://charts.jetstack.io
+  - oci://quay.io/jetstack/charts
 - prefix: jxgh
   urls:
   - https://jenkins-x-charts.github.io/repo
