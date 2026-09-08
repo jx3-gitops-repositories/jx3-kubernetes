@@ -1,4 +1,5 @@
 {{- if eq .Values.jxRequirements.secretStorage "local" }}
+# Storing secrets locally doesn't require any reconciliation from ESO so we scale to zero
 replicaCount: 0
 webhook:
   replicaCount: 0
@@ -137,4 +138,16 @@ extraObjects:
           authType: ManagedIdentity
           identityId: "{{ .Values.jxRequirements.cluster.azure.clusterNodes.clientID }}"
           vaultUrl: "https://{{ .Values.jxRequirements.cluster.azure.secretStorage.keyVaultName }}.vault.azure.net/"
+{{- end }}
+{{- if eq .Values.jxRequirements.secretStorage "local" }}
+  # We still need to use the ClusterSecretStore to resolve the provider for jx-secret when storing secrets locally.
+  # Kubernetes provider resolves to local backend in jx-secret so it can write the Secret itself alongside the ExternalSecret.
+  # We deliberately don't use the remoteNamespace field here as we want the Secret to be created in the same namespace as the ExternalSecret.
+  - apiVersion: external-secrets.io/v1
+    kind: ClusterSecretStore
+    metadata:
+      name: jx-secret-store
+    spec:
+      provider:
+        kubernetes: {}
 {{- end }}
