@@ -3,6 +3,6 @@ kind: PipelineCatalog
 metadata: {}
 spec:
   repositories:
-  - gitRef: 639a61d60b0ece8b5f438dda582152569aecb411
+  - gitRef: 565b1cec2e3f1fbce6ed7cb570bee3df4906a90b
     gitUrl: https://github.com/jenkins-x/jx3-pipeline-catalog
     label: JX3 Pipeline Catalog
