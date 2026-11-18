@@ -8,7 +8,6 @@ storage:
 cache:
   base_dir: "./"
 repositories:
-- url: "https://repo.maven.org/maven2"
 - url: "https://repo1.maven.org/maven2"
 - url: "https://services.gradle.org/distributions/"
 - url: "https://plugins.gradle.org/m2/"
@@ -17,5 +16,3 @@ repositories:
 - url: "https://jitpack.io/"
 - url: "https://registry.npmjs.org/"
 - url: "https://repo.spring.io/milestone/"
-- url: "https://repo.spring.io/release/"
-- url: "http://uk.maven.org/maven2/"
