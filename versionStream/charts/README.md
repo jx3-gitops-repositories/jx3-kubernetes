@@ -23,4 +23,8 @@ e.g.
 
 * [jenkins-x](jenkins-x)/[tekton](jenkins-x/tekton)/[values.yaml.gotmpl](jenkins-x/tekton/values.yaml.gotmpl)
 
+### Migrating a chart to an OCI registry
 
+Charts published to an OCI registry (e.g. `oci://ghcr.io/...`) are added to [repositories.yml](repositories.yml) under the old prefix with an `-oci` suffix. The old chart folder is kept with a `replacementChartPrefix` so that existing `helmfile.yaml` releases are rewritten to the new prefix by `jx gitops helmfile resolve`.
+
+See `ingress-nginx-oci` and `external-secrets-operator-oci` as examples.
